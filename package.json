@@ -44,10 +44,7 @@
   "directories": {
     "test": "tests"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Zersya/invoice-billing-web.git"
-  },
+  "repository": "git+https://github.com/Zersya/invoice-billing-web.git",
   "keywords": [],
   "author": "Zein",
   "license": "ISC",
