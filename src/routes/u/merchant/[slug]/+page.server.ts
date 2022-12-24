@@ -1,14 +1,15 @@
-import type { Merchant } from '$lib/types/merchant';
-import { errorCatcher } from '$lib/utils/functions';
-import type { Actions, PageServerLoad } from './$types';
-import {redirect} from "@sveltejs/kit";
+import type { Customer } from "$lib/types/customer";
+import { fail, redirect } from "@sveltejs/kit";
+import type { Actions, PageServerLoad } from "./$types";
+import { errorCatcher } from "$lib/utils/functions";
 
+export const load: PageServerLoad = async ({ cookies, params }) => {
 
-export const load: PageServerLoad = async ({ cookies }) => {
+    const merchantId = params.slug;
     const token = cookies.get('token');
     
     const response = await fetch(
-        'https://inving-api.maresto.id/merchant',
+        `https://inving-api.maresto.id/merchant/${merchantId}/customer`,
         {
             method: 'GET',
             headers: {
@@ -21,10 +22,13 @@ export const load: PageServerLoad = async ({ cookies }) => {
 
     if (response.ok) {
 
+        console.log(data.data[0])
+
         return {
             props: {
-                merchants: data.data as Merchant[]
-            }
+                customers: data.data as Customer[]
+            },
+            slug: params.slug
         }
 
     }
@@ -35,21 +39,26 @@ export const load: PageServerLoad = async ({ cookies }) => {
 
     return {
         props: {
-            merchants: []
-        }
+            customers: []
+        },
+        slug: params.slug
     }
 }
 
+
 export const actions: Actions = {
-    createMerchant: async ({ request, cookies }) => {
+    createCustomer: async ({ request, cookies }) => {
         const formData = await request.formData();
 
         const token = cookies.get('token');
+
+        const merchant_id = formData.get('merchant_id');
         const name = formData.get('name');
-        const description = formData.get('description');
+        const contact_channel_id = formData.get('contact_channel_id');
+        const contact_channel_value = formData.get('contact_channel_value');
 
         const response = await fetch(
-            'https://inving-api.maresto.id/merchant',
+            `https://inving-api.maresto.id/merchant/${merchant_id}/customer`,
             {
                 method: 'POST',
                 headers: {
@@ -59,33 +68,36 @@ export const actions: Actions = {
                 body: JSON.stringify(
                     {
                         "name": name,
-                        "description": description
+                        "contact_channel_id": contact_channel_id,
+                        "contact_channel_value": contact_channel_value
                     }
                 ),
             }
         );
 
-    
         if (response.ok) {
-    
-            throw redirect(303, '/u/merchant');
-    
+            throw redirect(303, `/u/merchant/${merchant_id}`);
         }
+
+        if (response.status === 401) {
+            throw redirect(300, '/login');
+        }
+    
     
         return await errorCatcher(response);
     },
 
-    updateMerchant: async ({ request, cookies }) => {
+    updateCustomer: async ({ request, cookies }) => {
         const formData = await request.formData();
 
         const token = cookies.get('token');
 
+        const merchant_id = formData.get('merchant_id');
         const id = formData.get('id');
         const name = formData.get('name');
-        const description = formData.get('description');
 
         const response = await fetch(
-            `https://inving-api.maresto.id/merchant/${id}`,
+            `https://inving-api.maresto.id/merchant/${merchant_id}/customer/${id}`,
             {
                 method: 'PUT',
                 headers: {
@@ -95,7 +107,6 @@ export const actions: Actions = {
                 body: JSON.stringify(
                     {
                         "name": name,
-                        "description": description
                     }
                 ),
             }
@@ -104,21 +115,23 @@ export const actions: Actions = {
 
         if (response.ok) {
 
-            throw redirect(303, '/u/merchant');
+            throw redirect(303, `/u/merchant/${merchant_id}`);
 
         }
 
         return await errorCatcher(response);
     },
 
-    deleteMerchant: async ({ request, cookies }) => {
+    deleteCustomer: async ({ request, cookies }) => {
         const formData = await request.formData();
 
         const token = cookies.get('token');
+        
+        const merchant_id = formData.get('merchant_id');
         const id = formData.get('id');
 
         const response = await fetch(
-            `https://inving-api.maresto.id/merchant/${id}`,
+            `https://inving-api.maresto.id/merchant/${merchant_id}/customer/${id}`,
             {
                 method: 'DELETE',
                 headers: {
@@ -131,13 +144,11 @@ export const actions: Actions = {
 
         if (response.ok) {
                 
-                throw redirect(303, '/u/merchant');
+                throw redirect(303, `/u/merchant/${merchant_id}`);
     
             }
 
             return await errorCatcher(response);
     }
+
 }
-
-
-

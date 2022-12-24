@@ -1,54 +1,56 @@
 <script lang="ts">
-	import { page } from '$app/stores';
-	import type { Merchant } from '$lib/types/merchant';
+	import type { Customer } from '$lib/types/customer';
 	import { formatDate } from '$lib/utils/functions';
-	import { fail, redirect } from '@sveltejs/kit';
-	import ModalConfirm from '../ModalConfirm.svelte';
+	import { error, redirect } from '@sveltejs/kit';
+	import ModalConfirm from '../../ModalConfirm.svelte';
 	import type { ActionData, PageData } from './$types';
 	import Form from './Form.svelte';
 
-	export let form: ActionData;
 	export let data: PageData;
+	export let form: ActionData;
 
-	let selectedMerchant: Merchant | null = null;
+	let selectedCustomer: Customer | null = null;
 </script>
 
-<input type="checkbox" id="form-merchant" class="modal-toggle" />
+<input type="checkbox" id="form-customer" class="modal-toggle" />
 <div class="modal">
 	<div class="modal-box relative var(--color-bg-1)">
-		<label for="form-merchant" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+		<label for="form-customer" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
 		<h3 class="text-lg font-bold mb-4">
-			{#if !selectedMerchant}
-				Form Create Merchant
+			{#if !selectedCustomer}
+				Form Create Customer
 			{:else}
-				Form Update Merchant
+				Form Update Customer
 			{/if}
 		</h3>
 		<Form
-			id={selectedMerchant?.id}
-			name={selectedMerchant?.name}
-			description={selectedMerchant?.description}
+			merchant_id={data.slug}
+			id={selectedCustomer?.id}
+			name={selectedCustomer?.name}
+			contact_channel_id={selectedCustomer?.contact_channel_id}
+			contact_channel_value={selectedCustomer?.contact_channel_value}
 		/>
 	</div>
 </div>
 
 <ModalConfirm
-	modal_id="delete-merchant"
+	modal_id="delete-customer"
 	title="Confirm Delete"
-	content="Are you sure want to delete this merchant?"
-	action="?/deleteMerchant"
+	content="Are you sure want to delete this customer?"
+	action="?/deleteCustomer"
 	label_positive="Delete"
 >
-	<input type="hidden" name="id" value={selectedMerchant?.id} />
+	<input type="hidden" name="id" value={selectedCustomer?.id} />
+	<input type="hidden" name="merchant_id" value={data.slug} />
 </ModalConfirm>
 
 <div class="m-5">
 	<div class="flex flex-row justify-between">
-		<h3 class="text-2xl">Merchants</h3>
+		<h3 class="text-2xl">Customers</h3>
 
 		<div class="flex flex-row">
 			<!-- svelte-ignore a11y-click-events-have-key-events -->
-			<label for="form-merchant" class="btn btn-active" on:click={() => (selectedMerchant = null)}
+			<label for="form-customer" class="btn btn-active" on:click={() => (selectedCustomer = null)}
 				>Add</label
 			>
 		</div>
@@ -73,8 +75,7 @@
 		</div>
 	</div>
 {/if}
-
-{#if data.props.merchants.length <= 0}
+{#if data.props.customers.length <= 0}
 	<div class="flex flex-col justify-center items-center">
 		<svg
 			xmlns="http://www.w3.org/2000/svg"
@@ -89,20 +90,20 @@
 			/></svg
 		>
 		<span class="text-xl">No Data</span>
-		<button class="btn btn-active mt-4" on:click={() => redirect(303, '/u/merchant')}
+		<button class="btn btn-active mt-4" on:click={() => redirect(303, `/u/merchant/${data.slug}`)}
 			>Refresh</button
 		>
 	</div>
 {:else}
 	<div class="flex flex-wrap justify-around">
-		{#each data.props.merchants as merchant}
+		{#each data.props.customers as customer}
 			<div class="card w-96 bg-base-100 shadow-xl my-4 mx-5">
 				<div class="card-body">
 					<div class="card-title justify-between">
-						<h2>{merchant.name}</h2>
+						<h2>{customer.name}</h2>
+						<!-- svelte-ignore a11y-label-has-associated-control -->
+						<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 						<div class="dropdown">
-							<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-							<!-- svelte-ignore a11y-label-has-associated-control -->
 							<label tabindex="0" class="btn btn-ghost btn-circle">
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
@@ -118,33 +119,32 @@
 									/></svg
 								>
 							</label>
-							<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 							<ul
 								tabindex="0"
 								class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
 							>
 								<li>
 									<!-- svelte-ignore a11y-click-events-have-key-events -->
-									<label for="form-merchant" on:click={() => (selectedMerchant = merchant)}
+									<label for="form-customer" on:click={() => (selectedCustomer = customer)}
 										>Edit</label
 									>
 								</li>
 								<li>
 									<!-- svelte-ignore a11y-click-events-have-key-events -->
-									<label for="delete-merchant" on:click={() => (selectedMerchant = merchant)}
+									<label for="delete-customer" on:click={() => (selectedCustomer = customer)}
 										>Delete</label
 									>
 								</li>
 							</ul>
 						</div>
 					</div>
-					<p class="mb-3">{merchant.description}</p>
+					<p class="mb-3 prose prose-sm badge">{customer.contact_channel_name}</p>
 					<div class="flex flex-row justify-between">
 						<div class="flex flex-col">
-							<span class="text-gray-500">Created Date</span>
-							<span>{formatDate(merchant.created_at)}</span>
+							<span class="text-gray-500">Updated Date</span>
+							<span>{formatDate(customer.updated_at)}</span>
 						</div>
-						<a href="/u/merchant/{merchant.id}" class="btn btn-ghost">View</a>
+						<a href="/u/customer/{customer.id}" class="btn btn-ghost">View</a>
 					</div>
 				</div>
 			</div>
