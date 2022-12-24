@@ -1,11 +1,14 @@
 <script lang="ts">
+	import type { PageData } from './$types';
+
 	export let merchant_id: string;
 	export let id: string | undefined;
 	export let name: string | undefined;
 	export let contact_channel_id: string | undefined;
 	export let contact_channel_value: string | undefined;
 
-	
+	export let data: PageData;
+
 	function inputClassReadOnly(id: string | undefined) {
 		if (id) {
 			return 'input w-full mb-3 bg-gray-200';
@@ -42,17 +45,19 @@
 		readonly={id ? true : false}
 		placeholder="Type your merchant phone/email here"
 		bind:value={contact_channel_value}
-		class="{inputClassReadOnly(id)}"
+		class={inputClassReadOnly(id)}
 	/>
 	<label for="contact_channel_value">Channel</label>
 	<select
 		name="contact_channel_id"
 		readonly={id ? true : false}
-		class="{selectClassReadOnly(id)}"
+		class={selectClassReadOnly(id)}
 		bind:value={contact_channel_id}
 	>
-		<option disabled selected>Pick your message channel</option>
-		<option value="064d7bce-1fc2-4ff3-b33a-b538aefbe7ad">Whatsapp</option>
+		<option disabled>Pick your message channel</option>
+		{#each data.props?.contact_channels as channel}
+			<option value={channel.id}>{channel.name}</option>
+		{/each}
 	</select>
 
 	<button type="submit" class="btn btn-block">Save</button>

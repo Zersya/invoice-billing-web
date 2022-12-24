@@ -1,5 +1,6 @@
 import type { Merchant } from '$lib/types/merchant';
 import { errorCatcher } from '$lib/utils/functions';
+import { baseUrl } from '$lib/utils/vars';
 import type { Actions, PageServerLoad } from './$types';
 import {redirect} from "@sveltejs/kit";
 
@@ -8,7 +9,7 @@ export const load: PageServerLoad = async ({ cookies }) => {
     const token = cookies.get('token');
     
     const response = await fetch(
-        'https://inving-api.maresto.id/merchant',
+        `${baseUrl}/merchant`,
         {
             method: 'GET',
             headers: {
@@ -49,7 +50,7 @@ export const actions: Actions = {
         const description = formData.get('description');
 
         const response = await fetch(
-            'https://inving-api.maresto.id/merchant',
+            `${baseUrl}/merchant`,
             {
                 method: 'POST',
                 headers: {
@@ -85,7 +86,7 @@ export const actions: Actions = {
         const description = formData.get('description');
 
         const response = await fetch(
-            `https://inving-api.maresto.id/merchant/${id}`,
+            `${baseUrl}/merchant/${id}`,
             {
                 method: 'PUT',
                 headers: {
@@ -118,7 +119,7 @@ export const actions: Actions = {
         const id = formData.get('id');
 
         const response = await fetch(
-            `https://inving-api.maresto.id/merchant/${id}`,
+            `${baseUrl}/merchant/${id}`,
             {
                 method: 'DELETE',
                 headers: {

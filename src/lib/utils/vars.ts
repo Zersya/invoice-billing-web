@@ -1,0 +1,1 @@
+export const baseUrl = 'https://invoice-billing-server.fly.dev';

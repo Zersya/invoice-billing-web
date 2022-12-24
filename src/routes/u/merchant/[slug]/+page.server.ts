@@ -2,44 +2,59 @@ import type { Customer } from "$lib/types/customer";
 import { fail, redirect } from "@sveltejs/kit";
 import type { Actions, PageServerLoad } from "./$types";
 import { errorCatcher } from "$lib/utils/functions";
+import { baseUrl } from "$lib/utils/vars";
+import type { ContactChannel } from "$lib/types/contact_channel";
 
 export const load: PageServerLoad = async ({ cookies, params }) => {
 
     const merchantId = params.slug;
     const token = cookies.get('token');
     
-    const response = await fetch(
-        `https://inving-api.maresto.id/merchant/${merchantId}/customer`,
-        {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${token}`,
+    const response = await Promise.all([
+        fetch(
+            `${baseUrl}/merchant/${merchantId}/customer`,
+            {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                }
             }
-        }
-    );
+        ),
+        fetch(
+            `${baseUrl}/contact-channels`,
+            {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                }
+            }
+        ),
+    ])
 
-    const data = await response.json();
 
-    if (response.ok) {
+    if (response[0].ok && response[1].ok) {
+    const data_customers = await response[0].json();
+    const data_contact_channels = await response[1].json();
 
-        console.log(data.data[0])
 
         return {
             props: {
-                customers: data.data as Customer[]
+                customers: data_customers.data as Customer[],
+                contact_channels: (data_contact_channels.data as ContactChannel[]).filter((channel) => channel.name === 'whatsapp')
             },
             slug: params.slug
         }
 
     }
 
-    if (response.status === 401) {
+    if (response[0].status === 401 || response[1].status === 401) {
         throw redirect(300, '/login');
     }
 
     return {
         props: {
-            customers: []
+            customers: [],
+            contact_channels: []
         },
         slug: params.slug
     }
@@ -58,7 +73,7 @@ export const actions: Actions = {
         const contact_channel_value = formData.get('contact_channel_value');
 
         const response = await fetch(
-            `https://inving-api.maresto.id/merchant/${merchant_id}/customer`,
+            `${baseUrl}/merchant/${merchant_id}/customer`,
             {
                 method: 'POST',
                 headers: {
@@ -97,7 +112,7 @@ export const actions: Actions = {
         const name = formData.get('name');
 
         const response = await fetch(
-            `https://inving-api.maresto.id/merchant/${merchant_id}/customer/${id}`,
+            `${baseUrl}/merchant/${merchant_id}/customer/${id}`,
             {
                 method: 'PUT',
                 headers: {
@@ -131,7 +146,7 @@ export const actions: Actions = {
         const id = formData.get('id');
 
         const response = await fetch(
-            `https://inving-api.maresto.id/merchant/${merchant_id}/customer/${id}`,
+            `${baseUrl}/merchant/${merchant_id}/customer/${id}`,
             {
                 method: 'DELETE',
                 headers: {

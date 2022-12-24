@@ -1,3 +1,4 @@
+import { baseUrl } from '$lib/utils/vars';
 import type { Actions, PageServerLoad } from './$types';
 import {error, fail, redirect} from '@sveltejs/kit';
 
@@ -11,7 +12,7 @@ export const actions = {
         const password = formData.get('password');
 
         const response = await fetch(
-            'https://inving-api.maresto.id/register',
+            `${baseUrl}/register`,
             {
                 method: 'POST',
                 headers: {

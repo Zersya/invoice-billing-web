@@ -24,6 +24,7 @@
 			{/if}
 		</h3>
 		<Form
+			{data}
 			merchant_id={data.slug}
 			id={selectedCustomer?.id}
 			name={selectedCustomer?.name}
