@@ -1,7 +1,7 @@
 <script lang="ts">
 	import '../../app.css';
 	import '../styles.css';
-    import inving from '../../lib/images/inving.png';
+    import inving from '$lib/images/inving.png';
 </script>
 
 <div class="app">
