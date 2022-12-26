@@ -106,11 +106,6 @@ export const actions: Actions = {
         if (response.ok) {
             throw redirect(303, `/u/merchant/${merchant_id}`);
         }
-
-        if (response.status === 401) {
-            throw redirect(300, '/login');
-        }
-    
     
         return await errorCatcher(response);
     },
@@ -142,9 +137,7 @@ export const actions: Actions = {
 
 
         if (response.ok) {
-
             throw redirect(303, `/u/merchant/${merchant_id}`);
-
         }
 
         return await errorCatcher(response);
@@ -171,12 +164,10 @@ export const actions: Actions = {
 
 
         if (response.ok) {
-                
-                throw redirect(303, `/u/merchant/${merchant_id}`);
-    
-            }
+            throw redirect(303, `/u/merchant/${merchant_id}`);
+        }
 
-            return await errorCatcher(response);
+        return await errorCatcher(response);
     },
 
     createInvoice: async ({ request, cookies }) => {
@@ -188,8 +179,6 @@ export const actions: Actions = {
         const customer_id = formData.get('customer_id');
         const amount = +(formData.get('amount') || '0');
         const invoice_date = formData.get('date');
-
-        console.log(merchant_id, customer_id, amount, invoice_date)
 
         const response = await fetch(
             `${baseUrl}/merchant/${merchant_id}/invoice`,
@@ -210,11 +199,40 @@ export const actions: Actions = {
         if (response.ok) {
             throw redirect(303, `/u/merchant/${merchant_id}`);
         }
-
-        if (response.status === 401) {
-            throw redirect(300, '/login');
-        }
     
+        return await errorCatcher(response);
+    },
+
+    setScheduleInvoice: async ({ request, cookies }) => {
+        const formData = await request.formData();
+
+        const token = cookies.get('token');
+
+        const merchant_id = formData.get('merchant_id');
+        const invoice_id = formData.get('invoice_id');
+        const start_schedule_date = formData.get('start_schedule_date');
+        const end_schedule_date = formData.get('end_schedule_date');
+        const repeat_interval_type = formData.get('repeat_interval_type');
+
+        const response = await fetch(
+            `${baseUrl}/merchant/${merchant_id}/invoice/${invoice_id}/set-schedule`,
+            {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+                body: JSON.stringify({
+                    "start_at": `${start_schedule_date} 00:00:00`,
+                    "end_at": `${end_schedule_date} 00:00:00`,
+                    "repeat_interval_type": repeat_interval_type
+                })
+            }
+        );
+
+        if (response.ok) {
+            throw redirect(303, `/u/merchant/${merchant_id}`);
+        }
     
         return await errorCatcher(response);
     }

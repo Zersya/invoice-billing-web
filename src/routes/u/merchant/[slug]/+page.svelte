@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { Customer } from '$lib/types/customer';
+	import type { InvoiceWithCustomer } from '$lib/types/invoice';
 	import { formatDate } from '$lib/utils/functions';
 	import { error, redirect } from '@sveltejs/kit';
 	import ModalConfirm from '../../ModalConfirm.svelte';
@@ -7,12 +8,14 @@
 	import Customers from './Customers.svelte';
 	import FormCustomer from './FormCustomer.svelte';
 	import FormInvoice from './FormInvoice.svelte';
+	import FormScheduleInvoice from './FormScheduleInvoice.svelte';
 	import Invoices from './Invoices.svelte';
 
 	export let data: PageData;
 	export let form: ActionData;
 
 	let selectedCustomer: Customer | null = null;
+	let selectedInvoice: InvoiceWithCustomer | null = null;
 </script>
 
 <input type="checkbox" id="form-customer" class="modal-toggle" />
@@ -43,6 +46,17 @@
 		<label for="form-invoice" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
 		<h3 class="text-lg font-bold mb-4">Form Create Invoice</h3>
 		<FormInvoice {data} merchant_id={data.slug} customer_id={selectedCustomer?.id} amount="0" />
+	</div>
+</div>
+
+<input type="checkbox" id="form-set-schedule-invoice" class="modal-toggle" />
+<div class="modal">
+	<div class="modal-box relative var(--color-bg-1)">
+		<label for="form-set-schedule-invoice" class="btn btn-sm btn-circle absolute right-2 top-2"
+			>✕</label
+		>
+		<h3 class="text-lg font-bold mb-4">Form Create Invoice</h3>
+		<FormScheduleInvoice merchant_id={data.slug} invoice_id={selectedInvoice?.id} />
 	</div>
 </div>
 
@@ -81,4 +95,10 @@
 	on:delete={(customer) => (selectedCustomer = customer.detail)}
 />
 
-<Invoices invoices={data.props.invoices} merchant_id={data.slug} />
+<Invoices
+	invoices={data.props.invoices}
+	merchant_id={data.slug}
+	on:set-schedule={(invoice) => {
+		selectedInvoice = invoice.detail;
+	}}
+/>

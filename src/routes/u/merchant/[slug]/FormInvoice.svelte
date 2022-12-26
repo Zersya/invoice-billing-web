@@ -1,7 +1,12 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 
-	let date = new Date();
+	var now = new Date();
+
+	var day = ('0' + now.getDate()).slice(-2);
+	var month = ('0' + (now.getMonth() + 1)).slice(-2);
+
+	var today = now.getFullYear() + '-' + month + '-' + day;
 
 	export let merchant_id: string;
 	export let customer_id: string | undefined;
@@ -23,7 +28,7 @@
 		class="input w-full mb-3"
 	/>
 	<label for="date">Date</label>
-	<input name="date" type="date" class="input pa-4 rounded-lg w-full" />
+	<input name="date" type="date" value={today} class="input pa-4 rounded-lg w-full mb-3" />
 
 	<button type="submit" class="btn btn-block mt-5">Save</button>
 </form>

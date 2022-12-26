@@ -102,11 +102,8 @@ export const actions: Actions = {
             }
         );
 
-
         if (response.ok) {
-
             throw redirect(303, '/u/merchant');
-
         }
 
         return await errorCatcher(response);
@@ -129,14 +126,11 @@ export const actions: Actions = {
             }
         );
 
-
         if (response.ok) {
-                
-                throw redirect(303, '/u/merchant');
-    
-            }
+            throw redirect(303, '/u/merchant');
+        }
 
-            return await errorCatcher(response);
+        return await errorCatcher(response);
     }
 }
 
