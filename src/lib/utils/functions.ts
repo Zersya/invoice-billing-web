@@ -18,3 +18,11 @@ export async function errorCatcher(response: Response) {
     return fail(response.status, { fail: true, message: data.message.value });
 
 }
+
+export function formatCurrency(amount: number) {
+    return new Intl.NumberFormat('id-ID', {
+        maximumFractionDigits: 0,
+        style: 'currency',
+        currency: 'IDR',
+    }).format(amount);
+}

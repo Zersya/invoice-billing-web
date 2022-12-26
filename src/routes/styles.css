@@ -15,6 +15,13 @@
 	--column-margin-top: 4rem;
 	font-family: var(--font-body);
 	color: var(--color-text);
+	--date-picker-background: hsl(var(--color-bg-0));
+	--date-picker-foreground: hsl(var(--color-bg-1));
+	--date-picker-highlight-border: hsl(var(--color-theme-1));
+	--date-picker-highlight-shadow: hsl(var(--color-theme-1));
+	--date-picker-selected-color: hsl(var(--color-theme-1));
+	--date-picker-selected-background: hsl(var(--color-theme-1));
+	--date-input-width: 100%;
 }
 
 body {
