@@ -11,12 +11,17 @@
 	export let data: PageData;
 
 	let selectedMerchant: Merchant | null = null;
+
+	let isDeleteModalOpen: boolean = false;
+	let isFormModalOpen: boolean = false;
 </script>
 
-<input type="checkbox" id="form-merchant" class="modal-toggle" />
-<div class="modal">
+<div class="modal" class:modal-open={isFormModalOpen}>
 	<div class="modal-box relative var(--color-bg-1)">
-		<label for="form-merchant" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+		<button
+			class="btn btn-sm btn-circle absolute right-2 top-2"
+			on:click={() => (isFormModalOpen = false)}>✕</button
+		>
 		<h3 class="text-lg font-bold mb-4">
 			{#if !selectedMerchant}
 				Form Create Merchant
@@ -28,6 +33,9 @@
 			id={selectedMerchant?.id}
 			name={selectedMerchant?.name}
 			description={selectedMerchant?.description}
+			on:completed={() => {
+				isFormModalOpen = false;
+			}}
 		/>
 	</div>
 </div>
@@ -38,6 +46,10 @@
 	content="Are you sure want to delete this merchant?"
 	action="?/deleteMerchant"
 	label_positive="Delete"
+	isModalOpen={isDeleteModalOpen}
+	on:completed={() => {
+		isDeleteModalOpen = false;
+	}}
 >
 	<input type="hidden" name="id" value={selectedMerchant?.id} />
 </ModalConfirm>
@@ -48,8 +60,13 @@
 
 		<div class="flex flex-row">
 			<!-- svelte-ignore a11y-click-events-have-key-events -->
-			<label for="form-merchant" class="btn btn-active" on:click={() => (selectedMerchant = null)}
-				>Add</label
+			<label
+				for="form-merchant"
+				class="btn btn-active"
+				on:click={() => {
+					selectedMerchant = null;
+					isFormModalOpen = true;
+				}}>Add</label
 			>
 		</div>
 	</div>
@@ -125,14 +142,22 @@
 							>
 								<li>
 									<!-- svelte-ignore a11y-click-events-have-key-events -->
-									<label for="form-merchant" on:click={() => (selectedMerchant = merchant)}
-										>Edit</label
+									<label
+										for="form-merchant"
+										on:click={() => {
+											selectedMerchant = merchant;
+											isFormModalOpen = true;
+										}}>Edit</label
 									>
 								</li>
 								<li>
 									<!-- svelte-ignore a11y-click-events-have-key-events -->
-									<label for="delete-merchant" on:click={() => (selectedMerchant = merchant)}
-										>Delete</label
+									<label
+										for="delete-merchant"
+										on:click={() => {
+											selectedMerchant = merchant;
+											isDeleteModalOpen = true;
+										}}>Delete</label
 									>
 								</li>
 							</ul>
