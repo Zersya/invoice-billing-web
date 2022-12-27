@@ -1,5 +1,6 @@
 <script lang="ts">
-	import type { PageData } from './$types';
+	import { createEventDispatcher } from 'svelte';
+	import Form from '../../Form.svelte';
 
 	var now = new Date();
 
@@ -12,30 +13,29 @@
 	export let customer_id: string | undefined;
 	export let amount: string | undefined;
 
-	export let data: PageData;
+	const dispatch = createEventDispatcher();
 </script>
 
-<form method="POST" action={'?/createInvoice'}>
-	<input type="hidden" name="customer_id" value={customer_id} />
-	<input type="hidden" name="merchant_id" value={merchant_id} />
+<Form action={'?/createInvoice'} on:completed={() => dispatch('completed')}>
+	<div slot="input">
+		<input type="hidden" name="customer_id" value={customer_id} />
+		<input type="hidden" name="merchant_id" value={merchant_id} />
 
-	<label for="name">Amount</label>
-	<input
-		name="amount"
-		type="number"
-		placeholder="Type your merchant amount here"
-		bind:value={amount}
-		class="input w-full mb-3"
-	/>
-	<label for="date">Date</label>
-	<input name="date" type="date" value={today} class="input pa-4 rounded-lg w-full mb-3" />
-
-	<button type="submit" class="btn btn-block mt-5">Save</button>
-</form>
-
-<style>
-	form {
-		flex-direction: column;
-		align-items: center;
-	}
-</style>
+		<label for="name">Amount</label>
+		<input
+			name="amount"
+			type="number"
+			placeholder="Type your merchant amount here"
+			bind:value={amount}
+			class="input w-full mb-3"
+		/>
+		<label for="date">Date</label>
+		<input name="date" type="date" value={today} class="input pa-4 rounded-lg w-full mb-3" />
+	</div>
+	<button
+		slot="submit"
+		let:isLoading
+		type="submit"
+		class="btn btn-block mt-5 {isLoading ? 'loading' : ''}">Save</button
+	>
+</Form>

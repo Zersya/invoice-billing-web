@@ -16,12 +16,20 @@
 
 	let selectedCustomer: Customer | null = null;
 	let selectedInvoice: InvoiceWithCustomer | null = null;
+
+	let isCustomerModalOpen: boolean = false;
+	let isCustomerDeleteModalOpen: boolean = false;
+	let isInvoiceModalOpen: boolean = false;
+	let isSetScheduleModalOpen: boolean = false;
 </script>
 
-<input type="checkbox" id="form-customer" class="modal-toggle" />
-<div class="modal">
+<div class="modal" class:modal-open={isCustomerModalOpen}>
 	<div class="modal-box relative var(--color-bg-1)">
-		<label for="form-customer" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+		<button
+			for="form-customer"
+			class="btn btn-sm btn-circle absolute right-2 top-2"
+			on:click={() => (isCustomerModalOpen = false)}>✕</button
+		>
 		<h3 class="text-lg font-bold mb-4">
 			{#if !selectedCustomer}
 				Form Create Customer
@@ -36,36 +44,56 @@
 			name={selectedCustomer?.name}
 			contact_channel_id={selectedCustomer?.contact_channel_id}
 			contact_channel_value={selectedCustomer?.contact_channel_value}
+			on:completed={() => (isCustomerModalOpen = false)}
 		/>
 	</div>
 </div>
 
-<input type="checkbox" id="form-invoice" class="modal-toggle" />
-<div class="modal">
+<div class="modal" class:modal-open={isInvoiceModalOpen}>
 	<div class="modal-box relative var(--color-bg-1)">
-		<label for="form-invoice" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+		<button
+			for="form-invoice"
+			class="btn btn-sm btn-circle absolute right-2 top-2"
+			on:click={() => (isInvoiceModalOpen = false)}>✕</button
+		>
 		<h3 class="text-lg font-bold mb-4">Form Create Invoice</h3>
-		<FormInvoice {data} merchant_id={data.slug} customer_id={selectedCustomer?.id} amount="0" />
+		<FormInvoice
+			merchant_id={data.slug}
+			customer_id={selectedCustomer?.id}
+			amount="0"
+			on:completed={() => (isInvoiceModalOpen = false)}
+		/>
 	</div>
 </div>
 
-<input type="checkbox" id="form-set-schedule-invoice" class="modal-toggle" />
-<div class="modal">
+<div class="modal" class:modal-open={isSetScheduleModalOpen}>
 	<div class="modal-box relative var(--color-bg-1)">
-		<label for="form-set-schedule-invoice" class="btn btn-sm btn-circle absolute right-2 top-2"
-			>✕</label
+		<button
+			for="form-set-schedule-invoice"
+			class="btn btn-sm btn-circle absolute right-2 top-2"
+			on:click={() => (isSetScheduleModalOpen = false)}>✕</button
 		>
 		<h3 class="text-lg font-bold mb-4">Form Create Invoice</h3>
-		<FormScheduleInvoice merchant_id={data.slug} invoice_id={selectedInvoice?.id} />
+		<FormScheduleInvoice
+			merchant_id={data.slug}
+			invoice_id={selectedInvoice?.id}
+			on:completed={() => (isSetScheduleModalOpen = false)}
+		/>
 	</div>
 </div>
 
 <ModalConfirm
-	modal_id="delete-customer"
 	title="Confirm Delete"
 	content="Are you sure want to delete this customer?"
 	action="?/deleteCustomer"
 	label_positive="Delete"
+	isModalOpen={isCustomerDeleteModalOpen}
+	on:completed={() => {
+		isCustomerDeleteModalOpen = false;
+	}}
+	on:cancel={() => {
+		isCustomerDeleteModalOpen = false;
+	}}
 >
 	<input type="hidden" name="id" value={selectedCustomer?.id} />
 	<input type="hidden" name="merchant_id" value={data.slug} />
@@ -89,10 +117,22 @@
 <Customers
 	customers={data.props.customers}
 	merchant_id={data.slug}
-	on:add-invoice={(customer) => (selectedCustomer = customer.detail)}
-	on:add={() => (selectedCustomer = null)}
-	on:edit={(customer) => (selectedCustomer = customer.detail)}
-	on:delete={(customer) => (selectedCustomer = customer.detail)}
+	on:add-invoice={(customer) => {
+		selectedCustomer = customer.detail;
+		isInvoiceModalOpen = true;
+	}}
+	on:add={() => {
+		selectedCustomer = null;
+		isCustomerModalOpen = true;
+	}}
+	on:edit={(customer) => {
+		selectedCustomer = customer.detail;
+		isCustomerModalOpen = true;
+	}}
+	on:delete={(customer) => {
+		selectedCustomer = customer.detail;
+		isCustomerDeleteModalOpen = true;
+	}}
 />
 
 <Invoices
@@ -100,5 +140,6 @@
 	merchant_id={data.slug}
 	on:set-schedule={(invoice) => {
 		selectedInvoice = invoice.detail;
+		isSetScheduleModalOpen = true;
 	}}
 />

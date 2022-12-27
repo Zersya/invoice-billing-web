@@ -1,15 +1,14 @@
 <script lang="ts">
+	import Form from './Form.svelte';
 	import { applyAction, enhance } from '$app/forms';
 	import { createEventDispatcher } from 'svelte';
 
-	export let modal_id: string;
 	export let title: string;
 	export let content: string;
 	export let action: string;
 	export let label_positive: string;
 	export let isModalOpen: boolean;
-
-	let isLoading: boolean = false;
+	let isLoading = false;
 
 	const dispatch = createEventDispatcher();
 </script>
@@ -24,30 +23,20 @@
 		<div class="flex flex-col">
 			<p>{content}</p>
 			<div class="flex flex-row justify-end mt-4">
-				<button for={modal_id} class="btn btn-ghost" on:click={() => (isLoading = false)}
-					>Cancel</button
+				<button
+					class="btn btn-ghost"
+					on:click={() => {
+						isLoading = false;
+						dispatch('cancel');
+					}}>Cancel</button
 				>
 
-				<form
-					method="POST"
-					{action}
-					use:enhance={(_) => {
-						isLoading = true;
-
-						return async ({ result }) => {
-							isLoading = false;
-
-							dispatch('completed');
-
-							await applyAction(result);
-						};
-					}}
-				>
-					<slot />
-					<button type="submit" class="btn btn-ghost {isLoading ? 'loading' : ''}"
-						>{label_positive}</button
-					>
-				</form>
+				<Form {action} on:completed={() => dispatch('completed')} >
+					<slot slot="input" />
+					<button slot="submit" let:isLoading={isLoading} type="submit" class="btn btn-ghost {isLoading ? 'loading' : ''}">
+						{label_positive}
+					</button>
+				</Form>
 			</div>
 		</div>
 	</div>

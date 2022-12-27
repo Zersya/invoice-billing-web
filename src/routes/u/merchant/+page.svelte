@@ -5,7 +5,7 @@
 	import { fail, redirect } from '@sveltejs/kit';
 	import ModalConfirm from '../ModalConfirm.svelte';
 	import type { ActionData, PageData } from './$types';
-	import Form from './Form.svelte';
+	import Form from '../Form.svelte';
 
 	export let form: ActionData;
 	export let data: PageData;
@@ -29,25 +29,54 @@
 				Form Update Merchant
 			{/if}
 		</h3>
+
 		<Form
-			id={selectedMerchant?.id}
-			name={selectedMerchant?.name}
-			description={selectedMerchant?.description}
+			action={selectedMerchant?.id ? '?/updateMerchant' : '?/createMerchant'}
 			on:completed={() => {
 				isFormModalOpen = false;
 			}}
-		/>
+		>
+			<div slot="input">
+				<input type="hidden" name="id" value={selectedMerchant?.id} />
+
+				<label for="name">Name</label>
+				<input
+					name="name"
+					type="text"
+					placeholder="Type your merchant name here"
+					value={selectedMerchant?.name || ''}
+					class="input w-full mb-3"
+				/>
+				<label for="description">Description</label>
+				<input
+					name="description"
+					type="multiline"
+					placeholder="Type your merchant description here"
+					value={selectedMerchant?.description || ''}
+					class="input w-full mb-3"
+				/>
+			</div>
+
+			<button
+				slot="submit"
+				let:isLoading
+				type="submit"
+				class="btn btn-block {isLoading ? 'loading' : ''}">Save</button
+			>
+		</Form>
 	</div>
 </div>
 
 <ModalConfirm
-	modal_id="delete-merchant"
 	title="Confirm Delete"
 	content="Are you sure want to delete this merchant?"
 	action="?/deleteMerchant"
 	label_positive="Delete"
 	isModalOpen={isDeleteModalOpen}
 	on:completed={() => {
+		isDeleteModalOpen = false;
+	}}
+	on:cancel={() => {
 		isDeleteModalOpen = false;
 	}}
 >

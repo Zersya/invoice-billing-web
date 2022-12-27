@@ -16,7 +16,9 @@
 
 		<div class="flex flex-row">
 			<!-- svelte-ignore a11y-click-events-have-key-events -->
-			<label for="form-customer" class="btn btn-active" on:click={() => dispatch('add')}>Add</label>
+			<button for="form-customer" class="btn btn-active" on:click={() => dispatch('add')}
+				>Add</button
+			>
 		</div>
 	</div>
 </div>

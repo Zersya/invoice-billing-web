@@ -76,7 +76,7 @@
 							>
 								<li>
 									<!-- svelte-ignore a11y-click-events-have-key-events -->
-									<label for="form-set-schedule-invoice" on:click={() => dispatch('set-schedule', invoice)}
+									<label on:click={() => dispatch('set-schedule', invoice)}
 										>Set Schedule</label
 									>
 								</li>
