@@ -85,8 +85,10 @@
 
 <div class="m-5">
 	<div class="flex flex-row justify-between">
-		<h3 class="text-2xl">Merchants</h3>
-
+		<div>
+			<h3 class="text-2xl">Merchants</h3>
+			<span class="text-sm">Could be your brands / services</span>
+		</div>
 		<div class="flex flex-row">
 			<!-- svelte-ignore a11y-click-events-have-key-events -->
 			<label
@@ -147,7 +149,7 @@
 					<div class="card-body">
 						<div class="card-title justify-between">
 							<h2>{merchant.name}</h2>
-							
+
 							<div class="dropdown dropdown-end">
 								<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 								<!-- svelte-ignore a11y-label-has-associated-control -->

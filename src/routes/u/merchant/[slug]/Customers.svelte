@@ -12,7 +12,10 @@
 
 <div class="m-5">
 	<div class="flex flex-row justify-between">
-		<h3 class="text-2xl">Customers</h3>
+		<div>
+			<h3 class="text-2xl">Customers</h3>
+			<span class="text-sm">Your customers related by your brand / services</span>
+		</div>
 
 		<div class="flex flex-row">
 			<!-- svelte-ignore a11y-click-events-have-key-events -->

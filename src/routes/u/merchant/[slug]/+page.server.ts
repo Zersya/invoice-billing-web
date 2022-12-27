@@ -1,7 +1,7 @@
 import type { Customer } from "$lib/types/customer";
 import { fail, redirect } from "@sveltejs/kit";
 import type { Actions, PageServerLoad } from "./$types";
-import { errorCatcher } from "$lib/utils/functions";
+import { dateTimeFormatRequest, errorCatcher, localToUTC } from "$lib/utils/functions";
 import { baseUrl } from "$lib/utils/vars";
 import type { ContactChannel } from "$lib/types/contact_channel";
 import type { InvoiceWithCustomer } from "$lib/types/invoice";
@@ -180,6 +180,13 @@ export const actions: Actions = {
         const amount = +(formData.get('amount') || '0');
         const invoice_date = formData.get('date');
 
+        const now = new Date();
+        const hours = now.getHours();
+        const minutes = now.getMinutes();
+
+        const newInvoiceDateUTC = localToUTC(`${invoice_date} ${hours}:${minutes}:00`)
+        const date = dateTimeFormatRequest(newInvoiceDateUTC);
+
         const response = await fetch(
             `${baseUrl}/merchant/${merchant_id}/invoice`,
             {
@@ -191,7 +198,7 @@ export const actions: Actions = {
                 body: JSON.stringify({
                     "customer_id": customer_id,
                     "amount": amount,
-                    "invoice_date": `${invoice_date} 00:00:00`
+                    "invoice_date": date,
                 })
             }
         );
@@ -214,6 +221,20 @@ export const actions: Actions = {
         const end_schedule_date = formData.get('end_schedule_date');
         const repeat_interval_type = formData.get('repeat_interval_type');
 
+        const now = new Date();
+        const newDate = new Date(now.getTime() + (1000 * 60))
+        const hours = newDate.getHours();
+        const minutes = newDate.getMinutes();
+
+        const startScheduleUTC = localToUTC(`${start_schedule_date} ${hours}:${minutes}:00`)
+        console.log(startScheduleUTC)
+        const startScheduleDate = dateTimeFormatRequest(startScheduleUTC);
+        console.log(startScheduleDate)
+
+        const endScheduleUTC = localToUTC(`${end_schedule_date} ${hours}:${minutes}:00`)
+        const endScheduleDate = dateTimeFormatRequest(endScheduleUTC);
+        
+
         const response = await fetch(
             `${baseUrl}/merchant/${merchant_id}/invoice/${invoice_id}/set-schedule`,
             {
@@ -223,8 +244,8 @@ export const actions: Actions = {
                     'Authorization': `Bearer ${token}`,
                 },
                 body: JSON.stringify({
-                    "start_at": `${start_schedule_date} 00:00:00`,
-                    "end_at": `${end_schedule_date} 00:00:00`,
+                    "start_at": startScheduleDate,
+                    "end_at": endScheduleDate,
                     "repeat_interval_type": repeat_interval_type
                 })
             }

@@ -26,3 +26,22 @@ export function formatCurrency(amount: number) {
         currency: 'IDR',
     }).format(amount);
 }
+
+export function localToUTC(strDateTime: string) {
+    const dateTimeMillis = Date.parse(strDateTime);
+    const UTCTimestamp = new Date(dateTimeMillis).getTime()
+    const newDateUTC = new Date(UTCTimestamp)
+
+    return newDateUTC;
+}
+
+export function dateTimeFormatRequest(date: Date) {
+    const day = ('0' + date.getUTCDate()).slice(-2);
+	const month = ('0' + (date.getUTCMonth() + 1)).slice(-2);
+    const hours = date.getUTCHours();
+    const minutes = date.getUTCMinutes();
+
+	const dt = `${date.getUTCFullYear()}-${month}-${day} ${hours}:${minutes}:00`;
+
+    return dt;
+}
