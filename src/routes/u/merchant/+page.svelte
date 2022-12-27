@@ -140,65 +140,68 @@
 		>
 	</div>
 {:else}
-	<div class="flex flex-wrap justify-around">
+	<div class="flex flex-wrap justify-start">
 		{#each data.props.merchants as merchant}
-			<div class="card w-96 bg-base-100 shadow-xl my-4 mx-5">
-				<div class="card-body">
-					<div class="card-title justify-between">
-						<h2>{merchant.name}</h2>
-						<div class="dropdown">
-							<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-							<!-- svelte-ignore a11y-label-has-associated-control -->
-							<label tabindex="0" class="btn btn-ghost btn-circle">
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									class="h-5 w-5"
-									fill="none"
-									viewBox="0 0 24 24"
-									stroke="currentColor"
-									><path
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										stroke-width="2"
-										d="M4 6h16M4 12h16M4 18h7"
-									/></svg
+			<div class="w-full md:w-1/2 xl:w-1/3">
+				<div class="card bg-base-100 shadow-xl my-4 mx-2">
+					<div class="card-body">
+						<div class="card-title justify-between">
+							<h2>{merchant.name}</h2>
+							
+							<div class="dropdown dropdown-end">
+								<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
+								<!-- svelte-ignore a11y-label-has-associated-control -->
+								<label tabindex="0" class="btn btn-ghost btn-circle">
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										class="h-5 w-5"
+										fill="none"
+										viewBox="0 0 24 24"
+										stroke="currentColor"
+										><path
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											stroke-width="2"
+											d="M4 6h16M4 12h16M4 18h7"
+										/></svg
+									>
+								</label>
+								<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
+								<ul
+									tabindex="0"
+									class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
 								>
-							</label>
-							<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-							<ul
-								tabindex="0"
-								class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
-							>
-								<li>
-									<!-- svelte-ignore a11y-click-events-have-key-events -->
-									<label
-										for="form-merchant"
-										on:click={() => {
-											selectedMerchant = merchant;
-											isFormModalOpen = true;
-										}}>Edit</label
-									>
-								</li>
-								<li>
-									<!-- svelte-ignore a11y-click-events-have-key-events -->
-									<label
-										for="delete-merchant"
-										on:click={() => {
-											selectedMerchant = merchant;
-											isDeleteModalOpen = true;
-										}}>Delete</label
-									>
-								</li>
-							</ul>
+									<li>
+										<!-- svelte-ignore a11y-click-events-have-key-events -->
+										<label
+											for="form-merchant"
+											on:click={() => {
+												selectedMerchant = merchant;
+												isFormModalOpen = true;
+											}}>Edit</label
+										>
+									</li>
+									<li>
+										<!-- svelte-ignore a11y-click-events-have-key-events -->
+										<label
+											for="delete-merchant"
+											on:click={() => {
+												selectedMerchant = merchant;
+												isDeleteModalOpen = true;
+											}}>Delete</label
+										>
+									</li>
+								</ul>
+							</div>
 						</div>
-					</div>
-					<p class="mb-3">{merchant.description}</p>
-					<div class="flex flex-row justify-between">
-						<div class="flex flex-col">
-							<span class="text-gray-500">Created Date</span>
-							<span>{formatDate(merchant.created_at)}</span>
+						<p class="mb-3">{merchant.description}</p>
+						<div class="flex flex-row justify-between">
+							<div class="flex flex-col">
+								<span class="text-gray-500">Created Date</span>
+								<span>{formatDate(merchant.created_at)}</span>
+							</div>
+							<a href="/u/merchant/{merchant.id}" class="btn btn-ghost">View</a>
 						</div>
-						<a href="/u/merchant/{merchant.id}" class="btn btn-ghost">View</a>
 					</div>
 				</div>
 			</div>

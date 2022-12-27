@@ -3,10 +3,9 @@
 	import '../styles.css';
 	import inving from '$lib/images/inving-logo.png';
 	import Breadcumbs from './Breadcumbs.svelte';
-	
 </script>
 
-<div class="app">
+<main>
 	<div class="navbar rounded-lg bg-base-100">
 		<div class="navbar-start">
 			<img src={inving} width="45" alt="inving" />
@@ -29,7 +28,5 @@
 		</div>
 	</div>
 	<Breadcumbs />
-	<main>
-		<slot />
-	</main>
-</div>
+	<slot />
+</main>

@@ -39,13 +39,14 @@
 {:else}
 	<div class="flex flex-wrap justify-start">
 		{#each customers as customer}
-			<div class="card w-96 bg-base-100 shadow-xl my-4 mx-5">
+		<div class="w-full md:w-1/2 xl:w-1/3">
+			<div class="card bg-base-100 shadow-xl my-4 mx-5">
 				<div class="card-body">
 					<div class="card-title justify-between">
 						<h2>{customer.name}</h2>
 						<!-- svelte-ignore a11y-label-has-associated-control -->
 						<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-						<div class="dropdown">
+						<div class="dropdown dropdown-end">
 							<label tabindex="0" class="btn btn-ghost btn-circle">
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
@@ -94,6 +95,7 @@
 					</div>
 				</div>
 			</div>
+		</div>
 		{/each}
 	</div>
 {/if}

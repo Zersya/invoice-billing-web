@@ -56,7 +56,7 @@
 						<h2>{invoice.invoice_number}</h2>
 						<!-- svelte-ignore a11y-label-has-associated-control -->
 						<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-						<div class="dropdown">
+						<div class="dropdown dropdown-end">
 							<label tabindex="0" class="btn btn-ghost btn-circle">
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
