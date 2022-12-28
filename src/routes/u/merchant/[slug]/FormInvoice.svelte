@@ -11,13 +11,13 @@
 
 	export let merchant_id: string;
 	export let customer_id: string | undefined;
-	export let amount: string | undefined;
+	// export let amount: string | undefined;
 
 	const dispatch = createEventDispatcher();
 </script>
 
 <Form action={'?/createInvoice'} on:completed={() => dispatch('completed')}>
-	<div slot="input">
+	<div class="form-control w-full" slot="input">
 		<input type="hidden" name="customer_id" value={customer_id} />
 		<input type="hidden" name="merchant_id" value={merchant_id} />
 
@@ -26,11 +26,12 @@
 			name="amount"
 			type="number"
 			placeholder="Type your merchant amount here"
-			bind:value={amount}
 			class="input w-full mb-3"
 		/>
 		<label for="date">Date</label>
-		<input name="date" type="date" value={today} class="input pa-4 rounded-lg w-full mb-3" />
+		<input name="date" type="date" value={today} class="input pa-4 rounded-lg w-full mb-2" />
+		<span class="label-text-alt">Your actual print date of the invoice</span>
+
 	</div>
 	<button
 		slot="submit"

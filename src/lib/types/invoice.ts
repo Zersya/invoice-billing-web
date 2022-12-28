@@ -22,7 +22,7 @@ export interface InvoiceWithCustomer {
     total_amount: number;
     invoice_date: string;
     created_at: string;
-    is_schedule: boolean;
+    is_scheduled: boolean;
 }
 
 

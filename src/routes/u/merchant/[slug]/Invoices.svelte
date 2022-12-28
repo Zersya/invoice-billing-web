@@ -88,10 +88,10 @@
 							</div>
 						</div>
 
-						<span class={classBadgeByScheduled(invoice.is_schedule)}>
+						<span class={classBadgeByScheduled(invoice.is_scheduled)}>
 							<div
 								class="tooltip tooltip-bottom"
-								data-tip={invoice.is_schedule ? 'Scheduled' : 'Not Scheduled'}
+								data-tip={invoice.is_scheduled ? 'Scheduled' : 'Not Scheduled'}
 							>
 								<svg
 									xmlns="http://www.w3.org/2000/svg"

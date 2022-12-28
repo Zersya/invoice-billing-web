@@ -58,7 +58,6 @@
 		<label for="contact_channel_value">Channel</label>
 		<select
 			name="contact_channel_id"
-			readonly={id ? true : false}
 			class={selectClassReadOnly(id)}
 			bind:value={contact_channel_id}
 		>

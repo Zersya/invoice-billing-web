@@ -26,7 +26,6 @@
 <div class="modal" class:modal-open={isCustomerModalOpen}>
 	<div class="modal-box relative var(--color-bg-1)">
 		<button
-			for="form-customer"
 			class="btn btn-sm btn-circle absolute right-2 top-2"
 			on:click={() => (isCustomerModalOpen = false)}>✕</button
 		>
@@ -52,7 +51,6 @@
 <div class="modal" class:modal-open={isInvoiceModalOpen}>
 	<div class="modal-box relative var(--color-bg-1)">
 		<button
-			for="form-invoice"
 			class="btn btn-sm btn-circle absolute right-2 top-2"
 			on:click={() => (isInvoiceModalOpen = false)}>✕</button
 		>
@@ -60,7 +58,6 @@
 		<FormInvoice
 			merchant_id={data.slug}
 			customer_id={selectedCustomer?.id}
-			amount="0"
 			on:completed={() => (isInvoiceModalOpen = false)}
 		/>
 	</div>
@@ -69,11 +66,10 @@
 <div class="modal" class:modal-open={isSetScheduleModalOpen}>
 	<div class="modal-box relative var(--color-bg-1)">
 		<button
-			for="form-set-schedule-invoice"
 			class="btn btn-sm btn-circle absolute right-2 top-2"
 			on:click={() => (isSetScheduleModalOpen = false)}>✕</button
 		>
-		<h3 class="text-lg font-bold mb-4">Form Create Invoice</h3>
+		<h3 class="text-lg font-bold mb-4">Send Invoice</h3>
 		<FormScheduleInvoice
 			merchant_id={data.slug}
 			invoice_id={selectedInvoice?.id}

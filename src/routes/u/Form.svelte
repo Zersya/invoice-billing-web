@@ -15,11 +15,12 @@
 	use:enhance={(_) => {
 		isLoading = true;
 
-		return async ({ result }) => {
+		return async ({ result, update }) => {
 			isLoading = false;
 
 			dispatch('completed');
-
+			
+			await update({ reset: true });
 			await applyAction(result);
 		};
 	}}

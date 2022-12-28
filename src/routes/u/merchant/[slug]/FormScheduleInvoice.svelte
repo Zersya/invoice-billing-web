@@ -13,6 +13,8 @@
 	export let invoice_id: string | undefined;
 	export let merchant_id: string;
 
+	let is_recurring = false;
+
 	const dispatch = createEventDispatcher();
 </script>
 
@@ -20,39 +22,51 @@
 	<div slot="input">
 		<input type="hidden" name="invoice_id" value={invoice_id} />
 		<input type="hidden" name="merchant_id" value={merchant_id} />
+		<input type="hidden" name="is_recurring" value={is_recurring} />
 
-		<label for="start_schedule_date">Start Schedule Date</label>
-		<input
-			name="start_schedule_date"
-			type="date"
-			value={today}
-			class="input pa-4 rounded-lg w-full mb-3"
-		/>
+		<div class="flex flex-column w-full mb-3 pa-4">
+			<span class="mr-3">Does it recurring?</span>
+			<input
+				type="checkbox"
+				class="input toggle"
+				bind:checked={is_recurring}
+			/>
+		</div>
 
-		<label for="end_schedule_date">End Schedule Date</label>
-		<input
-			name="end_schedule_date"
-			type="date"
-			value={today}
-			class="input pa-4 rounded-lg w-full mb-3"
-		/>
+		{#if is_recurring}
+			<label for="start_schedule_date">Start Schedule Date</label>
+			<input
+				name="start_schedule_date"
+				type="date"
+				value={today}
+				class="input pa-4 rounded-lg w-full mb-3"
+			/>
 
-		<label for="repeat_interval_type">Repeat Interval Type</label>
-		<select name="repeat_interval_type" class="input pa-4 rounded-lg w-full mb-3">
-			<option disabled>Pick your repeat interval type</option>
-			<option value="PERMINUTE">Per-minute</option>
-			<option value="HOURLY">Hourly</option>
-			<option value="DAILY">Daily</option>
-			<option value="WEEKLY">Weekly</option>
-			<option value="MONTHLY">Monthly</option>
-		</select>
+			<label for="end_schedule_date">End Schedule Date</label>
+			<input
+				name="end_schedule_date"
+				type="date"
+				value={today}
+				class="input pa-4 rounded-lg w-full mb-3"
+			/>
+
+			<label for="repeat_interval_type">Repeat Interval Type</label>
+			<select name="repeat_interval_type" class="input pa-4 rounded-lg w-full mb-3">
+				<option disabled>Pick your repeat interval type</option>
+				<option value="PERMINUTE">Per-minute</option>
+				<option value="HOURLY">Hourly</option>
+				<option value="DAILY">Daily</option>
+				<option value="WEEKLY">Weekly</option>
+				<option value="MONTHLY">Monthly</option>
+			</select>
+		{/if}
 	</div>
 
 	<button
 		slot="submit"
 		let:isLoading
 		type="submit"
-		class="btn btn-block mt-5 {isLoading ? 'loading' : ''}">Save</button
+		class="btn btn-block mt-5 {isLoading ? 'loading' : ''}">Send</button
 	>
 </Form>
 <!-- 

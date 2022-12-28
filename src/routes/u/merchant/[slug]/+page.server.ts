@@ -104,7 +104,7 @@ export const actions: Actions = {
         );
 
         if (response.ok) {
-            throw redirect(303, `/u/merchant/${merchant_id}`);
+            return { success: true };
         }
     
         return await errorCatcher(response);
@@ -137,7 +137,7 @@ export const actions: Actions = {
 
 
         if (response.ok) {
-            throw redirect(303, `/u/merchant/${merchant_id}`);
+            return { success: true };
         }
 
         return await errorCatcher(response);
@@ -164,7 +164,7 @@ export const actions: Actions = {
 
 
         if (response.ok) {
-            throw redirect(303, `/u/merchant/${merchant_id}`);
+            return { success: true };
         }
 
         return await errorCatcher(response);
@@ -204,7 +204,7 @@ export const actions: Actions = {
         );
 
         if (response.ok) {
-            throw redirect(303, `/u/merchant/${merchant_id}`);
+            return { success: true };
         }
     
         return await errorCatcher(response);
@@ -220,20 +220,35 @@ export const actions: Actions = {
         const start_schedule_date = formData.get('start_schedule_date');
         const end_schedule_date = formData.get('end_schedule_date');
         const repeat_interval_type = formData.get('repeat_interval_type');
+        const is_recurring = formData.get('is_recurring');
+
+        const isRecurring = is_recurring === 'true';
 
         const now = new Date();
         const newDate = new Date(now.getTime() + (1000 * 60))
         const hours = newDate.getHours();
         const minutes = newDate.getMinutes();
 
-        const startScheduleUTC = localToUTC(`${start_schedule_date} ${hours}:${minutes}:00`)
-        console.log(startScheduleUTC)
-        const startScheduleDate = dateTimeFormatRequest(startScheduleUTC);
-        console.log(startScheduleDate)
+        let startScheduleDate = null
+        let endScheduleDate = null
 
-        const endScheduleUTC = localToUTC(`${end_schedule_date} ${hours}:${minutes}:00`)
-        const endScheduleDate = dateTimeFormatRequest(endScheduleUTC);
-        
+        if (start_schedule_date) {
+            const startScheduleUTC = localToUTC(`${start_schedule_date} ${hours}:${minutes}:00`)
+            startScheduleDate = dateTimeFormatRequest(startScheduleUTC);
+        }
+
+        if (end_schedule_date) {
+            const endScheduleUTC = localToUTC(`${end_schedule_date} ${hours}:${minutes}:00`)
+            endScheduleDate = dateTimeFormatRequest(endScheduleUTC);
+    
+        }
+
+        const body = JSON.stringify({
+            "start_at": startScheduleDate,
+            "end_at": endScheduleDate,
+            "repeat_interval_type": repeat_interval_type || null,
+            "is_recurring": isRecurring ,
+        })
 
         const response = await fetch(
             `${baseUrl}/merchant/${merchant_id}/invoice/${invoice_id}/set-schedule`,
@@ -243,16 +258,12 @@ export const actions: Actions = {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`,
                 },
-                body: JSON.stringify({
-                    "start_at": startScheduleDate,
-                    "end_at": endScheduleDate,
-                    "repeat_interval_type": repeat_interval_type
-                })
+                body: body,
             }
         );
 
         if (response.ok) {
-            throw redirect(303, `/u/merchant/${merchant_id}`);
+            return { success: true };
         }
     
         return await errorCatcher(response);
