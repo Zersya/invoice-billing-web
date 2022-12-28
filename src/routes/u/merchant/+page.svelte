@@ -124,21 +124,20 @@
 
 {#if data.props.merchants.length <= 0}
 	<div class="flex flex-col justify-center items-center">
-		<svg
-			xmlns="http://www.w3.org/2000/svg"
-			class="stroke-current flex-shrink-0 h-20 w-20"
-			fill="none"
-			viewBox="0 0 24 24"
-			><path
-				strokeLinecap="round"
-				strokeLinejoin="round"
-				strokeWidth="2"
-				d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-			/></svg
-		>
 		<span class="text-xl">No Data</span>
-		<button class="btn btn-active mt-4" on:click={() => redirect(303, '/u/merchant')}
-			>Refresh</button
+		<button class="btn btn-square mt-4" on:click={() => redirect(303, '/u/merchant')}
+			><svg
+				xmlns="http://www.w3.org/2000/svg"
+				class="h-5 w-5"
+				fill="white"
+				viewBox="0 0 24 24"
+				stroke="currentColor"
+				><path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					d="M17.65,6.35C16.2,4.9 14.21,4 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20C15.73,20 18.84,17.45 19.73,14H17.65C16.83,16.33 14.61,18 12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6C13.66,6 15.14,6.69 16.22,7.78L13,11H20V4L17.65,6.35Z"
+				/></svg
+			></button
 		>
 	</div>
 {:else}

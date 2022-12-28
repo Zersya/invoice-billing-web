@@ -69,7 +69,7 @@ export const actions: Actions = {
     
         if (response.ok) {
     
-            throw redirect(303, '/u/merchant');
+            return { success: true };
     
         }
     

@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { applyAction, enhance } from '$app/forms';
 
-	let name = 'Test';
-	let email = 'test@email.com';
-	let password = 'password';
+	let name = '';
+	let email = '';
+	let password = '';
 
 	let isLoading: boolean = false;
 </script>

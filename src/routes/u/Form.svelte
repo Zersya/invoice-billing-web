@@ -18,10 +18,12 @@
 		return async ({ result, update }) => {
 			isLoading = false;
 
-			dispatch('completed');
-			
-			await update({ reset: true });
-			await applyAction(result);
+			if (result.type === 'success') {
+				dispatch('completed');
+
+				await update({ reset: true });
+				await applyAction(result);
+			}
 		};
 	}}
 >
