@@ -37,7 +37,7 @@
 			{/if}
 		</h3>
 		<FormCustomer
-			{data}
+			contact_channels={data.props.contact_channels}
 			merchant_id={data.slug}
 			id={selectedCustomer?.id}
 			name={selectedCustomer?.name}

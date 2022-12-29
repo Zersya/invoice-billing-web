@@ -19,9 +19,7 @@
 
 		<div class="flex flex-row">
 			<!-- svelte-ignore a11y-click-events-have-key-events -->
-			<button for="form-customer" class="btn btn-active" on:click={() => dispatch('add')}
-				>Add</button
-			>
+			<button class="btn btn-active" on:click={() => dispatch('add')}>Add</button>
 		</div>
 	</div>
 </div>
@@ -29,7 +27,9 @@
 {#if customers.length <= 0}
 	<div class="flex flex-col justify-center items-center">
 		<span class="text-xl">No Data</span>
-		<button class="btn btn-square mt-4" on:click={() => redirect(303, `/u/merchant/${merchant_id}`)}
+		<button
+			class="btn btn-square mt-4"
+			on:click={() => redirect(303, `/u/merchants/${merchant_id}`)}
 			><svg
 				xmlns="http://www.w3.org/2000/svg"
 				class="h-5 w-5"
@@ -75,21 +75,16 @@
 									class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
 								>
 									<li>
-										<label for="form-invoice" on:click={() => dispatch('add-invoice', customer)}
-											>Add Invoice</label
-										>
+										<!-- svelte-ignore a11y-click-events-have-key-events -->
+										<span on:click={() => dispatch('add-invoice', customer)}>Add Invoice</span>
 									</li>
 									<li>
 										<!-- svelte-ignore a11y-click-events-have-key-events -->
-										<label for="form-customer" on:click={() => dispatch('edit', customer)}
-											>Edit</label
-										>
+										<span on:click={() => dispatch('edit', customer)}>Edit</span>
 									</li>
 									<li>
 										<!-- svelte-ignore a11y-click-events-have-key-events -->
-										<label for="delete-customer" on:click={() => dispatch('delete', customer)}
-											>Delete</label
-										>
+										<span on:click={() => dispatch('delete', customer)}>Delete</span>
 									</li>
 								</ul>
 							</div>
@@ -100,7 +95,7 @@
 								<span class="text-gray-500">Updated Date</span>
 								<span>{formatDate(customer.updated_at)}</span>
 							</div>
-							<!-- <a href="/u/merchant/{data.slug}/customer/{customer.id}/invoice" class="btn btn-ghost">View</a> -->
+							<!-- <a href="/u/merchants/{data.slug}/customer/{customer.id}/invoice" class="btn btn-ghost">View</a> -->
 						</div>
 					</div>
 				</div>

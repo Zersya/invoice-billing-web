@@ -44,7 +44,7 @@ export const actions = {
             })
 
             // redirect to merchant page
-            throw redirect(303, '/u/merchant');
+            throw redirect(303, '/u/merchants');
         } else {
             return fail(response.status, { fail: true, message: data.message.value });
         }

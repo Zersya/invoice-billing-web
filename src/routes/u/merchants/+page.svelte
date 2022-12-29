@@ -125,7 +125,7 @@
 {#if data.props.merchants.length <= 0}
 	<div class="flex flex-col justify-center items-center">
 		<span class="text-xl">No Data</span>
-		<button class="btn btn-square mt-4" on:click={() => redirect(303, '/u/merchant')}
+		<button class="btn btn-square mt-4" on:click={() => redirect(303, '/u/merchants')}
 			><svg
 				xmlns="http://www.w3.org/2000/svg"
 				class="h-5 w-5"
@@ -201,7 +201,7 @@
 								<span class="text-gray-500">Created Date</span>
 								<span>{formatDate(merchant.created_at)}</span>
 							</div>
-							<a href="/u/merchant/{merchant.id}" class="btn btn-ghost">View</a>
+							<a href="/u/merchants/{merchant.id}" class="btn btn-ghost">View</a>
 						</div>
 					</div>
 				</div>

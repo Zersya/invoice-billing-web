@@ -2,6 +2,7 @@
 	import type { PageData } from './$types';
 	import { createEventDispatcher } from 'svelte';
 	import Form from '../../Form.svelte';
+	import type { ContactChannel } from '$lib/types/contact_channel';
 
 	export let merchant_id: string;
 	export let id: string | undefined;
@@ -9,7 +10,7 @@
 	export let contact_channel_id: string | undefined;
 	export let contact_channel_value: string | undefined;
 
-	export let data: PageData;
+	export let contact_channels: ContactChannel[];
 
 	function inputClassReadOnly(id: string | undefined) {
 		if (id) {
@@ -62,7 +63,7 @@
 			bind:value={contact_channel_id}
 		>
 			<option disabled>Pick your message channel</option>
-			{#each data.props?.contact_channels as channel}
+			{#each contact_channels as channel}
 				<option value={channel.id}>{channel.name}</option>
 			{/each}
 		</select>

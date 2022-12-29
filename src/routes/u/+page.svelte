@@ -25,7 +25,7 @@
 	});
 </script>
 
-<!-- <a href="/u/merchant">See Merchant</a> -->
+<!-- <a href="/u/merchants">See Merchant</a> -->
 
 {#if calendar}
 	<div class="flex justify-between">
