@@ -1,11 +1,11 @@
 <script lang="ts">
 	import type { Customer } from '$lib/types/customer';
+	import ModalConfirm from '../../../ModalConfirm.svelte';
 	import Customers from '../Customers.svelte';
 	import FormCustomer from '../FormCustomer.svelte';
 	import type { ActionData, PageData } from './$types';
 
 	export let data: PageData;
-	export let form: ActionData;
 
 	let selectedCustomer: Customer | null = null;
 
@@ -28,7 +28,7 @@
 		</h3>
 		<FormCustomer
 			contact_channels={data.props.contact_channels}
-			merchant_id={data.slug}
+			merchant_id={data.merchant_id}
 			id={selectedCustomer?.id}
 			name={selectedCustomer?.name}
 			contact_channel_id={selectedCustomer?.contact_channel_id}
@@ -38,9 +38,29 @@
 	</div>
 </div>
 
+
+<ModalConfirm
+	title="Confirm Delete"
+	content="Are you sure want to delete this customer?"
+	action="?/deleteCustomer"
+	label_positive="Delete"
+	isModalOpen={isCustomerDeleteModalOpen}
+	on:completed={() => {
+		isCustomerDeleteModalOpen = false;
+	}}
+	on:cancel={() => {
+		isCustomerDeleteModalOpen = false;
+	}}
+>
+	<input type="hidden" name="id" value={selectedCustomer?.id} />
+	<input type="hidden" name="merchant_id" value={data.merchant_id} />
+</ModalConfirm>
+
+
 <Customers
 	customers={data.props.customers}
-	merchant_id={data.slug}
+	merchant_id={data.merchant_id}
+	ableToDetail={true}
 	on:add={() => {
 		selectedCustomer = null;
 		isCustomerModalOpen = true;

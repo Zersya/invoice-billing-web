@@ -7,7 +7,7 @@ import type { ContactChannel } from "$lib/types/contact_channel";
 
 export const load: PageServerLoad = async ({ cookies, params }) => {
 
-    const merchantId = params.slug;
+    const merchantId = params.merchant_id;
     const token = cookies.get('token');
     
     const response = await fetch(
@@ -29,7 +29,7 @@ export const load: PageServerLoad = async ({ cookies, params }) => {
             props: {
                 invoices: data.data as Invoice[]
             },
-            slug: params.slug
+            merchant_id: params.merchant_id
         }
 
     }
@@ -42,6 +42,6 @@ export const load: PageServerLoad = async ({ cookies, params }) => {
         props: {
             invoices: []
         },
-        slug: params.slug
+        merchant_id: params.merchant_id
     }
 }

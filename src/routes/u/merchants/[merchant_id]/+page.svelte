@@ -38,7 +38,7 @@
 		</h3>
 		<FormCustomer
 			contact_channels={data.props.contact_channels}
-			merchant_id={data.slug}
+			merchant_id={data.merchant_id}
 			id={selectedCustomer?.id}
 			name={selectedCustomer?.name}
 			contact_channel_id={selectedCustomer?.contact_channel_id}
@@ -56,7 +56,7 @@
 		>
 		<h3 class="text-lg font-bold mb-4">Form Create Invoice</h3>
 		<FormInvoice
-			merchant_id={data.slug}
+			merchant_id={data.merchant_id}
 			customer_id={selectedCustomer?.id}
 			on:completed={() => (isInvoiceModalOpen = false)}
 		/>
@@ -71,7 +71,7 @@
 		>
 		<h3 class="text-lg font-bold mb-4">Send Invoice</h3>
 		<FormScheduleInvoice
-			merchant_id={data.slug}
+			merchant_id={data.merchant_id}
 			invoice_id={selectedInvoice?.id}
 			on:completed={() => (isSetScheduleModalOpen = false)}
 		/>
@@ -92,7 +92,7 @@
 	}}
 >
 	<input type="hidden" name="id" value={selectedCustomer?.id} />
-	<input type="hidden" name="merchant_id" value={data.slug} />
+	<input type="hidden" name="merchant_id" value={data.merchant_id} />
 </ModalConfirm>
 
 {#if form?.fail}
@@ -112,7 +112,8 @@
 
 <Customers
 	customers={data.props.customers}
-	merchant_id={data.slug}
+	merchant_id={data.merchant_id}
+	ableToAddInvoice={true}
 	on:add-invoice={(customer) => {
 		selectedCustomer = customer.detail;
 		isInvoiceModalOpen = true;
@@ -133,7 +134,7 @@
 
 <Invoices
 	invoices={data.props.invoices}
-	merchant_id={data.slug}
+	merchant_id={data.merchant_id}
 	on:set-schedule={(invoice) => {
 		selectedInvoice = invoice.detail;
 		isSetScheduleModalOpen = true;

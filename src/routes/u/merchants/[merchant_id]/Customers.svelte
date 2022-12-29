@@ -6,6 +6,8 @@
 
 	export let customers: Customer[];
 	export let merchant_id: string;
+	export let ableToAddInvoice: boolean = false;
+	export let ableToDetail: boolean = false;
 
 	const dispatch = createEventDispatcher();
 </script>
@@ -13,7 +15,7 @@
 <div class="m-5">
 	<div class="flex flex-row justify-between">
 		<div>
-			<h3 class="text-2xl">Customers</h3>
+			<h3 class="text-2xl"><a href={`/u/merchants/${merchant_id}/customers`}>Customers</a></h3>
 			<span class="text-sm">Your customers related by your brand / services</span>
 		</div>
 
@@ -74,10 +76,12 @@
 									tabindex="0"
 									class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
 								>
-									<li>
-										<!-- svelte-ignore a11y-click-events-have-key-events -->
-										<span on:click={() => dispatch('add-invoice', customer)}>Add Invoice</span>
-									</li>
+									{#if ableToAddInvoice}
+										<li>
+											<!-- svelte-ignore a11y-click-events-have-key-events -->
+											<span on:click={() => dispatch('add-invoice', customer)}>Add Invoice</span>
+										</li>
+									{/if}
 									<li>
 										<!-- svelte-ignore a11y-click-events-have-key-events -->
 										<span on:click={() => dispatch('edit', customer)}>Edit</span>
@@ -95,7 +99,11 @@
 								<span class="text-gray-500">Updated Date</span>
 								<span>{formatDate(customer.updated_at)}</span>
 							</div>
-							<!-- <a href="/u/merchants/{data.slug}/customer/{customer.id}/invoice" class="btn btn-ghost">View</a> -->
+							{#if ableToDetail}
+								<a href="/u/merchants/{merchant_id}/customers/{customer.id}" class="btn btn-ghost"
+									>View</a
+								>
+							{/if}
 						</div>
 					</div>
 				</div>

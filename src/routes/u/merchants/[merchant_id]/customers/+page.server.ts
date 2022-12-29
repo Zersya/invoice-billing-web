@@ -1,75 +1,62 @@
 import type { Customer } from "$lib/types/customer";
-import { fail, redirect } from "@sveltejs/kit";
-import type { Actions, PageServerLoad } from "./$types";
+import { redirect } from "@sveltejs/kit";
+import type { Actions, PageServerLoad } from "../$types";
 import { dateTimeFormatRequest, errorCatcher, localToUTC } from "$lib/utils/functions";
 import { baseUrl } from "$lib/utils/vars";
 import type { ContactChannel } from "$lib/types/contact_channel";
-import type { InvoiceWithCustomer } from "$lib/types/invoice";
 
 export const load: PageServerLoad = async ({ cookies, params }) => {
 
-    const merchantId = params.slug;
+    const merchantId = params.merchant_id;
     const token = cookies.get('token');
     
     const response = await Promise.all([
-        fetch(
-            `${baseUrl}/merchant/${merchantId}/customer`,
-            {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                }
+    fetch(
+        `${baseUrl}/merchant/${merchantId}/customer`,
+        {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`,
             }
-        ),
-        fetch(
-            `${baseUrl}/contact-channels`,
-            {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                }
+        }
+    ),
+    fetch(
+        `${baseUrl}/contact-channels`,
+        {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${token}`,
             }
-        ),
-        fetch(
-            `${baseUrl}/merchant/${merchantId}/invoice`,
-            {
-                method: 'GET',
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                }
-            }
-        )
-    ])
+        }
+    ),
+    ]);
 
 
-    if (response[0].ok && response[1].ok && response[2].ok) {
-        const data_customers = await response[0].json();
-        const data_contact_channels = await response[1].json();
-        const data_invoice = await response[2].json();
+    if (response[0].ok && response[1].ok) {
+        const customers = await response[0].json();
+        const contact_channels = await response[1].json();
 
 
         return {
             props: {
-                customers: data_customers.data as Customer[],
-                contact_channels: (data_contact_channels.data as ContactChannel[]).filter((channel) => channel.name === 'whatsapp'),
-                invoices: data_invoice.data as InvoiceWithCustomer[]
+                customers: customers.data as Customer[],
+                contact_channels: (contact_channels.data as ContactChannel[]).filter((channel) => channel.name === 'whatsapp'),
             },
-            slug: params.slug
+            merchant_id: params.merchant_id
         }
 
     }
 
-    if (response[0].status === 401 || response[1].status === 401 || response[2].status === 401) {
+    if (response[0].status === 401 || response[1].status === 401) {
         throw redirect(300, '/login');
     }
 
     return {
         props: {
             customers: [],
-            contact_channels: [],
-            invoices: []
+            contact_channels: []
         },
-        slug: params.slug
+        merchant_id: params.merchant_id
     }
 }
 
