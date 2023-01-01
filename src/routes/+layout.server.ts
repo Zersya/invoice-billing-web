@@ -3,7 +3,7 @@ import {redirect} from "@sveltejs/kit";
 
 export const load: LayoutServerLoad = async ({ route, cookies }) => {
 
-    if (cookies.get('token') && (route.id === '/login' || route.id === '/register')) {
+    if (cookies.get('token') && (route.id === '/' || route.id === '/register')) {
         throw redirect(303, '/u');
     }
 

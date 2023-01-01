@@ -27,7 +27,7 @@
 		<Form />
 
 		<p class="py-5">
-			Have an account? <a href="/login">Login</a>
+			Have an account? <a href="/">Login</a>
 		</p>
 	</div>
 </div>

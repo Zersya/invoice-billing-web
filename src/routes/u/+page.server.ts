@@ -49,6 +49,6 @@ export const actions: Actions = {
         cookies.delete('user_id', {
             path: '/',
         });
-        throw redirect(303, '/login');
+        throw redirect(303, '/');
     }
 }
