@@ -16,7 +16,6 @@ export async function errorCatcher(response: Response) {
     }
 
     return fail(response.status, { fail: true, message: data.message.value });
-
 }
 
 export function formatCurrency(amount: number) {
@@ -33,6 +32,12 @@ export function localToUTC(strDateTime: string) {
     const newDateUTC = new Date(UTCTimestamp)
 
     return newDateUTC;
+}
+
+export function utcToLocal(date: Date): Date {
+    const timezoneOffset = date.getTimezoneOffset();
+    const localDate = new Date(date.getTime() - timezoneOffset * 60 * 1000);
+    return localDate;
 }
 
 export function dateTimeFormatRequest(date: Date) {

@@ -23,6 +23,7 @@ export const load: PageServerLoad = async ({ cookies, params }) => {
     if (response.ok) {
         const schedules = await response.json();
 
+
         return {
             props: {
                 schedules: schedules.data as JobSchedule[],

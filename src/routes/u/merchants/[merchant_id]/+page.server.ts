@@ -177,6 +177,8 @@ export const actions: Actions = {
 
         const merchant_id = formData.get('merchant_id');
         const customer_id = formData.get('customer_id');
+        const title = formData.get('title');
+        const description = formData.get('description');
         const amount = +(formData.get('amount') || '0');
         const invoice_date = formData.get('date');
 
@@ -197,6 +199,8 @@ export const actions: Actions = {
                 },
                 body: JSON.stringify({
                     "customer_id": customer_id,
+                    "title": title,
+                    "description": description,
                     "amount": amount,
                     "invoice_date": date,
                 })

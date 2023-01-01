@@ -1,8 +1,6 @@
 <script lang="ts">
 	import type { Customer } from '$lib/types/customer';
 	import type { InvoiceWithCustomer } from '$lib/types/invoice';
-	import { formatDate } from '$lib/utils/functions';
-	import { error, redirect } from '@sveltejs/kit';
 	import ModalConfirm from '../../ModalConfirm.svelte';
 	import type { ActionData, PageData } from './$types';
 	import Customers from './Customers.svelte';

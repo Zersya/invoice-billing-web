@@ -62,6 +62,7 @@
 								<span class="prose prose-lg">{`${formatInvoiceNumber(invoice)}`.toUpperCase()}</span
 								>
 								<span class="prose prose-sm">{`${invoice.customer_name}`}</span>
+								<span class="prose prose-sm">{`${invoice.title}`}</span>
 							</div>
 							<!-- svelte-ignore a11y-label-has-associated-control -->
 							<!-- svelte-ignore a11y-no-noninteractive-tabindex -->

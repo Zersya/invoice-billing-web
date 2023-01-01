@@ -16,13 +16,16 @@ export interface JobSchedule {
 }
 
 export interface JobData {
-    amount:       number;
-    created_by:   string;
-    customer_id:  string;
-    invoice_date: Date;
-    invoice_id:   string;
-    merchant_id:  string;
-    tax_amount:   number;
-    tax_rate:     number;
-    total_amount: number;
+    customer_name: string;
+    title:         string;
+    description:   string;
+    amount:        number;
+    created_by:    string;
+    customer_id:   string;
+    invoice_date:  Date;
+    invoice_id:    string;
+    merchant_id:   string;
+    tax_amount:    number;
+    tax_rate:      number;
+    total_amount:  number;
 }
