@@ -11,6 +11,12 @@
 			<img src={inving} width="45" alt="inving" />
 		</div>
 		<div class="navbar-end">
+			<div class="flex-none">
+				<ul class="menu menu-horizontal px-1">
+					<li><a href="/u">Dashboard</a></li>
+					<li><a href="/u/merchants">Merchants</a></li>
+				</ul>
+			</div>
 			<form method="POST" action="/u?/signout">
 				<button class="btn btn-ghost btn-circle">
 					<svg

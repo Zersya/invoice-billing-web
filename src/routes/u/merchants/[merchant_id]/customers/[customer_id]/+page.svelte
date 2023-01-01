@@ -56,9 +56,6 @@
 					end: endTimeDate,
 					category: 'time',
 					backgroundColor: isPast ? '#4caf50' : '#f44336',
-					// color: '#fff',
-					// state: 'Free',
-					// isReadOnly: true,
 					customStyle: {
 						fontStyle: 'italic',
 						fontSize: '15px'

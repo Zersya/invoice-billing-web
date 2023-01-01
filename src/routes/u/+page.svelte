@@ -3,6 +3,10 @@
 	import Calendar from '@toast-ui/calendar';
 	import '@toast-ui/calendar/dist/toastui-calendar.min.css';
 	import { onMount } from 'svelte';
+	import type { PageData } from './$types';
+	import { utcToLocal } from '$lib/utils/functions';
+
+	export let data: PageData;
 
 	let calendar: Calendar | undefined;
 	let date: Date | undefined;
@@ -10,22 +14,50 @@
 	onMount(() => {
 		calendar = new Calendar('#calendar', {
 			defaultView: 'month',
-			isReadOnly: true,
 			template: {
 				time(event) {
 					const { start, end, title } = event;
 
-					return `<span style="color: white;">${start}~${end} ${title}</span>`;
-				},
-				allday(event) {
-					return `<span style="color: gray;">${event.title}</span>`;
+					// get time start HH:mm from start string
+					const startHour = utcToLocal(start).toLocaleString('id-ID', {
+						hour: 'numeric',
+						minute: 'numeric',
+						hour12: false
+					});
+					
+					return `<span class="calendar-event-time" style="color: #222; font-size: 9px">${startHour} - <strong>${title}</strong></span>`;
+					
 				}
 			}
 		});
+
+		let events = [] as Object[];
+
+		data.props.schedules.forEach((schedule) => {
+			for (let i = 0; i < schedule.total_repeat_count; i++) {
+				let startTimeDate = moment(schedule.job_data.invoice_date)
+					.add(i * schedule.repeat_interval, 'seconds')
+					.toDate();
+
+				let isPast = moment(startTimeDate).isBefore(moment());
+
+				let endTimeDate = moment(startTimeDate).add(3600/2, 'seconds').toDate();
+
+				events.push({
+					calendarId: `${schedule.id.toString()} ${i.toString()}`,
+					title: `${schedule.job_data.customer_name} | ${schedule.job_data.title}`,
+					body: schedule.job_data.description,
+					start: startTimeDate,
+					end: endTimeDate,
+					category: 'time',
+					backgroundColor: isPast ? '#4caf50' : '#f44336',
+				});
+			}
+		});
+
+		calendar?.createEvents(events);
 	});
 </script>
-
-<!-- <a href="/u/merchants">See Merchant</a> -->
 
 {#if calendar}
 	<div class="flex justify-between">
@@ -85,5 +117,4 @@
 		</h2>
 	</div>
 {/if}
-
 <div id="calendar" class="h-screen" />

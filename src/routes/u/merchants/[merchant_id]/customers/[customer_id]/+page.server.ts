@@ -46,7 +46,3 @@ export const load: PageServerLoad = async ({ cookies, params }) => {
         customer_id: params.customer_id
     }
 }
-
-
-export const actions: Actions = {
-}

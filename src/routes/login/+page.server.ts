@@ -42,7 +42,7 @@ export const actions = {
             })
 
             // redirect to merchant page
-            throw redirect(303, '/u/merchants');
+            throw redirect(303, '/u');
         } else {
             return fail(response.status, { fail: true, message: data.message.value });
         }
