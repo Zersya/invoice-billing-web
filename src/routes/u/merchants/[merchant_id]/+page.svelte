@@ -17,6 +17,7 @@
 
 	let isCustomerModalOpen: boolean = false;
 	let isCustomerDeleteModalOpen: boolean = false;
+	let isInvoiceStopScheduleModalOpen: boolean = false;
 	let isInvoiceModalOpen: boolean = false;
 	let isSetScheduleModalOpen: boolean = false;
 </script>
@@ -93,6 +94,23 @@
 	<input type="hidden" name="merchant_id" value={data.merchant_id} />
 </ModalConfirm>
 
+<ModalConfirm
+	title="Confirm Stop Schedule"
+	content="Are you sure want to stop this invoice schedule?"
+	action="?/stopScheduleInvoice"
+	label_positive="Stop"
+	isModalOpen={isInvoiceStopScheduleModalOpen}
+	on:completed={() => {
+		isInvoiceStopScheduleModalOpen = false;
+	}}
+	on:cancel={() => {
+		isInvoiceStopScheduleModalOpen = false;
+	}}
+>
+	<input type="hidden" name="invoice_id" value={selectedInvoice?.id} />
+	<input type="hidden" name="merchant_id" value={data.merchant_id} />
+</ModalConfirm>
+
 {#if form?.fail}
 	<div class="alert alert-error shadow-lg mb-5 rounded-md">
 		<div>
@@ -104,6 +122,21 @@
 				><path d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg
 			>
 			<span>Error! {form?.message}</span>
+		</div>
+	</div>
+{/if}
+
+{#if form?.success}
+	<div class="alert alert-success shadow-lg mb-5 rounded-md">
+		<div>
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				class="stroke-current flex-shrink-0 h-6 w-6"
+				fill="none"
+				viewBox="0 0 24 24"
+				><path d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg
+			>
+			<span>Success! {form?.message}</span>
 		</div>
 	</div>
 {/if}
@@ -136,5 +169,9 @@
 	on:set-schedule={(invoice) => {
 		selectedInvoice = invoice.detail;
 		isSetScheduleModalOpen = true;
+	}}
+	on:stop-schedule={(invoice) => {
+		selectedInvoice = invoice.detail;
+		isInvoiceStopScheduleModalOpen = true;
 	}}
 />

@@ -48,7 +48,7 @@ export const load: PageServerLoad = async ({ cookies, params }) => {
     }
 
     if (response[0].status === 401 || response[1].status === 401) {
-        throw redirect(300, '/login');
+        throw redirect(300, '/');
     }
 
     return {

@@ -1,4 +1,4 @@
-import { redirect, fail } from '@sveltejs/kit';
+import { redirect } from '@sveltejs/kit';
 
 export function formatDate(date: string) {
     const d = new Date(date);
@@ -8,14 +8,24 @@ export function formatDate(date: string) {
     return `${da} / ${mo} / ${ye}`;
 }
 
-export async function errorCatcher(response: Response) {
-    const data = await response.json();
-
+export async function successCatcher(response: Response) {
     if (response.status === 401) {
-        return redirect(300, '/login');
+        return redirect(300, '/');
     }
 
-    return fail(response.status, { fail: true, message: data.message.value });
+    const data = await response.json();
+
+    return { success: true, message: data.message.value };
+}
+
+export async function errorCatcher(response: Response) {
+    if (response.status === 401) {
+        return redirect(300, '/');
+    }
+
+    const data = await response.json();
+
+    return { fail: true, message: data.message.value };
 }
 
 export function formatCurrency(amount: number) {

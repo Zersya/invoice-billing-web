@@ -1,7 +1,7 @@
 import type { Customer } from "$lib/types/customer";
 import { redirect } from "@sveltejs/kit";
 import type { Actions, PageServerLoad } from "./$types";
-import { dateTimeFormatRequest, errorCatcher, localToUTC } from "$lib/utils/functions";
+import { dateTimeFormatRequest, errorCatcher, localToUTC, successCatcher } from "$lib/utils/functions";
 import { baseUrl } from "$lib/utils/vars";
 import type { ContactChannel } from "$lib/types/contact_channel";
 import type { InvoiceWithCustomer } from "$lib/types/invoice";
@@ -60,7 +60,7 @@ export const load: PageServerLoad = async ({ cookies, params }) => {
     }
 
     if (response[0].status === 401 || response[1].status === 401 || response[2].status === 401) {
-        throw redirect(300, '/login');
+        throw redirect(300, '/');
     }
 
     return {
@@ -271,6 +271,36 @@ export const actions: Actions = {
         }
     
         return await errorCatcher(response);
-    }
+    },
 
+    stopScheduleInvoice: async ({ request, cookies }) => {
+        const formData = await request.formData();
+
+        const token = cookies.get('token');
+
+        const merchant_id = formData.get('merchant_id');
+        const invoice_id = formData.get('invoice_id');
+
+        const body = JSON.stringify({
+            "status": "completed",
+        })
+
+        const response = await fetch(
+            `${baseUrl}/merchant/${merchant_id}/invoice/${invoice_id}/update-status-schedule`,
+            {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+                body: body,
+            }
+        );
+
+        if (response.ok) {
+            return await successCatcher(response);
+        }
+    
+        return await errorCatcher(response);
+    }
 }

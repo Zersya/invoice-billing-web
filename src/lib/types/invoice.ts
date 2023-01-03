@@ -16,6 +16,8 @@
 
 export interface InvoiceWithCustomer {
     id: string;
+    title: string;
+    description: string | null;
     invoice_number: string;
     customer_id: string;
     customer_name: string;
