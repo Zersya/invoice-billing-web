@@ -31,7 +31,7 @@ export const load: PageServerLoad = async ({ cookies }) => {
     }
 
     if (response.status === 401) {
-        throw redirect(300, '/');
+        throw redirect(303, '/');
     }
 
     return {

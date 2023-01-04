@@ -86,10 +86,15 @@
 			on:click={() => (isDetailInvoiceModalOpen = false)}>✕</button
 		>
 		<h3 class="text-lg font-bold mb-4">Detail Invoice</h3>
-		<div class="text-md font-bold">{selectedInvoice?.title}</div>
-		<div class="text-md">{selectedInvoice?.description}</div>
+		<div class="flex justify-between">
+			<div>
+				<div class="text-md font-bold">{selectedInvoice?.title}</div>
+				<div class="text-md">{selectedInvoice?.description}</div>
+			</div>
+			<div class="text-md font-bold">{selectedInvoice?.job_schedule?.status}</div>
+		</div>
 		{#if isDetailInvoiceModalOpen}
-			<Calendar schedules={[]} schedule={selectedInvoice?.job_schedule} />
+			<Calendar schedules={[selectedInvoice?.job_schedule]} />
 		{/if}
 	</div>
 </div>

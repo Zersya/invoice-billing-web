@@ -8,7 +8,6 @@
 	import type { JobSchedule } from '$lib/types/job_schedule';
 
 	export let schedules: Array<JobSchedule | undefined>;
-	export let schedule: JobSchedule | undefined;
 	export let isFullTitle: boolean = false;
 
 	let calendar: Calendar | undefined;
@@ -35,57 +34,34 @@
 
 		let events = [] as Object[];
 
-		if (schedule) {
-			let startTimeDate = moment(schedule.job_data.invoice_date)
-				.add(schedule.repeat_interval, 'seconds')
-				.toDate();
+		schedules.forEach((schedule) => {
+			if (!schedule) return;
 
-			let isPast = moment(startTimeDate).isBefore(moment());
+			for (let i = 0; i < schedule.total_repeat_count; i++) {
+				let startTimeDate = moment(schedule.job_data.invoice_date)
+					.add(i * schedule.repeat_interval, 'seconds')
+					.toDate();
 
-			let endTimeDate = moment(startTimeDate)
-				.add(3600 / 2, 'seconds')
-				.toDate();
+				let isPast = moment(startTimeDate).isBefore(moment());
 
-			events.push({
-				calendarId: `${schedule.id.toString()}`,
-				title: isFullTitle
-					? `${schedule.job_data.customer_name} | ${schedule.job_data.title}`
-					: schedule.job_data.title,
-				body: schedule.job_data.description,
-				start: startTimeDate,
-				end: endTimeDate,
-				category: 'time',
-				backgroundColor: isPast ? '#4caf50' : '#f44336'
-			});
-		}
+				let endTimeDate = moment(startTimeDate)
+					.add(3600 / 2, 'seconds')
+					.toDate();
 
-		if (schedules) {
-			schedules.forEach((schedule) => {
-				if (!schedule) return;
+				events.push({
+					calendarId: `${schedule.id.toString()} ${i.toString()}`,
+					title: isFullTitle
+						? `${schedule.job_data.customer_name} | ${schedule.job_data.title}`
+						: schedule.job_data.title,
+					body: schedule.job_data.description,
+					start: startTimeDate,
+					end: endTimeDate,
+					category: 'time',
+					backgroundColor: schedule.status == 'completed'? '#4075a6' : isPast ? '#4caf50' : '#f44336'
+				});
+			}
+		});
 
-				for (let i = 0; i < schedule.total_repeat_count; i++) {
-					let startTimeDate = moment(schedule.job_data.invoice_date)
-						.add(i * schedule.repeat_interval, 'seconds')
-						.toDate();
-
-					let isPast = moment(startTimeDate).isBefore(moment());
-
-					let endTimeDate = moment(startTimeDate)
-						.add(3600 / 2, 'seconds')
-						.toDate();
-
-					events.push({
-						calendarId: `${schedule.id.toString()} ${i.toString()}`,
-						title: `${schedule.job_data.customer_name} | ${schedule.job_data.title}`,
-						body: schedule.job_data.description,
-						start: startTimeDate,
-						end: endTimeDate,
-						category: 'time',
-						backgroundColor: isPast ? '#4caf50' : '#f44336'
-					});
-				}
-			});
-		}
 		calendar?.createEvents(events);
 	});
 </script>

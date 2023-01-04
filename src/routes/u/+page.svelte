@@ -7,4 +7,4 @@
 	
 </script>
 
-<Calendar isFullTitle={true} schedule={null} schedules={data.props.schedules} />
+<Calendar isFullTitle={true} schedules={data.props.schedules} />

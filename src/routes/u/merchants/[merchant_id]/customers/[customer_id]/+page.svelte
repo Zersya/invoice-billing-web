@@ -5,4 +5,4 @@
 	export let data: PageData;
 </script>
 
-<Calendar schedule={null} schedules={data.props.schedules} />
+<Calendar schedules={data.props.schedules} />
