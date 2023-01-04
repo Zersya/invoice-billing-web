@@ -18,9 +18,11 @@
 		return `${numbers[0]}-${times}-${user}`;
 	}
 
-	function classBadgeByScheduled(is_scheduled: boolean) {
+	function classBadgeByScheduled(status: string | undefined) {
 		var value = 'prose prose-sm badge badge-ghost gap-3 py-3 text-white';
-		return `${value} ${is_scheduled ? 'bg-success' : 'bg-error'}`;
+		return `${value} ${
+			status == undefined ? 'bg-error' : status == 'completed' ? 'bg-info' : 'bg-success'
+		}`;
 	}
 </script>
 
@@ -36,7 +38,9 @@
 {#if invoices.length <= 0}
 	<div class="flex flex-col justify-center items-center">
 		<span class="text-xl">No Data</span>
-		<button class="btn btn-square mt-4" on:click={() => redirect(303, `/u/merchants/${merchant_id}`)}
+		<button
+			class="btn btn-square mt-4"
+			on:click={() => redirect(303, `/u/merchants/${merchant_id}`)}
 			><svg
 				xmlns="http://www.w3.org/2000/svg"
 				class="h-5 w-5"
@@ -86,25 +90,33 @@
 									tabindex="0"
 									class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
 								>
-									<li>
-										<!-- svelte-ignore a11y-click-events-have-key-events -->
-										<label on:click={() => dispatch('set-schedule', invoice)}>Set Schedule</label>
-									</li>
-									{#if invoice.is_scheduled}
-									<li>
-										<!-- svelte-ignore a11y-click-events-have-key-events -->
-										<label on:click={() => dispatch('stop-schedule', invoice)}>Stop Schedule</label>
-									</li>
+									{#if invoice.job_schedule == null}
+										<li>
+											<!-- svelte-ignore a11y-click-events-have-key-events -->
+											<label on:click={() => dispatch('set-schedule', invoice)}>Set Schedule</label>
+										</li>
+									{:else}
+										<li>
+											<!-- svelte-ignore a11y-click-events-have-key-events -->
+											<label on:click={() => dispatch('detail-schedule', invoice)}
+												>Detail Schedule</label
+											>
+										</li>
+									{/if}
+									{#if invoice.job_schedule && invoice.job_schedule.status != 'completed'}
+										<li>
+											<!-- svelte-ignore a11y-click-events-have-key-events -->
+											<label on:click={() => dispatch('stop-schedule', invoice)}
+												>Stop Schedule</label
+											>
+										</li>
 									{/if}
 								</ul>
 							</div>
 						</div>
 
-						<span class={classBadgeByScheduled(invoice.is_scheduled)}>
-							<div
-								class="tooltip tooltip-bottom"
-								data-tip={invoice.is_scheduled ? 'Scheduled' : 'Not Scheduled'}
-							>
+						<span class={classBadgeByScheduled(invoice.job_schedule?.status)}>
+							<div class="tooltip tooltip-bottom" data-tip={invoice.job_schedule?.status}>
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
 									viewBox="0 0 24 24"

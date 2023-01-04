@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { Customer } from '$lib/types/customer';
 	import type { InvoiceWithCustomer } from '$lib/types/invoice';
+	import Calendar from '../../Calendar.svelte';
 	import ModalConfirm from '../../ModalConfirm.svelte';
 	import type { ActionData, PageData } from './$types';
 	import Customers from './Customers.svelte';
@@ -20,6 +21,7 @@
 	let isInvoiceStopScheduleModalOpen: boolean = false;
 	let isInvoiceModalOpen: boolean = false;
 	let isSetScheduleModalOpen: boolean = false;
+	let isDetailInvoiceModalOpen: boolean = false;
 </script>
 
 <div class="modal" class:modal-open={isCustomerModalOpen}>
@@ -74,6 +76,21 @@
 			invoice_id={selectedInvoice?.id}
 			on:completed={() => (isSetScheduleModalOpen = false)}
 		/>
+	</div>
+</div>
+
+<div class="modal" class:modal-open={isDetailInvoiceModalOpen}>
+	<div class="modal-box w-11/12 max-w-5xl var(--color-bg-1)">
+		<button
+			class="btn btn-sm btn-circle absolute right-2 top-2"
+			on:click={() => (isDetailInvoiceModalOpen = false)}>✕</button
+		>
+		<h3 class="text-lg font-bold mb-4">Detail Invoice</h3>
+		<div class="text-md font-bold">{selectedInvoice?.title}</div>
+		<div class="text-md">{selectedInvoice?.description}</div>
+		{#if isDetailInvoiceModalOpen}
+			<Calendar schedules={[]} schedule={selectedInvoice?.job_schedule} />
+		{/if}
 	</div>
 </div>
 
@@ -166,6 +183,10 @@
 <Invoices
 	invoices={data.props.invoices}
 	merchant_id={data.merchant_id}
+	on:detail-schedule={(invoice) => {
+		selectedInvoice = invoice.detail;
+		isDetailInvoiceModalOpen = true;
+	}}
 	on:set-schedule={(invoice) => {
 		selectedInvoice = invoice.detail;
 		isSetScheduleModalOpen = true;

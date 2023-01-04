@@ -1,6 +1,6 @@
 import { baseUrl } from '$lib/utils/vars';
-import type { Actions, PageServerLoad } from './$types';
-import {error, fail, redirect} from '@sveltejs/kit';
+import type { Actions } from './$types';
+import { redirect } from '@sveltejs/kit';
 
 export const actions = {
 
@@ -46,7 +46,7 @@ export const actions = {
             // redirect to merchant page
             throw redirect(303, '/u/merchants');
         } else {
-            return fail(response.status, { fail: true, message: data.message.value });
+            return { fail: true, message: data.message.value };
         }
 
     },

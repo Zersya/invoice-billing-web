@@ -24,7 +24,7 @@ export interface InvoiceWithCustomer {
     total_amount: number;
     invoice_date: string;
     created_at: string;
-    is_scheduled: boolean;
+    job_schedule: JobSchedule | undefined;
 }
 
 
@@ -96,4 +96,37 @@ export interface AvailableQrCode {
 
 export interface AvailableRetailOutlet {
     retail_outlet_name: string;
+}
+
+export interface JobSchedule {
+    created_at:         Date;
+    deleted_at:         null;
+    dependencies:       null;
+    id:                 number;
+    job_data:           JobData;
+    job_type:           string;
+    repeat_count:       number;
+    repeat_interval:    number;
+    retry_count:        null;
+    retry_interval:     null;
+    run_at:             Date;
+    status:             string;
+    total_repeat_count: number;
+    updated_at:         Date;
+}
+
+export interface JobData {
+    amount:         number;
+    created_by:     string;
+    customer_id:    string;
+    customer_name:  string;
+    description:    string;
+    invoice_date:   Date;
+    invoice_id:     string;
+    invoice_number: string;
+    merchant_id:    string;
+    tax_amount:     number;
+    tax_rate:       number;
+    title:          string;
+    total_amount:   number;
 }
