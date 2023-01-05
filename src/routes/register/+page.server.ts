@@ -44,7 +44,7 @@ export const actions = {
             })
 
             // redirect to merchant page
-            throw redirect(303, '/u/merchants');
+            throw redirect(301, '/u/merchants');
         } else {
             return { fail: true, message: data.message.value };
         }

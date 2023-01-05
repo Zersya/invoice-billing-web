@@ -11,7 +11,7 @@
 {#if data.props.invoices.length <= 0}
 	<div class="flex flex-col justify-center items-center">
 		<span class="text-xl">No Data</span>
-		<button class="btn btn-square mt-4" on:click={() => redirect(303, `/u/merchants/${data.merchant_id}`)}>
+		<button class="btn btn-square mt-4" on:click={() => redirect(301, `/u/merchants/${data.merchant_id}`)}>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
 				class="h-5 w-5"
