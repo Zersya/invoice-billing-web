@@ -1,11 +1,13 @@
 <script>
-	import "../app.css";
+	import '../app.css';
 	import './styles.css';
+	import { Toaster } from 'svelte-french-toast';
 </script>
 
 <div class="app">
 	<main>
 		<slot />
+		<Toaster />
 	</main>
 </div>
 

@@ -1,7 +1,7 @@
 import type { Customer } from "$lib/types/customer";
 import { redirect } from "@sveltejs/kit";
 import type { Actions, PageServerLoad } from "../$types";
-import { dateTimeFormatRequest, errorCatcher, localToUTC } from "$lib/utils/functions";
+import { dateTimeFormatRequest, errorCatcher, localToUTC, successCatcher } from '$lib/utils/functions';
 import { baseUrl } from "$lib/utils/vars";
 import type { ContactChannel } from "$lib/types/contact_channel";
 
@@ -91,7 +91,7 @@ export const actions: Actions = {
         );
 
         if (response.ok) {
-            return { success: true };
+            return await successCatcher(response);
         }
     
         return await errorCatcher(response);
@@ -124,7 +124,7 @@ export const actions: Actions = {
 
 
         if (response.ok) {
-            return { success: true };
+            return await successCatcher(response);
         }
 
         return await errorCatcher(response);
@@ -151,7 +151,7 @@ export const actions: Actions = {
 
 
         if (response.ok) {
-            return { success: true };
+            return await successCatcher(response);
         }
 
         return await errorCatcher(response);
@@ -191,7 +191,7 @@ export const actions: Actions = {
         );
 
         if (response.ok) {
-            return { success: true };
+            return await successCatcher(response);
         }
     
         return await errorCatcher(response);
@@ -250,7 +250,7 @@ export const actions: Actions = {
         );
 
         if (response.ok) {
-            return { success: true };
+            return await successCatcher(response);
         }
     
         return await errorCatcher(response);

@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { enhance, applyAction } from '$app/forms';
+	import { redirect } from '@sveltejs/kit';
+	import toast from 'svelte-french-toast';
 
 	let email = '';
 	let password = '';
@@ -12,8 +14,22 @@
 	use:enhance={(_) => {
 		isLoading = true;
 
-		return async ({ result }) => {
+		return async ({ result, update }) => {
 			isLoading = false;
+
+			if (result.type === 'success') {
+				let msg = result.data?.message;
+				let capitalize = msg.charAt(0).toUpperCase() + msg.slice(1);
+
+				if (result.data?.fail) {
+					toast.error(capitalize);
+				} else if (result.data?.success) {
+					toast.success(capitalize);
+				}
+
+				await update({ reset: false });
+			}
+
 			await applyAction(result);
 		};
 	}}

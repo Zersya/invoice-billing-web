@@ -1,5 +1,5 @@
 import type { Merchant } from '$lib/types/merchant';
-import { errorCatcher } from '$lib/utils/functions';
+import { errorCatcher, successCatcher } from '$lib/utils/functions';
 import { baseUrl } from '$lib/utils/vars';
 import type { Actions, PageServerLoad } from './$types';
 import {redirect} from "@sveltejs/kit";
@@ -68,9 +68,7 @@ export const actions: Actions = {
 
     
         if (response.ok) {
-    
-            return { success: true };
-    
+            return await successCatcher(response);
         }
     
         return await errorCatcher(response);
@@ -103,7 +101,7 @@ export const actions: Actions = {
         );
 
         if (response.ok) {
-            return { success: true };
+            return await successCatcher(response);
         }
 
         return await errorCatcher(response);
@@ -127,7 +125,7 @@ export const actions: Actions = {
         );
 
         if (response.ok) {
-            return { success: true };
+            return await successCatcher(response);
         }
 
         return await errorCatcher(response);

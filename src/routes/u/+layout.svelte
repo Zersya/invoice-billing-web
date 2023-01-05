@@ -3,6 +3,7 @@
 	import '../styles.css';
 	import inving from '$lib/images/inving-logo.png';
 	import Breadcumbs from './Breadcumbs.svelte';
+
 </script>
 
 <main>

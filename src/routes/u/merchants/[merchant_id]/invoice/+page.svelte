@@ -1,11 +1,8 @@
 <script lang="ts">
-	import type { Customer } from '$lib/types/customer';
-	import { formatDate } from '$lib/utils/functions';
-	import { error, redirect } from '@sveltejs/kit';
-	import type { ActionData, PageData } from './$types';
+	import { redirect } from '@sveltejs/kit';
+	import type { PageData } from './$types';
 
 	export let data: PageData;
-	export let form: ActionData;
 </script>
 
 {#if data.props.invoices.length <= 0}

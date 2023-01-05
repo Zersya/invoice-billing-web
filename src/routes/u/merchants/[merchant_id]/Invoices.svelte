@@ -95,7 +95,7 @@
 											<!-- svelte-ignore a11y-click-events-have-key-events -->
 											<label on:click={() => dispatch('set-schedule', invoice)}>Set Schedule</label>
 										</li>
-									{:else}
+									{:else if invoice.job_schedule}
 										<li>
 											<!-- svelte-ignore a11y-click-events-have-key-events -->
 											<label on:click={() => dispatch('detail-schedule', invoice)}

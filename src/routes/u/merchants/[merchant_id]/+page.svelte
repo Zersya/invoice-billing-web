@@ -3,7 +3,7 @@
 	import type { InvoiceWithCustomer } from '$lib/types/invoice';
 	import Calendar from '../../Calendar.svelte';
 	import ModalConfirm from '../../ModalConfirm.svelte';
-	import type { ActionData, PageData } from './$types';
+	import type { PageData } from './$types';
 	import Customers from './Customers.svelte';
 	import FormCustomer from './FormCustomer.svelte';
 	import FormInvoice from './FormInvoice.svelte';
@@ -11,7 +11,6 @@
 	import Invoices from './Invoices.svelte';
 
 	export let data: PageData;
-	export let form: ActionData;
 
 	let selectedCustomer: Customer | null = null;
 	let selectedInvoice: InvoiceWithCustomer | null = null;
@@ -132,36 +131,6 @@
 	<input type="hidden" name="invoice_id" value={selectedInvoice?.id} />
 	<input type="hidden" name="merchant_id" value={data.merchant_id} />
 </ModalConfirm>
-
-{#if form?.fail}
-	<div class="alert alert-error shadow-lg mb-5 rounded-md">
-		<div>
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				class="stroke-current flex-shrink-0 h-6 w-6"
-				fill="none"
-				viewBox="0 0 24 24"
-				><path d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg
-			>
-			<span>Error! {form?.message}</span>
-		</div>
-	</div>
-{/if}
-
-{#if form?.success}
-	<div class="alert alert-success shadow-lg mb-5 rounded-md">
-		<div>
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				class="stroke-current flex-shrink-0 h-6 w-6"
-				fill="none"
-				viewBox="0 0 24 24"
-				><path d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg
-			>
-			<span>Success! {form?.message}</span>
-		</div>
-	</div>
-{/if}
 
 <Customers
 	customers={data.props.customers}

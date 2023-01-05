@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { applyAction, enhance } from '$app/forms';
 	import { createEventDispatcher } from 'svelte';
+	import toast from 'svelte-french-toast';
 
 	export let action: string;
 
@@ -19,11 +20,20 @@
 			isLoading = false;
 
 			if (result.type === 'success') {
+				let msg = result.data?.message;
+				let capitalize = msg.charAt(0).toUpperCase() + msg.slice(1);
+
 				dispatch('completed');
 
+				if (result.data?.fail) {
+					toast.error(capitalize);
+				} else if (result.data?.success) {
+					toast.success(capitalize);
+				}
+
 				await update({ reset: true });
-				await applyAction(result);
 			}
+			await applyAction(result);
 		};
 	}}
 >

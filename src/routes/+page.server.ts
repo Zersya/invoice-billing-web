@@ -1,6 +1,7 @@
 import { baseUrl } from '$lib/utils/vars';
 import type { Actions, PageServerLoad } from './/$types';
 import {error, fail, redirect} from '@sveltejs/kit';
+import { errorCatcher, successCatcher } from '$lib/utils/functions';
 
 export const actions = {
 
@@ -41,8 +42,9 @@ export const actions = {
                 path: '/',
             })
 
+            return { success: true, message: data.message.value };
             // redirect to merchant page
-            throw redirect(301, '/u');
+            // throw redirect(301, '/u');
         } else {
             return { fail: true, message: data.message.value };
         }

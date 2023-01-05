@@ -6,6 +6,7 @@ import { baseUrl } from "$lib/utils/vars";
 import type { ContactChannel } from "$lib/types/contact_channel";
 import type { InvoiceWithCustomer } from "$lib/types/invoice";
 
+
 export const load: PageServerLoad = async ({ cookies, params }) => {
 
     const merchantId = params.merchant_id;
@@ -104,7 +105,7 @@ export const actions: Actions = {
         );
 
         if (response.ok) {
-            return { success: true };
+            return await successCatcher(response);
         }
     
         return await errorCatcher(response);
@@ -137,7 +138,7 @@ export const actions: Actions = {
 
 
         if (response.ok) {
-            return { success: true };
+            return await successCatcher(response);
         }
 
         return await errorCatcher(response);
@@ -164,7 +165,7 @@ export const actions: Actions = {
 
 
         if (response.ok) {
-            return { success: true };
+            return await successCatcher(response);
         }
 
         return await errorCatcher(response);
@@ -208,7 +209,7 @@ export const actions: Actions = {
         );
 
         if (response.ok) {
-            return { success: true };
+            return await successCatcher(response);
         }
     
         return await errorCatcher(response);
@@ -267,7 +268,7 @@ export const actions: Actions = {
         );
 
         if (response.ok) {
-            return { success: true };
+            return await successCatcher(response);
         }
     
         return await errorCatcher(response);

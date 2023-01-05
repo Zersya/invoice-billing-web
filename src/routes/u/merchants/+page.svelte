@@ -1,13 +1,11 @@
 <script lang="ts">
-	import { page } from '$app/stores';
 	import type { Merchant } from '$lib/types/merchant';
 	import { formatDate } from '$lib/utils/functions';
-	import { fail, redirect } from '@sveltejs/kit';
+	import { redirect } from '@sveltejs/kit';
 	import ModalConfirm from '../ModalConfirm.svelte';
-	import type { ActionData, PageData } from './$types';
+	import type { PageData } from './$types';
 	import Form from '../Form.svelte';
 
-	export let form: ActionData;
 	export let data: PageData;
 
 	let selectedMerchant: Merchant | null = null;
@@ -102,26 +100,6 @@
 		</div>
 	</div>
 </div>
-{#if form?.fail}
-	<div class="alert alert-error shadow-lg mb-5 rounded-md">
-		<div>
-			<svg
-				xmlns="http://www.w3.org/2000/svg"
-				class="stroke-current flex-shrink-0 h-6 w-6"
-				fill="none"
-				viewBox="0 0 24 24"
-				><path
-					strokeLinecap="round"
-					strokeLinejoin="round"
-					strokeWidth="2"
-					d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
-				/></svg
-			>
-			<span>Error! {form?.message}</span>
-		</div>
-	</div>
-{/if}
-
 {#if data.props.merchants.length <= 0}
 	<div class="flex flex-col justify-center items-center">
 		<span class="text-xl">No Data</span>

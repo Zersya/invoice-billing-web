@@ -3,7 +3,7 @@
 	import ModalConfirm from '../../../ModalConfirm.svelte';
 	import Customers from '../Customers.svelte';
 	import FormCustomer from '../FormCustomer.svelte';
-	import type { ActionData, PageData } from './$types';
+	import type { PageData } from './$types';
 
 	export let data: PageData;
 
