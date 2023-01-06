@@ -20,7 +20,7 @@ export const actions = {
                 },
                 body: JSON.stringify(
                     {
-                        "email": email,
+                        "email": email?.toString().toLowerCase(),
                         "password": password
                     }
                 ),

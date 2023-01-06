@@ -7,7 +7,12 @@
 <div class="app">
 	<main>
 		<slot />
-		<Toaster />
+		<Toaster
+			toastOptions={{
+				duration: 5000,
+				position: 'top-right'
+			}}
+		/>
 	</main>
 </div>
 

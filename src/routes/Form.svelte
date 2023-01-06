@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { enhance, applyAction } from '$app/forms';
-	import { redirect } from '@sveltejs/kit';
 	import toast from 'svelte-french-toast';
 
 	let email = '';

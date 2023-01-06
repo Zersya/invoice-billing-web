@@ -1,10 +1,9 @@
 import { baseUrl } from '$lib/utils/vars';
 import type { Actions } from './$types';
-import { redirect } from '@sveltejs/kit';
 
 export const actions = {
 
-    default: async ({ request, cookies}) => {
+    default: async ({ request }) => {
 
         const formData = await request.formData();
         const name = formData.get('name');
@@ -21,7 +20,7 @@ export const actions = {
                 body: JSON.stringify(
                     {
                         "name": name,
-                        "email": email,
+                        "email": email?.toString().toLowerCase(),
                         "password": password
                     }
                 ),
@@ -31,20 +30,7 @@ export const actions = {
         const data = await response.json();
 
         if (response.ok) {
-
-            cookies.set('token', data.access_token, {
-                // expires in 1 hour
-                maxAge: 60 * 60,
-                httpOnly: true,
-                path: '/',
-            });
-
-            cookies.set('user_id', data.data.id, {
-                path: '/',
-            })
-
-            // redirect to merchant page
-            throw redirect(301, '/u/merchants');
+            return { success: true, message: data.message.value };
         } else {
             return { fail: true, message: data.message.value };
         }

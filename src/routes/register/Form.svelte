@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { applyAction, enhance } from '$app/forms';
+	import toast from 'svelte-french-toast';
 
 	let name = '';
 	let email = '';
@@ -19,9 +20,21 @@
 		isLoading = true;
 
 		return async ({ result, update }) => {
-			// `result` is an `ActionResult` object
-			// `update` is a function which triggers the logic that would be triggered if this callback wasn't set
 			isLoading = false;
+
+			if (result.type === 'success') {
+				let msg = result.data?.message;
+				let capitalize = msg.charAt(0).toUpperCase() + msg.slice(1);
+
+				if (result.data?.fail) {
+					toast.error(capitalize);
+				} else if (result.data?.success) {
+					toast.success(capitalize);
+				}
+
+				await update({ reset: false });
+			}
+
 			await applyAction(result);
 		};
 	}}
