@@ -9,7 +9,7 @@
 	export let name: string | undefined;
 	export let contact_channel_id: string | undefined;
 	export let contact_channel_value: string | undefined;
-	export let tags: string[]  = [];
+	export let tags: string[] | undefined;
 
 	let tag: string = '';
 
@@ -61,7 +61,7 @@
 			bind:value={contact_channel_value}
 			class={`${inputClassReadOnly(id)} mb-3`}
 		/>
-		<label for="contact_channel_id"  class="required">Channel</label>
+		<label for="contact_channel_id" class="required">Channel</label>
 		<select
 			required
 			name="contact_channel_id"
@@ -86,6 +86,8 @@
 				if (e.key === 'Enter') {
 					e.preventDefault();
 					if (!e.target) return;
+					if (!tags) tags = [];
+
 					tags = [...tags, tag];
 					tag = '';
 				}
@@ -95,11 +97,13 @@
 			<span class="label-text-alt">Press <kbd class="kbd kbd-xs">Enter</kbd> to add</span>
 		</label>
 		<div class="flex flex-wrap mb-3 h-5">
-			{#each tags as tag}
-				<div class="badge badge-neutral mr-1 mb-1">{tag}</div>
-			{/each}
+			{#if tags}
+				{#each tags as tag}
+					<div class="badge badge-neutral mr-1 mb-1">{tag}</div>
+				{/each}
 
-			<input type="hidden" name="tags" value={tags.join(',')} />
+				<input type="hidden" name="tags" value={tags.join(',')} />
+			{/if}
 
 		</div>
 	</div>
