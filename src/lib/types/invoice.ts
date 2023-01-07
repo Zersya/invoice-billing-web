@@ -14,6 +14,8 @@
 //     "updated_at": "2022-12-24T16:04:40.571291",
 // },
 
+import type { JobSchedule } from "./job_schedule";
+
 export interface InvoiceWithCustomer {
     id: string;
     title: string;
@@ -96,23 +98,6 @@ export interface AvailableQrCode {
 
 export interface AvailableRetailOutlet {
     retail_outlet_name: string;
-}
-
-export interface JobSchedule {
-    created_at:         Date;
-    deleted_at:         null;
-    dependencies:       null;
-    id:                 number;
-    job_data:           JobData;
-    job_type:           string;
-    repeat_count:       number;
-    repeat_interval:    number;
-    retry_count:        null;
-    retry_interval:     null;
-    run_at:             Date;
-    status:             string;
-    total_repeat_count: number;
-    updated_at:         Date;
 }
 
 export interface JobData {

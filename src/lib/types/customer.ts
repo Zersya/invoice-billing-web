@@ -17,5 +17,5 @@ export interface Customer {
     created_at: string;
     updated_at: string;
     deleted_at: string | null;
-    tags: string[] | null;
+    tags: string[];
 }
