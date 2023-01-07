@@ -34,7 +34,7 @@
 		</div>
 
 		{#if is_recurring}
-			<label for="start_schedule_date">Start Schedule Date</label>
+			<label for="start_schedule_date" class="required">Start Schedule Date</label>
 			<input
 				name="start_schedule_date"
 				type="date"
@@ -42,7 +42,7 @@
 				class="input pa-4 rounded-lg w-full mb-3"
 			/>
 
-			<label for="end_schedule_date">End Schedule Date</label>
+			<label for="end_schedule_date" class="required">End Schedule Date</label>
 			<input
 				name="end_schedule_date"
 				type="date"
@@ -50,7 +50,7 @@
 				class="input pa-4 rounded-lg w-full mb-3"
 			/>
 
-			<label for="repeat_interval_type">Repeat Interval Type</label>
+			<label for="repeat_interval_type" class="required">Repeat Interval Type</label>
 			<select name="repeat_interval_type" class="input pa-4 rounded-lg w-full mb-3">
 				<option disabled>Pick your repeat interval type</option>
 				<option value="PERMINUTE">Per-minute</option>

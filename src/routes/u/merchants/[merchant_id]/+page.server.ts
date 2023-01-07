@@ -85,6 +85,26 @@ export const actions: Actions = {
         const name = formData.get('name');
         const contact_channel_id = formData.get('contact_channel_id');
         const contact_channel_value = formData.get('contact_channel_value');
+        const tags = formData.get('tags');
+
+        const tagsArray = tags?.toString().split(',').map((tag) => tag.trim());
+
+        const body = JSON.stringify(
+            {
+                "name": name,
+                "contact_channel_id": contact_channel_id,
+                "contact_channel_value": contact_channel_value,
+                "tags": tagsArray,
+            }
+        );
+
+        if (name !== null && name?.length < 4) {
+            return { fail: true, message: 'Please enter a name with at least 4 characters' };
+        }
+
+        if (tagsArray?.length === 1 && tagsArray[0] === '') {
+            return { fail: true, message: 'Please add one or more tags to the customers' };
+        }
 
         const response = await fetch(
             `${baseUrl}/merchant/${merchant_id}/customer`,
@@ -94,13 +114,7 @@ export const actions: Actions = {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${token}`,
                 },
-                body: JSON.stringify(
-                    {
-                        "name": name,
-                        "contact_channel_id": contact_channel_id,
-                        "contact_channel_value": contact_channel_value
-                    }
-                ),
+                body: body,
             }
         );
 

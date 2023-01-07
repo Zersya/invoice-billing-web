@@ -9,22 +9,25 @@
 	export let name: string | undefined;
 	export let contact_channel_id: string | undefined;
 	export let contact_channel_value: string | undefined;
+	export let tags: string[]  = [];
+
+	let tag: string = '';
 
 	export let contact_channels: ContactChannel[];
 
 	function inputClassReadOnly(id: string | undefined) {
 		if (id) {
-			return 'input w-full mb-3 bg-gray-200';
+			return 'input w-full bg-gray-200';
 		} else {
-			return 'input w-full mb-3';
+			return 'input w-full';
 		}
 	}
 
 	function selectClassReadOnly(id: string | undefined) {
 		if (id) {
-			return 'select w-full max-w mb-3 bg-gray-200';
+			return 'select w-full max-w bg-gray-200';
 		} else {
-			return 'select w-full max-w mb-3';
+			return 'select w-full max-w';
 		}
 	}
 
@@ -39,27 +42,30 @@
 		<input type="hidden" name="id" value={id} />
 		<input type="hidden" name="merchant_id" value={merchant_id} />
 
-		<label for="name">Name</label>
+		<label for="name" class="required">Name</label>
 		<input
+			required
 			name="name"
 			type="text"
 			placeholder="Type your merchant name here"
 			bind:value={name}
 			class="input w-full mb-3"
 		/>
-		<label for="contact_channel_value">Phone/Email</label>
+		<label for="contact_channel_value"  class="required">Phone/Email</label>
 		<input
+			required
 			name="contact_channel_value"
 			type="number"
 			readonly={id ? true : false}
 			placeholder="Type your merchant phone/email here"
 			bind:value={contact_channel_value}
-			class={inputClassReadOnly(id)}
+			class={`${inputClassReadOnly(id)} mb-3`}
 		/>
-		<label for="contact_channel_value">Channel</label>
+		<label for="contact_channel_id"  class="required">Channel</label>
 		<select
+			required
 			name="contact_channel_id"
-			class={selectClassReadOnly(id)}
+			class={`${selectClassReadOnly(id)} mb-3`}
 			bind:value={contact_channel_id}
 		>
 			<option disabled>Pick your message channel</option>
@@ -67,6 +73,35 @@
 				<option value={channel.id}>{channel.name}</option>
 			{/each}
 		</select>
+		<label for="tags" class="label">
+			<span class="label-text required">Tags</span>
+			<span class="label-text-alt">Customers are grouped using tags</span>
+		</label>
+		<input
+			type="text"
+			placeholder="Type your customer tags here"
+			bind:value={tag}
+			class={`${inputClassReadOnly(id)}`}
+			on:keydown={e => {
+				if (e.key === 'Enter') {
+					e.preventDefault();
+					if (!e.target) return;
+					tags = [...tags, tag];
+					tag = '';
+				}
+			}}
+		/>
+		<label for="tags" class="label mb-3">
+			<span class="label-text-alt">Press <kbd class="kbd kbd-xs">Enter</kbd> to add</span>
+		</label>
+		<div class="flex flex-wrap mb-3 h-5">
+			{#each tags as tag}
+				<div class="badge badge-neutral mr-1 mb-1">{tag}</div>
+			{/each}
+
+			<input type="hidden" name="tags" value={tags.join(',')} />
+
+		</div>
 	</div>
 	<button
 		slot="submit"

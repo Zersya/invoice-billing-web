@@ -37,16 +37,18 @@
 			<div slot="input">
 				<input type="hidden" name="id" value={selectedMerchant?.id} />
 
-				<label for="name">Name</label>
+				<label for="name" class="required">Name</label>
 				<input
+					required
 					name="name"
 					type="text"
 					placeholder="Type your merchant name here"
 					value={selectedMerchant?.name || ''}
 					class="input w-full mb-3"
 				/>
-				<label for="description">Description</label>
+				<label for="description" class="required">Description</label>
 				<input
+					required
 					name="description"
 					type="multiline"
 					placeholder="Type your merchant description here"

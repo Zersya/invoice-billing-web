@@ -9,7 +9,7 @@
 		<slot />
 		<Toaster
 			toastOptions={{
-				duration: 5000,
+				duration: 8000,
 				position: 'top-right'
 			}}
 		/>

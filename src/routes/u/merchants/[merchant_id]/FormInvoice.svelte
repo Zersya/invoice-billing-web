@@ -21,7 +21,7 @@
 		<input type="hidden" name="customer_id" value={customer_id} />
 		<input type="hidden" name="merchant_id" value={merchant_id} />
 		
-		<label for="title">Title</label>
+		<label for="title" class="required">Title</label>
 		<input
 			required
 			name="title"
@@ -36,7 +36,7 @@
 			placeholder="Type your description here"
 			class="input w-full mb-3"
 		/>
-		<label for="amount">Amount</label>
+		<label for="amount" class="required">Amount</label>
 		<input
 			required
 			name="amount"
@@ -44,7 +44,7 @@
 			placeholder="Type your amount here"
 			class="input w-full mb-3"
 		/>
-		<label for="date">Date</label>
+		<label for="date" class="required">Date</label>
 		<input required name="date" type="date" value={today} class="input pa-4 rounded-lg w-full mb-2" />
 		<span class="label-text-alt">Your actual print date of the invoice</span>
 

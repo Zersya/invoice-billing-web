@@ -23,15 +23,16 @@
 				let msg = result.data?.message;
 				let capitalize = msg.charAt(0).toUpperCase() + msg.slice(1);
 
-				dispatch('completed');
-
 				if (result.data?.fail) {
+					await update({ reset: false });
+
 					toast.error(capitalize);
 				} else if (result.data?.success) {
+					await update({ reset: true });
+					dispatch('completed');
+
 					toast.success(capitalize);
 				}
-
-				await update({ reset: true });
 			}
 			await applyAction(result);
 		};
