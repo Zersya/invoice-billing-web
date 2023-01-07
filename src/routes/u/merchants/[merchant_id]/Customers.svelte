@@ -94,6 +94,15 @@
 							</div>
 						</div>
 						<p class="mb-3 prose prose-sm badge">{customer.contact_channel_name}</p>
+
+						{#if customer.tags}
+							<div class="flex flex-wrap mb-3 h-5">
+								{#each customer.tags as tag}
+									<div class="badge badge-outline mr-1 mb-1">{tag}</div>
+								{/each}
+							</div>
+						{/if}
+
 						<div class="flex flex-row justify-between">
 							<div class="flex flex-col">
 								<span class="text-gray-500">Updated Date</span>

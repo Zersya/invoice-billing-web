@@ -116,7 +116,7 @@
 						</div>
 
 						<span class={classBadgeByScheduled(invoice.job_schedule?.status)}>
-							<div class="tooltip tooltip-bottom" data-tip={invoice.job_schedule?.status}>
+							<div class="tooltip tooltip-bottom" data-tip={invoice.job_schedule?.status || 'not scheduled'}>
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
 									viewBox="0 0 24 24"

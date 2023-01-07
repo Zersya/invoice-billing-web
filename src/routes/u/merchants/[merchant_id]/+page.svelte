@@ -43,6 +43,7 @@
 			name={selectedCustomer?.name}
 			contact_channel_id={selectedCustomer?.contact_channel_id}
 			contact_channel_value={selectedCustomer?.contact_channel_value}
+			tags={selectedCustomer?.tags}
 			on:completed={() => (isCustomerModalOpen = false)}
 		/>
 	</div>
