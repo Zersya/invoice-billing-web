@@ -6,7 +6,7 @@
 	<title>Home</title>
 </svelte:head>
 
-<div class="border-solid">
+<div class="border-solid my-auto mx-5">
 	<div class="my-5">
 		<div class="prose prose-xl">Login</div>
 		<div class="prose prose-slate prose-sm mb-5">Please sign in before using <b>Inving</b></div>

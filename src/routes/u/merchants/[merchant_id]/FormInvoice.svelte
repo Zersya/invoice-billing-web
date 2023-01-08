@@ -53,6 +53,6 @@
 		slot="submit"
 		let:isLoading
 		type="submit"
-		class="btn btn-block mt-5 {isLoading ? 'loading' : ''}">Save</button
+		class="btn btn-block btn-primary mt-5 {isLoading ? 'loading' : ''}">Save</button
 	>
 </Form>

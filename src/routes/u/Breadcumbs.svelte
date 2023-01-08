@@ -29,7 +29,7 @@
 	}
 </script>
 
-<div class="text-sm breadcrumbs ml-5 mt-3">
+<div class="text-sm breadcrumbs mt-3">
 	<ul>
 		{#each urlSplit as item}
 			{#if item.name !== ''}

@@ -33,7 +33,7 @@
 						<!-- svelte-ignore a11y-label-has-associated-control -->
 						<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 						<div class="dropdown dropdown-end">
-							<label tabindex="0" class="btn btn-ghost btn-circle">
+							<label tabindex="0" class="btn btn-ghost btn-circle btn-primary">
 								<svg
 									xmlns="http://www.w3.org/2000/svg"
 									class="h-5 w-5"

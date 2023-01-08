@@ -26,7 +26,7 @@
 <div class="modal" class:modal-open={isCustomerModalOpen}>
 	<div class="modal-box relative var(--color-bg-1)">
 		<button
-			class="btn btn-sm btn-circle absolute right-2 top-2"
+			class="btn btn-sm btn-circle btn-primary absolute right-2 top-2"
 			on:click={() => (isCustomerModalOpen = false)}>✕</button
 		>
 		<h3 class="text-lg font-bold mb-4">
@@ -52,7 +52,7 @@
 <div class="modal" class:modal-open={isInvoiceModalOpen}>
 	<div class="modal-box relative var(--color-bg-1)">
 		<button
-			class="btn btn-sm btn-circle absolute right-2 top-2"
+			class="btn btn-sm btn-circle btn-primary absolute right-2 top-2"
 			on:click={() => (isInvoiceModalOpen = false)}>✕</button
 		>
 		<h3 class="text-lg font-bold mb-4">Form Create Invoice</h3>
@@ -67,7 +67,7 @@
 <div class="modal" class:modal-open={isSetScheduleModalOpen}>
 	<div class="modal-box relative var(--color-bg-1)">
 		<button
-			class="btn btn-sm btn-circle absolute right-2 top-2"
+			class="btn btn-sm btn-circle btn-primary absolute right-2 top-2"
 			on:click={() => (isSetScheduleModalOpen = false)}>✕</button
 		>
 		<h3 class="text-lg font-bold mb-4">Send Invoice</h3>
@@ -82,7 +82,7 @@
 <div class="modal" class:modal-open={isDetailInvoiceModalOpen}>
 	<div class="modal-box w-11/12 max-w-5xl var(--color-bg-1)">
 		<button
-			class="btn btn-sm btn-circle absolute right-2 top-2"
+			class="btn btn-sm btn-circle btn-primary absolute right-2 top-2"
 			on:click={() => (isDetailInvoiceModalOpen = false)}>✕</button
 		>
 		<h3 class="text-lg font-bold mb-4">Detail Invoice</h3>

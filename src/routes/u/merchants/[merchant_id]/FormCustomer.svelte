@@ -111,6 +111,6 @@
 		slot="submit"
 		let:isLoading
 		type="submit"
-		class="btn btn-block {isLoading ? 'loading' : ''}">Save</button
+		class="btn btn-block btn-primary {isLoading ? 'loading' : ''}">Save</button
 	>
 </Form>

@@ -16,7 +16,7 @@
 <div class="modal" class:modal-open={isCustomerModalOpen}>
 	<div class="modal-box relative var(--color-bg-1)">
 		<button
-			class="btn btn-sm btn-circle absolute right-2 top-2"
+			class="btn btn-sm btn-circle btn-primary absolute right-2 top-2"
 			on:click={() => (isCustomerModalOpen = false)}>✕</button
 		>
 		<h3 class="text-lg font-bold mb-4">
@@ -33,6 +33,7 @@
 			name={selectedCustomer?.name}
 			contact_channel_id={selectedCustomer?.contact_channel_id}
 			contact_channel_value={selectedCustomer?.contact_channel_value}
+			tags={selectedCustomer?.tags}
 			on:completed={() => (isCustomerModalOpen = false)}
 		/>
 	</div>

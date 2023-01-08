@@ -50,7 +50,7 @@
 		class="input w-full mb-4"
 	/>
 
-	<button type="submit" class="btn btn-block {isLoading ? 'loading' : ''}">Login</button>
+	<button type="submit" class="btn btn-block btn-primary {isLoading ? 'loading' : ''}">Login</button>
 </form>
 
 <style>

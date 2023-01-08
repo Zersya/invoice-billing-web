@@ -14,11 +14,15 @@
 	let date: Date | undefined;
 
 	onMount(() => {
+		// is on mobile device
+		let isMobile = window.innerWidth < 768;
+
 		calendar = new Calendar('#calendar', {
-			defaultView: 'month',
+			defaultView: isMobile ? 'day' : 'month',
+			isReadOnly: true,
 			template: {
 				time(event) {
-					const { start, end, title } = event;
+					const { start, title } = event;
 
 					// get time start HH:mm from start string
 					const startHour = utcToLocal(start).toLocaleString('id-ID', {
@@ -57,7 +61,8 @@
 					start: startTimeDate,
 					end: endTimeDate,
 					category: 'time',
-					backgroundColor: schedule.status == 'completed'? '#4075a6' : isPast ? '#4caf50' : '#f44336'
+					backgroundColor:
+						schedule.status == 'completed' ? '#4075a6' : isPast ? '#4caf50' : '#f44336'
 				});
 			}
 		});
@@ -67,10 +72,17 @@
 </script>
 
 {#if calendar}
-	<div class="flex justify-between">
+	<div class="md:flex sm:flex-wrap md:justify-between">
 		<div class="flex my-5">
 			<button
-				class="btn rounded-r-none btn-square"
+				class="btn btn-outline btn-sm mr-2"
+				on:click={() => {
+					calendar?.today();
+					date = calendar?.getDate().toDate();
+				}}>Today</button
+			>
+			<button
+				class="btn btn-outline btn-circle btn-sm mr-2"
 				on:click={() => {
 					calendar?.prev();
 					date = calendar?.getDate().toDate();
@@ -79,7 +91,6 @@
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					class="h-6 w-6"
-					fill="white"
 					viewBox="0 0 24 24"
 					stroke="currentColor"
 					><path
@@ -91,14 +102,7 @@
 				>
 			</button>
 			<button
-				class="btn rounded-none"
-				on:click={() => {
-					calendar?.today();
-					date = calendar?.getDate().toDate();
-				}}>Today</button
-			>
-			<button
-				class="btn rounded-l-none btn-square"
+				class="btn btn-outline btn-circle btn-sm"
 				on:click={() => {
 					calendar?.next();
 					date = calendar?.getDate().toDate();
@@ -106,7 +110,6 @@
 				><svg
 					xmlns="http://www.w3.org/2000/svg"
 					class="h-6 w-6"
-					fill="white"
 					viewBox="0 0 24 24"
 					stroke="currentColor"
 					><path

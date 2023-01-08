@@ -53,7 +53,7 @@
 			<label for="repeat_interval_type" class="required">Repeat Interval Type</label>
 			<select name="repeat_interval_type" class="input pa-4 rounded-lg w-full mb-3">
 				<option disabled>Pick your repeat interval type</option>
-				<option value="PERMINUTE">Per-minute</option>
+				<!-- <option value="PERMINUTE">Per-minute</option> -->
 				<option value="HOURLY">Hourly</option>
 				<option value="DAILY">Daily</option>
 				<option value="WEEKLY">Weekly</option>
@@ -66,7 +66,7 @@
 		slot="submit"
 		let:isLoading
 		type="submit"
-		class="btn btn-block mt-5 {isLoading ? 'loading' : ''}">Send</button
+		class="btn btn-block btn-primary mt-5 {isLoading ? 'loading' : ''}">Send</button
 	>
 </Form>
 <!-- 
@@ -114,5 +114,5 @@
 		<option value="MONTHLY">Monthly</option>
 	</select>
 
-	<button type="submit" class="btn btn-block mt-5">Save</button>
+	<button type="submit" class="btn btn-block btn-primary mt-5">Save</button>
 </form> -->

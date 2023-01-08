@@ -17,7 +17,7 @@
 <div class="modal" class:modal-open={isFormModalOpen}>
 	<div class="modal-box relative var(--color-bg-1)">
 		<button
-			class="btn btn-sm btn-circle absolute right-2 top-2"
+			class="btn btn-sm btn-circle btn-primary absolute right-2 top-2"
 			on:click={() => (isFormModalOpen = false)}>✕</button
 		>
 		<h3 class="text-lg font-bold mb-4">
@@ -61,7 +61,7 @@
 				slot="submit"
 				let:isLoading
 				type="submit"
-				class="btn btn-block {isLoading ? 'loading' : ''}">Save</button
+				class="btn btn-block btn-primary {isLoading ? 'loading' : ''}">Save</button
 			>
 		</Form>
 	</div>
@@ -93,7 +93,7 @@
 			<!-- svelte-ignore a11y-click-events-have-key-events -->
 			<label
 				for="form-merchant"
-				class="btn btn-active"
+				class="btn btn-primary"
 				on:click={() => {
 					selectedMerchant = null;
 					isFormModalOpen = true;
@@ -132,7 +132,7 @@
 							<div class="dropdown dropdown-end">
 								<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 								<!-- svelte-ignore a11y-label-has-associated-control -->
-								<label tabindex="0" class="btn btn-ghost btn-circle">
+								<label tabindex="0" class="btn btn-ghost btn-circle btn-primary">
 									<svg
 										xmlns="http://www.w3.org/2000/svg"
 										class="h-5 w-5"
@@ -178,7 +178,7 @@
 						<p class="mb-3">{merchant.description}</p>
 						<div class="flex flex-row justify-between">
 							<div class="flex flex-col">
-								<span class="text-gray-500">Created Date</span>
+								<span class="prose prose-slate">Created Date</span>
 								<span>{formatDate(merchant.created_at)}</span>
 							</div>
 							<a href="/u/merchants/{merchant.id}" class="btn btn-ghost">View</a>

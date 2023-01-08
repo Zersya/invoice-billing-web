@@ -64,7 +64,7 @@
 		class="input w-full mb-4"
 	/>
 
-	<button type="submit" class="btn btn-block {isLoading ? 'loading' : ''}">Register</button>
+	<button type="submit" class="btn btn-block btn-primary {isLoading ? 'loading' : ''}">Register</button>
 </form>
 
 <style>

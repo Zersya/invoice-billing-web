@@ -9,7 +9,7 @@ module.exports = {
       {
         mytheme: {
 
-          "primary": "#f59e0b",
+          "primary": "#ea580c",
           
           "secondary": "#f43f5e",
 
@@ -26,8 +26,16 @@ module.exports = {
           "warning": "#FBBD23",
 
           "error": "#F87272",
+
+          "--btn-text-case": "uppercase",
         },
       },
+
+      "dark",
+      
+      "cupcake",
+
+      "forest"
     ],
   },
   plugins: [

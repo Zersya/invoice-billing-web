@@ -15,7 +15,7 @@
 <div class="modal" class:modal-open={isModalOpen}>
 	<div class="modal-box relative var(--color-bg-1)">
 		<button
-			class="btn btn-sm btn-circle absolute right-2 top-2"
+			class="btn btn-sm btn-circle btn-primary absolute right-2 top-2"
 			on:click={() => {isModalOpen = false; dispatch('cancel');}}>✕</button
 		>
 		<h3 class="text-lg font-bold mb-4">{title}</h3>

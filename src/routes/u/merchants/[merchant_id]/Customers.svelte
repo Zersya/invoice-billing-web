@@ -21,7 +21,7 @@
 
 		<div class="flex flex-row">
 			<!-- svelte-ignore a11y-click-events-have-key-events -->
-			<button class="btn btn-active" on:click={() => dispatch('add')}>Add</button>
+			<button class="btn btn-primary" on:click={() => dispatch('add')}>Add</button>
 		</div>
 	</div>
 </div>
@@ -57,7 +57,7 @@
 							<!-- svelte-ignore a11y-label-has-associated-control -->
 							<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 							<div class="dropdown dropdown-end">
-								<label tabindex="0" class="btn btn-ghost btn-circle">
+								<label tabindex="0" class="btn btn-ghost btn-circle btn-primary">
 									<svg
 										xmlns="http://www.w3.org/2000/svg"
 										class="h-5 w-5"
@@ -93,7 +93,7 @@
 								</ul>
 							</div>
 						</div>
-						<p class="mb-3 prose prose-sm badge">{customer.contact_channel_name}</p>
+						<p class="mb-3 prose prose-sm badge badge-primary">{customer.contact_channel_name}</p>
 
 						{#if customer.tags}
 							<div class="flex flex-wrap mb-3 h-5">
@@ -105,7 +105,7 @@
 
 						<div class="flex flex-row justify-between">
 							<div class="flex flex-col">
-								<span class="text-gray-500">Updated Date</span>
+								<span class="prose prose-slate">Updated Date</span>
 								<span>{formatDate(customer.updated_at)}</span>
 							</div>
 							{#if ableToDetail}
