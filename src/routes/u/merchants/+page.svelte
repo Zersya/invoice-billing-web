@@ -84,20 +84,19 @@
 </ModalConfirm>
 
 <div class="m-5">
-	<div class="flex flex-row justify-between">
+	<div class="md:flex flex-row justify-between">
 		<div>
 			<h3 class="text-2xl">Merchants</h3>
 			<span class="text-sm">Could be your brands / services</span>
 		</div>
-		<div class="flex flex-row">
+		<div class="mt-2 md:mt-0">
 			<!-- svelte-ignore a11y-click-events-have-key-events -->
-			<label
-				for="form-merchant"
-				class="btn btn-primary"
+			<button
+				class="btn btn-primary w-full md:w-auto"
 				on:click={() => {
 					selectedMerchant = null;
 					isFormModalOpen = true;
-				}}>Add</label
+				}}>Add</button
 			>
 		</div>
 	</div>

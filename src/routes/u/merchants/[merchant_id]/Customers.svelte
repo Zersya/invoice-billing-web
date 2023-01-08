@@ -13,13 +13,13 @@
 </script>
 
 <div class="m-5">
-	<div class="flex flex-row justify-between">
+	<div class="md:flex flex-row justify-between">
 		<div>
 			<h3 class="text-2xl"><a href={`/u/merchants/${merchant_id}/customers`}>Customers</a></h3>
 			<span class="text-sm">Your customers related by your brand / services</span>
 		</div>
 
-		<div class="flex flex-row">
+		<div class="btn btn-primary w-full md:w-auto">
 			<!-- svelte-ignore a11y-click-events-have-key-events -->
 			<button class="btn btn-primary" on:click={() => dispatch('add')}>Add</button>
 		</div>
