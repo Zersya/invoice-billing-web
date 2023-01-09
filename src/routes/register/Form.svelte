@@ -45,7 +45,7 @@
 		type="text"
 		placeholder="Type your name here"
 		bind:value={name}
-		class="input w-full mb-3"
+		class="input w-full mb-3 input-bordered"
 	/>
 	<label for="email">Email</label>
 	<input
@@ -53,7 +53,7 @@
 		type="email"
 		placeholder="Type your email here"
 		bind:value={email}
-		class="input w-full mb-3"
+		class="input w-full mb-3 input-bordered"
 	/>
 	<label for="password">Password</label>
 	<input
@@ -61,7 +61,7 @@
 		type="password"
 		placeholder="Type your password here"
 		bind:value={password}
-		class="input w-full mb-4"
+		class="input w-full mb-4 input-bordered"
 	/>
 
 	<button type="submit" class="btn btn-block btn-primary {isLoading ? 'loading' : ''}">Register</button>

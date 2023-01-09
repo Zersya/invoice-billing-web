@@ -5,45 +5,23 @@
 	import inving from '$lib/images/inving-logo.png';
 	import Breadcumbs from './Breadcumbs.svelte';
 	import { themeChange } from 'theme-change';
+	import { page } from '$app/stores';
 
 	let isMobile = false;
+	let activeRoute: string | null = '';
 
 	onMount(() => {
 		isMobile = window.innerWidth < 768;
 
 		themeChange(false);
 	});
+
+	page.subscribe((value) => {
+		activeRoute = value.route.id;
+	});
 </script>
 
 <main>
-	<!-- <div class="navbar rounded-lg bg-base-100">
-		<div class="navbar-start">
-			<img src={inving} width="45" alt="inving" />
-		</div>
-		<div class="navbar-end">
-			<div class="flex-none">
-				<ul class="menu menu-horizontal px-1">
-					<li><a href="/u">Dashboard</a></li>
-					<li><a href="/u/merchants">Merchants</a></li>
-				</ul>
-			</div>
-			<form method="POST" action="/u?/signout">
-				<button class="btn btn-ghost btn-circle btn-primary">
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						class="h-5 w-5"
-						viewBox="0 0 24 24"
-						stroke="currentColor"
-						><path
-							stroke-width=".25"
-							d="M16,17V14H9V10H16V7L21,12L16,17M14,2A2,2 0 0,1 16,4V6H14V4H5V20H14V18H16V20A2,2 0 0,1 14,22H5A2,2 0 0,1 3,20V4A2,2 0 0,1 5,2H14Z"
-						/></svg
-					>
-				</button>
-			</form>
-		</div>
-	</div> -->
-
 	<div class="drawer drawer-mobile">
 		<input id="my-drawer" type="checkbox" class="drawer-toggle" />
 		<div class="drawer-content px-10 py-2">
@@ -83,7 +61,7 @@
 					{/if}
 				</div>
 				<li>
-					<a href="/u"
+					<a href="/u" class:active={activeRoute === '/u'} class="my-2"
 						><svg
 							xmlns="http://www.w3.org/2000/svg"
 							class="h-6 w-6"
@@ -99,7 +77,7 @@
 					>
 				</li>
 				<li>
-					<a href="/u/merchants"
+					<a href="/u/merchants" class:active={activeRoute === '/u/merchants'} class="my-2"
 						><svg
 							xmlns="http://www.w3.org/2000/svg"
 							class="h-6 w-6"
