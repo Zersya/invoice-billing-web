@@ -112,7 +112,7 @@ button:focus:not(:focus-visible) {
 }
 
 .modal-box {
-	background-color: var(--color-bg-1);
+	/* background-color: var(--color-bg-1); */
 }
 
 .required:after {
