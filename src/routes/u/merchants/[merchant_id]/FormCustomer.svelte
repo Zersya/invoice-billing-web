@@ -17,17 +17,17 @@
 
 	function inputClassReadOnly(id: string | undefined) {
 		if (id) {
-			return 'input w-full bg-gray-200';
+			return 'input input-bordered w-full bg-gray-200';
 		} else {
-			return 'input w-full';
+			return 'input input-bordered w-full';
 		}
 	}
 
 	function selectClassReadOnly(id: string | undefined) {
 		if (id) {
-			return 'select w-full max-w bg-gray-200';
+			return 'select input-bordered w-full max-w bg-gray-200';
 		} else {
-			return 'select w-full max-w';
+			return 'select input-bordered w-full max-w';
 		}
 	}
 
@@ -49,9 +49,9 @@
 			type="text"
 			placeholder="Type your merchant name here"
 			bind:value={name}
-			class="input w-full mb-3"
+			class="input input-bordered w-full mb-3"
 		/>
-		<label for="contact_channel_value"  class="required">Phone/Email</label>
+		<label for="contact_channel_value" class="required">Phone/Email</label>
 		<input
 			required
 			name="contact_channel_value"
@@ -59,7 +59,7 @@
 			readonly={id ? true : false}
 			placeholder="Type your merchant phone/email here"
 			bind:value={contact_channel_value}
-			class={`${inputClassReadOnly(id)} mb-3`}
+			class={`${inputClassReadOnly(id)}  mb-3`}
 		/>
 		<label for="contact_channel_id" class="required">Channel</label>
 		<select
@@ -82,7 +82,7 @@
 			placeholder="Type your customer tags here"
 			bind:value={tag}
 			class={`${inputClassReadOnly(id)}`}
-			on:keydown={e => {
+			on:keydown={(e) => {
 				if (e.key === 'Enter') {
 					e.preventDefault();
 					if (!e.target) return;
@@ -104,7 +104,6 @@
 
 				<input type="hidden" name="tags" value={tags.join(',')} />
 			{/if}
-
 		</div>
 	</div>
 	<button

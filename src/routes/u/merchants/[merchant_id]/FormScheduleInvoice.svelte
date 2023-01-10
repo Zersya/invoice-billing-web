@@ -26,11 +26,7 @@
 
 		<div class="flex flex-column w-full mb-3 pa-4">
 			<span class="mr-3">Does it recurring?</span>
-			<input
-				type="checkbox"
-				class="input toggle"
-				bind:checked={is_recurring}
-			/>
+			<input type="checkbox" class="input toggle" bind:checked={is_recurring} />
 		</div>
 
 		{#if is_recurring}
@@ -39,7 +35,7 @@
 				name="start_schedule_date"
 				type="date"
 				value={today}
-				class="input pa-4 rounded-lg w-full mb-3"
+				class="input input-bordered pa-4 rounded-lg w-full mb-3"
 			/>
 
 			<label for="end_schedule_date" class="required">End Schedule Date</label>
@@ -47,11 +43,11 @@
 				name="end_schedule_date"
 				type="date"
 				value={today}
-				class="input pa-4 rounded-lg w-full mb-3"
+				class="input input-bordered pa-4 rounded-lg w-full mb-3"
 			/>
 
 			<label for="repeat_interval_type" class="required">Repeat Interval Type</label>
-			<select name="repeat_interval_type" class="input pa-4 rounded-lg w-full mb-3">
+			<select name="repeat_interval_type" class="select input-bordered pa-4 rounded-lg w-full mb-3">
 				<option disabled>Pick your repeat interval type</option>
 				<!-- <option value="PERMINUTE">Per-minute</option> -->
 				<option value="HOURLY">Hourly</option>

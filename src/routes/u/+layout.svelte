@@ -1,27 +1,10 @@
 <script lang="ts">
-	import '../../app.css';
-	import '../styles.css';
-	import { onMount } from 'svelte';
-	import inving from '$lib/images/inving-logo.png';
-	import Breadcumbs from './Breadcumbs.svelte';
-	import { themeChange } from 'theme-change';
-	import { page } from '$app/stores';
-
-	let isMobile = false;
-	let activeRoute: string | null = '';
-
-	onMount(() => {
-		isMobile = window.innerWidth < 768;
-
-		themeChange(false);
-	});
-
-	page.subscribe((value) => {
-		activeRoute = value.route.id;
-	});
+	
 </script>
 
 <main>
+	<slot />
+	<!-- <slot name="modals" />
 	<div class="drawer drawer-mobile">
 		<input id="my-drawer" type="checkbox" class="drawer-toggle" />
 		<div class="drawer-content px-10 py-2">
@@ -44,7 +27,6 @@
 			<ul class="menu p-4 w-80 bg-base-100 text-base-content">
 				<div class="flex justify-between mb-3">
 					<img src={inving} width="45" alt="inving" />
-
 					{#if isMobile}
 						<label for="my-drawer" class="btn btn-ghost btn-circle drawer-button">
 							<svg
@@ -119,5 +101,5 @@
 				</div>
 			</ul>
 		</div>
-	</div>
+	</div> -->
 </main>
