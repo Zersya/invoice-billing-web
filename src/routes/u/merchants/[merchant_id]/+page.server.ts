@@ -229,6 +229,69 @@ export const actions: Actions = {
         return await errorCatcher(response);
     },
 
+    setSchedule: async ({ request, cookies }) => {
+        const formData = await request.formData();
+
+        const token = cookies.get('token');
+
+        const job_type = formData.get('job_type');
+        const merchant_id = formData.get('merchant_id');
+        const external_id = formData.get('external_id');
+        const start_schedule_date = formData.get('start_schedule_date');
+        const end_schedule_date = formData.get('end_schedule_date');
+        const repeat_interval_type = formData.get('repeat_interval_type');
+        const is_recurring = formData.get('is_recurring');
+
+        const isRecurring = is_recurring === 'true';
+
+        const now = new Date();
+        const newDate = new Date(now.getTime() + (1000 * 60))
+        const hours = newDate.getHours();
+        const minutes = newDate.getMinutes();
+
+        let startScheduleDate = null
+        let endScheduleDate = null
+
+        if (start_schedule_date) {
+            const startScheduleUTC = localToUTC(`${start_schedule_date} ${hours}:${minutes}:00`)
+            startScheduleDate = dateTimeFormatRequest(startScheduleUTC);
+        }
+
+        if (end_schedule_date) {
+            const endScheduleUTC = localToUTC(`${end_schedule_date} ${hours}:${minutes}:00`)
+            endScheduleDate = dateTimeFormatRequest(endScheduleUTC);
+    
+        }
+
+        const body = JSON.stringify({
+            "job_type": job_type,
+            "external_id": external_id,
+            "start_at": startScheduleDate,
+            "end_at": endScheduleDate,
+            "repeat_interval_type": repeat_interval_type || null,
+            "is_recurring": isRecurring ,
+        })
+
+
+        const response = await fetch(
+            `${baseUrl}/merchant/${merchant_id}/set-schedule`,
+            {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`,
+                },
+                body: body,
+            }
+        );
+
+        if (response.ok) {
+            return await successCatcher(response);
+        }
+    
+        return await errorCatcher(response);
+    },
+
     setScheduleInvoice: async ({ request, cookies }) => {
         const formData = await request.formData();
 

@@ -76,6 +76,10 @@
 									tabindex="0"
 									class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
 								>
+									<li>
+										<!-- svelte-ignore a11y-click-events-have-key-events -->
+										<span on:click={() => dispatch('send-reminder', customer)}>Send Reminder</span>
+									</li>
 									{#if ableToAddInvoice}
 										<li>
 											<!-- svelte-ignore a11y-click-events-have-key-events -->

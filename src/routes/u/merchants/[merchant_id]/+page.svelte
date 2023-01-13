@@ -8,6 +8,7 @@
 	import Customers from './Customers.svelte';
 	import FormCustomer from './FormCustomer.svelte';
 	import FormInvoice from './FormInvoice.svelte';
+	import FormSchedule from './FormSchedule.svelte';
 	import FormScheduleInvoice from './FormScheduleInvoice.svelte';
 	import Invoices from './Invoices.svelte';
 
@@ -20,7 +21,8 @@
 	let isCustomerDeleteModalOpen: boolean = false;
 	let isInvoiceStopScheduleModalOpen: boolean = false;
 	let isInvoiceModalOpen: boolean = false;
-	let isSetScheduleModalOpen: boolean = false;
+	let isSetScheduleReminderModalOpen: boolean = false;
+	let isSetScheduleInvoiceModalOpen: boolean = false;
 	let isDetailInvoiceModalOpen: boolean = false;
 </script>
 
@@ -67,17 +69,33 @@
 			</div>
 		</div>
 
-		<div class="modal" class:modal-open={isSetScheduleModalOpen}>
+		<div class="modal" class:modal-open={isSetScheduleReminderModalOpen}>
 			<div class="modal-box relative var(--color-bg-1)">
 				<button
 					class="btn btn-sm btn-circle btn-primary absolute right-2 top-2"
-					on:click={() => (isSetScheduleModalOpen = false)}>✕</button
+					on:click={() => (isSetScheduleReminderModalOpen = false)}>✕</button
+				>
+				<h3 class="text-lg font-bold mb-4">Send Reminder</h3>
+				<FormSchedule
+					job_type="send_reminder"
+					merchant_id={data.merchant_id}
+					external_id={selectedCustomer?.id}
+					on:completed={() => (isSetScheduleReminderModalOpen = false)}
+				/>
+			</div>
+		</div>
+
+		<div class="modal" class:modal-open={isSetScheduleInvoiceModalOpen}>
+			<div class="modal-box relative var(--color-bg-1)">
+				<button
+					class="btn btn-sm btn-circle btn-primary absolute right-2 top-2"
+					on:click={() => (isSetScheduleInvoiceModalOpen = false)}>✕</button
 				>
 				<h3 class="text-lg font-bold mb-4">Send Invoice</h3>
 				<FormScheduleInvoice
 					merchant_id={data.merchant_id}
 					invoice_id={selectedInvoice?.id}
-					on:completed={() => (isSetScheduleModalOpen = false)}
+					on:completed={() => (isSetScheduleInvoiceModalOpen = false)}
 				/>
 			</div>
 		</div>
@@ -141,6 +159,10 @@
 		customers={data.props.customers}
 		merchant_id={data.merchant_id}
 		ableToAddInvoice={true}
+		on:send-reminder={(customer) => {
+			selectedCustomer = customer.detail;
+			isSetScheduleReminderModalOpen = true;
+		}}
 		on:add-invoice={(customer) => {
 			selectedCustomer = customer.detail;
 			isInvoiceModalOpen = true;
@@ -168,7 +190,7 @@
 		}}
 		on:set-schedule={(invoice) => {
 			selectedInvoice = invoice.detail;
-			isSetScheduleModalOpen = true;
+			isSetScheduleInvoiceModalOpen = true;
 		}}
 		on:stop-schedule={(invoice) => {
 			selectedInvoice = invoice.detail;
