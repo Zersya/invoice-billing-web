@@ -92,9 +92,10 @@
 					on:click={() => (isSetScheduleInvoiceModalOpen = false)}>✕</button
 				>
 				<h3 class="text-lg font-bold mb-4">Send Invoice</h3>
-				<FormScheduleInvoice
+				<FormSchedule
+					job_type="send_invoice"
 					merchant_id={data.merchant_id}
-					invoice_id={selectedInvoice?.id}
+					external_id={selectedInvoice?.id}
 					on:completed={() => (isSetScheduleInvoiceModalOpen = false)}
 				/>
 			</div>

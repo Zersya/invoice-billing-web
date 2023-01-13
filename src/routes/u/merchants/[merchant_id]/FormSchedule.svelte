@@ -26,6 +26,24 @@
 		<input type="hidden" name="merchant_id" value={merchant_id} />
 		<input type="hidden" name="is_recurring" value={is_recurring} />
 
+		{#if job_type === 'send_reminder'}
+			<label for="title" class="required">Title</label>
+			<input
+				required
+				name="title"
+				type="text"
+				placeholder="Type your title here"
+				class="input input-bordered w-full mb-3"
+			/>
+			<label for="description" class="required">Description</label>
+			<input
+				name="description"
+				type="text"
+				placeholder="Type your description here"
+				class="input input-bordered w-full mb-3"
+			/>
+		{/if}
+
 		<div class="flex flex-column w-full mb-3 pa-4">
 			<span class="mr-3">Does it recurring?</span>
 			<input type="checkbox" class="input toggle" bind:checked={is_recurring} />
@@ -67,50 +85,3 @@
 		class="btn btn-block btn-primary mt-5 {isLoading ? 'loading' : ''}">Send</button
 	>
 </Form>
-<!-- 
-<form
-	method="POST"
-	action={'?/setScheduleInvoice'}
-	use:enhance={(_) => {
-		isLoading = true;
-
-		return async ({ result }) => {
-			isLoading = false;
-
-			dispatch('completed');
-
-			await applyAction(result);
-		};
-	}}
->
-	<input type="hidden" name="invoice_id" value={invoice_id} />
-	<input type="hidden" name="merchant_id" value={merchant_id} />
-
-	<label for="start_schedule_date">Start Schedule Date</label>
-	<input
-		name="start_schedule_date"
-		type="date"
-		value={today}
-		class="input pa-4 rounded-lg w-full mb-3"
-	/>
-
-	<label for="end_schedule_date">End Schedule Date</label>
-	<input
-		name="end_schedule_date"
-		type="date"
-		value={today}
-		class="input pa-4 rounded-lg w-full mb-3"
-	/>
-
-	<label for="repeat_interval_type">Repeat Interval Type</label>
-	<select name="repeat_interval_type" class="input pa-4 rounded-lg w-full mb-3">
-		<option disabled>Pick your repeat interval type</option>
-		<option value="PERMINUTE">Per-minute</option>
-		<option value="HOURLY">Hourly</option>
-		<option value="DAILY">Daily</option>
-		<option value="WEEKLY">Weekly</option>
-		<option value="MONTHLY">Monthly</option>
-	</select>
-
-	<button type="submit" class="btn btn-block btn-primary mt-5">Save</button>
-</form> -->
