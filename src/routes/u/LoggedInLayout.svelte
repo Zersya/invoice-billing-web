@@ -9,6 +9,7 @@
 
 	let isMobile = false;
 	let activeRoute: string | null = '';
+	let isDrawerOpen: boolean = false;
 
 	onMount(() => {
 		isMobile = window.innerWidth < 768;
@@ -22,11 +23,11 @@
 </script>
 
 <slot name="modals" />
-<div class="drawer drawer-mobile">
+<div class="drawer drawer-mobile drop-shadow">
 	<input id="my-drawer" type="checkbox" class="drawer-toggle" />
-	<div class="drawer-content px-10 py-2">
+	<div class="drawer-content flex flex-col px-10 py-2">
 		{#if isMobile}
-			<label for="my-drawer" class="btn btn-ghost btn-circle drawer-button">
+			<label for="my-drawer" class="btn btn-ghost btn-circle drawer-button self-end">
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					class="h-5 w-5"
@@ -39,7 +40,7 @@
 		<Breadcumbs />
 		<slot />
 	</div>
-	<div class="drawer-side drop-shadow">
+	<div class="drawer-side">
 		<label for="my-drawer" class="drawer-overlay" />
 		<ul class="menu p-4 w-80 bg-base-100 text-base-content">
 			<div class="flex justify-between mb-3">
@@ -91,10 +92,8 @@
 					>Merchants</a
 				>
 			</li>
-			<div
-				class="flex flex-row justify-around"
-				style="position:fixed; bottom: 3rem; right: 0; left: 0;"
-			>
+
+			<div class="flex flex-row justify-around">
 				<select class="select input-bordered w-9/12 max-w-xs mx-auto" data-choose-theme>
 					<option value="mytheme">Default</option>
 					<option value="dark">Dark</option>
