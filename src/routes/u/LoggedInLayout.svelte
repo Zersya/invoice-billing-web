@@ -93,7 +93,7 @@
 				>
 			</li>
 
-			<div class="flex flex-row justify-around">
+			<div class="flex flex-row justify-around" style="position: fixed; bottom: 3rem; left: 0; right: 0;">
 				<select class="select input-bordered w-9/12 max-w-xs mx-auto" data-choose-theme>
 					<option value="mytheme">Default</option>
 					<option value="dark">Dark</option>

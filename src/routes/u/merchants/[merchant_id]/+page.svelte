@@ -9,7 +9,6 @@
 	import FormCustomer from './FormCustomer.svelte';
 	import FormInvoice from './FormInvoice.svelte';
 	import FormSchedule from './FormSchedule.svelte';
-	import FormScheduleInvoice from './FormScheduleInvoice.svelte';
 	import Invoices from './Invoices.svelte';
 
 	export let data: PageData;
@@ -160,6 +159,8 @@
 		customers={data.props.customers}
 		merchant_id={data.merchant_id}
 		ableToAddInvoice={true}
+		ableToDetail={true}
+		ableToSendReminder={true}
 		on:send-reminder={(customer) => {
 			selectedCustomer = customer.detail;
 			isSetScheduleReminderModalOpen = true;

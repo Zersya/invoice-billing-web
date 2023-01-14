@@ -7,6 +7,7 @@
 	export let customers: Customer[];
 	export let merchant_id: string;
 	export let ableToAddInvoice: boolean = false;
+	export let ableToSendReminder: boolean = false;
 	export let ableToDetail: boolean = false;
 
 	const dispatch = createEventDispatcher();
@@ -15,7 +16,7 @@
 <div class="m-5">
 	<div class="md:flex flex-row justify-between">
 		<div>
-			<h3 class="text-2xl"><a href={`/u/merchants/${merchant_id}/customers`}>Customers</a></h3>
+			<h3 class="text-2xl">Customers</h3>
 			<span class="text-sm">Your customers related by your brand / services</span>
 		</div>
 
@@ -76,10 +77,13 @@
 									tabindex="0"
 									class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
 								>
-									<li>
-										<!-- svelte-ignore a11y-click-events-have-key-events -->
-										<span on:click={() => dispatch('send-reminder', customer)}>Send Reminder</span>
-									</li>
+									{#if ableToSendReminder}
+										<li>
+											<!-- svelte-ignore a11y-click-events-have-key-events -->
+											<span on:click={() => dispatch('send-reminder', customer)}>Send Reminder</span
+											>
+										</li>
+									{/if}
 									{#if ableToAddInvoice}
 										<li>
 											<!-- svelte-ignore a11y-click-events-have-key-events -->
