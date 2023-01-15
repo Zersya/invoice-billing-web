@@ -25,9 +25,9 @@
 <slot name="modals" />
 <div class="drawer drawer-mobile drop-shadow">
 	<input id="my-drawer" type="checkbox" class="drawer-toggle" />
-	<div class="drawer-content flex flex-col px-10 py-2">
+	<div class="drawer-content flex-col px-10 py-2">
 		{#if isMobile}
-			<label for="my-drawer" class="btn btn-ghost btn-circle drawer-button self-end">
+			<label for="my-drawer" class="btn btn-ghost btn-circle drawer-button w-full justify-end">
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					class="h-5 w-5"
