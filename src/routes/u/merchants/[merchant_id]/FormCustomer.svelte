@@ -88,7 +88,7 @@
 					if (!e.target) return;
 					if (!tags) tags = [];
 
-					tags = [...tags, tag];
+					tags = [...tags, tag.toLowerCase()];
 					tag = '';
 				}
 			}}
