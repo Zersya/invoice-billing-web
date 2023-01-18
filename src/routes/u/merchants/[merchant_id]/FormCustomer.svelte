@@ -79,6 +79,7 @@
 		</label>
 		<input
 			type="text"
+			readonly={id ? true : false}
 			placeholder="Type your customer tags here"
 			bind:value={tag}
 			class={`${inputClassReadOnly(id)}`}
