@@ -31,6 +31,12 @@
 		}
 	}
 
+	function removeTag(tag: string) {
+		if (!tags) return;
+
+		tags = tags.filter((t) => t !== tag);
+	}
+
 	const dispatch = createEventDispatcher();
 </script>
 
@@ -79,10 +85,9 @@
 		</label>
 		<input
 			type="text"
-			readonly={id ? true : false}
 			placeholder="Type your customer tags here"
 			bind:value={tag}
-			class={`${inputClassReadOnly(id)}`}
+			class='input input-bordered w-full'
 			on:keydown={(e) => {
 				if (e.key === 'Enter') {
 					e.preventDefault();
@@ -100,7 +105,22 @@
 		<div class="flex flex-wrap mb-3 h-5">
 			{#if tags}
 				{#each tags as tag}
-					<div class="badge badge-neutral mr-1 mb-1">{tag}</div>
+					<div class="badge badge-neutral mr-1 mb-1">
+						<button type="button" class="btn btn-ghost btn-circle btn-xs" on:click={() => removeTag(tag)}>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								class="h-3 w-3 mr-2"
+								fill="white"
+								viewBox="0 0 24 24"
+								stroke="currentColor"
+								><path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"
+								/></svg
+							></button
+						>{tag}
+					</div>
 				{/each}
 
 				<input type="hidden" name="tags" value={tags.join(',')} />
