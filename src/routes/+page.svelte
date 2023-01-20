@@ -6,7 +6,7 @@
 	<title>Home</title>
 </svelte:head>
 
-<div class="items-center border-solid my-auto mx-5">
+<div class="items-center p-4 m-auto rounded-lg drop-shadow-xl bg-white">
 	<div class="m-auto" style="max-width: 30em;">
 		<div class="prose prose-xl">Login</div>
 		<div class="prose prose-slate prose-sm mb-5">Please sign in before using <b>Inving</b></div>
