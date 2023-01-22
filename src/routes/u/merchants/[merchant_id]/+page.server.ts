@@ -52,7 +52,7 @@ export const load: PageServerLoad = async ({ cookies, params }) => {
         return {
             props: {
                 customers: data_customers.data as Customer[],
-                contact_channels: (data_contact_channels.data as ContactChannel[]).filter((channel) => channel.name === 'whatsapp'),
+                contact_channels: (data_contact_channels.data as ContactChannel[]).filter((channel) => channel.name === 'whatsapp' || channel.name === 'email'),
                 invoices: data_invoice.data as InvoiceWithCustomer[]
             },
             merchant_id: params.merchant_id
@@ -88,6 +88,10 @@ export const actions: Actions = {
         const tags = formData.get('tags');
 
         const tagsArray = tags?.toString().split(',').map((tag) => tag.trim());
+
+        if (tagsArray?.length === 1 && tagsArray[0] === '') {
+            tagsArray.pop();
+        }
 
         const body = JSON.stringify(
             {
@@ -136,6 +140,10 @@ export const actions: Actions = {
         const tags = formData.get('tags');
 
         const tagsArray = tags?.toString().split(',').map((tag) => tag.trim());
+        
+        if (tagsArray?.length === 1 && tagsArray[0] === '') {
+            tagsArray.pop();
+        }
 
         const response = await fetch(
             `${baseUrl}/merchant/${merchant_id}/customer/${id}`,

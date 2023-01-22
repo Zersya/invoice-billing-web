@@ -37,6 +37,42 @@
 		tags = tags.filter((t) => t !== tag);
 	}
 
+	function emailChannelId() {
+		return contact_channels.find((c) => c.name === 'email')?.id;
+	}
+
+	function whatsappChannelId() {
+		return contact_channels.find((c) => c.name === 'whatsapp')?.id;
+	}
+
+	function telegramChannelId() {
+		return contact_channels.find((c) => c.name === 'telegram')?.id;
+	}
+
+	function labelChannel(value: string | undefined): string {
+		if (value == emailChannelId()) {
+			return 'Email';
+		} else if (value == whatsappChannelId()) {
+			return 'Whatsapp Number';
+		} else if (value == telegramChannelId()) {
+			return 'Telegram Number';
+		} else {
+			return 'Channel';
+		}
+	}
+
+	function placeholderChannel(value: string | undefined): string {
+		if (value == emailChannelId()) {
+			return 'Type your customer email here';
+		} else if (value == whatsappChannelId()) {
+			return 'Type your customer whatsapp number here';
+		} else if (value == telegramChannelId()) {
+			return 'Type your customer telegram number here';
+		} else {
+			return 'Type your customer channel here';
+		}
+	}
+
 	const dispatch = createEventDispatcher();
 </script>
 
@@ -57,19 +93,10 @@
 			bind:value={name}
 			class="input input-bordered w-full mb-3"
 		/>
-		<label for="contact_channel_value" class="required">Phone/Email</label>
-		<input
-			required
-			name="contact_channel_value"
-			type="number"
-			readonly={id ? true : false}
-			placeholder="Type your merchant phone/email here"
-			bind:value={contact_channel_value}
-			class={`${inputClassReadOnly(id)}  mb-3`}
-		/>
 		<label for="contact_channel_id" class="required">Channel</label>
 		<select
 			required
+			disabled={id ? true : false}
 			name="contact_channel_id"
 			class={`${selectClassReadOnly(id)} mb-3`}
 			bind:value={contact_channel_id}
@@ -79,6 +106,16 @@
 				<option value={channel.id}>{channel.name}</option>
 			{/each}
 		</select>
+		<label for="contact_channel_value" class="required">{labelChannel(contact_channel_id)}</label>
+			<input
+				required
+				name="contact_channel_value"
+				type="text"
+				readonly={id ? true : false}
+				placeholder={placeholderChannel(contact_channel_id)}
+				bind:value={contact_channel_value}
+				class={`${inputClassReadOnly(id)}  mb-3`}
+			/>
 		<label for="tags" class="label">
 			<span class="label-text required">Tags</span>
 			<span class="label-text-alt">Customers are grouped using tags</span>
@@ -87,7 +124,7 @@
 			type="text"
 			placeholder="Type your customer tags here"
 			bind:value={tag}
-			class='input input-bordered w-full'
+			class="input input-bordered w-full"
 			on:keydown={(e) => {
 				if (e.key === 'Enter') {
 					e.preventDefault();
@@ -106,7 +143,11 @@
 			{#if tags}
 				{#each tags as tag}
 					<div class="badge badge-neutral mr-1 mb-1">
-						<button type="button" class="btn btn-ghost btn-circle btn-xs" on:click={() => removeTag(tag)}>
+						<button
+							type="button"
+							class="btn btn-ghost btn-circle btn-xs"
+							on:click={() => removeTag(tag)}
+						>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
 								class="h-3 w-3 mr-2"
