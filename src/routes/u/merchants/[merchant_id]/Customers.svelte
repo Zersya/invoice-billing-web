@@ -20,10 +20,8 @@
 			<span class="text-sm">Your customers related by your brand / services</span>
 		</div>
 
-		<div class="btn btn-primary w-full md:w-auto">
 			<!-- svelte-ignore a11y-click-events-have-key-events -->
-			<button class="btn btn-primary" on:click={() => dispatch('add')}>Add</button>
-		</div>
+			<button class="btn btn-primary w-full md:w-auto" on:click={() => dispatch('add')}>Add</button>
 	</div>
 </div>
 
