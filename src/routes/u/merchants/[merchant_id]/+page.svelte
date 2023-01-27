@@ -10,11 +10,13 @@
 	import FormInvoice from './FormInvoice.svelte';
 	import FormSchedule from './FormSchedule.svelte';
 	import Invoices from './Invoices.svelte';
+	import Tags from './Tags.svelte';
 
 	export let data: PageData;
 
 	let selectedCustomer: Customer | null = null;
 	let selectedInvoice: InvoiceWithCustomer | null = null;
+	let selectedTag: string | undefined = undefined;
 
 	let isCustomerModalOpen: boolean = false;
 	let isCustomerDeleteModalOpen: boolean = false;
@@ -79,6 +81,7 @@
 					job_type="send_reminder"
 					merchant_id={data.merchant_id}
 					external_id={selectedCustomer?.id}
+					tag={selectedTag}
 					on:completed={() => (isSetScheduleReminderModalOpen = false)}
 				/>
 			</div>
@@ -95,6 +98,7 @@
 					job_type="send_invoice"
 					merchant_id={data.merchant_id}
 					external_id={selectedInvoice?.id}
+					tag={undefined}
 					on:completed={() => (isSetScheduleInvoiceModalOpen = false)}
 				/>
 			</div>
@@ -154,6 +158,14 @@
 			<input type="hidden" name="merchant_id" value={data.merchant_id} />
 		</ModalConfirm>
 	</div>
+
+	<Tags
+		tags={data.props.tags}
+		on:send-reminder={(tag) => {
+			selectedTag = tag.detail;
+			isSetScheduleReminderModalOpen = true;
+		}}
+	/>
 
 	<Customers
 		customers={data.props.customers}

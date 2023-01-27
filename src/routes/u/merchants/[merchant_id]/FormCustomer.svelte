@@ -107,15 +107,15 @@
 			{/each}
 		</select>
 		<label for="contact_channel_value" class="required">{labelChannel(contact_channel_id)}</label>
-			<input
-				required
-				name="contact_channel_value"
-				type="text"
-				readonly={id ? true : false}
-				placeholder={placeholderChannel(contact_channel_id)}
-				bind:value={contact_channel_value}
-				class={`${inputClassReadOnly(id)}  mb-3`}
-			/>
+		<input
+			required
+			name="contact_channel_value"
+			type="text"
+			readonly={id ? true : false}
+			placeholder={placeholderChannel(contact_channel_id)}
+			bind:value={contact_channel_value}
+			class={`${inputClassReadOnly(id)}  mb-3`}
+		/>
 		<label for="tags" class="label">
 			<span class="label-text required">Tags</span>
 			<span class="label-text-alt">Customers are grouped using tags</span>
@@ -150,7 +150,7 @@
 						>
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
-								class="h-3 w-3 mr-2"
+								class="h-3 w-3"
 								fill="white"
 								viewBox="0 0 24 24"
 								stroke="currentColor"
@@ -160,7 +160,7 @@
 									d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z"
 								/></svg
 							></button
-						>{tag}
+						><span class="ml-2">{tag}</span>
 					</div>
 				{/each}
 

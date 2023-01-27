@@ -39,28 +39,38 @@ export const load: PageServerLoad = async ({ cookies, params }) => {
                     'Authorization': `Bearer ${token}`,
                 }
             }
+        ),
+        fetch(
+            `${baseUrl}/merchant/${merchantId}/tags`,
+            {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                }
+            }
         )
     ])
 
 
-    if (response[0].ok && response[1].ok && response[2].ok) {
+    if (response[0].ok && response[1].ok && response[2].ok && response[3].ok) {
         const data_customers = await response[0].json();
         const data_contact_channels = await response[1].json();
         const data_invoice = await response[2].json();
-
+        const data_tags = await response[3].json();
 
         return {
             props: {
                 customers: data_customers.data as Customer[],
                 contact_channels: (data_contact_channels.data as ContactChannel[]).filter((channel) => channel.name === 'whatsapp' || channel.name === 'email'),
-                invoices: data_invoice.data as InvoiceWithCustomer[]
+                invoices: data_invoice.data as InvoiceWithCustomer[],
+                tags: data_tags.data as string[]
             },
             merchant_id: params.merchant_id
         }
 
     }
 
-    if (response[0].status === 401 || response[1].status === 401 || response[2].status === 401) {
+    if (response[0].status === 401 || response[1].status === 401 || response[2].status === 401, response[3].status === 401) {
         throw redirect(301, '/');
     }
 
@@ -68,7 +78,8 @@ export const load: PageServerLoad = async ({ cookies, params }) => {
         props: {
             customers: [],
             contact_channels: [],
-            invoices: []
+            invoices: [],
+            tags: []
         },
         merchant_id: params.merchant_id
     }
@@ -255,6 +266,7 @@ export const actions: Actions = {
         const is_recurring = formData.get('is_recurring');
         const title = formData.get('title');
         const description = formData.get('description');
+        const tag = formData.get('tag');
 
         const isRecurring = is_recurring === 'true';
 
@@ -281,11 +293,12 @@ export const actions: Actions = {
             "job_type": job_type,
             "title": title,
             "description": description,
-            "external_id": external_id,
+            "external_id": external_id || null,
             "start_at": startScheduleDate,
             "end_at": endScheduleDate,
             "repeat_interval_type": repeat_interval_type || null,
-            "is_recurring": isRecurring ,
+            "is_recurring": isRecurring,
+            "tag": tag || null,
         })
 
 

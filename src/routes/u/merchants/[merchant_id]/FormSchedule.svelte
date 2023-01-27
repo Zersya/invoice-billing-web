@@ -13,6 +13,7 @@
 	export let job_type: string | undefined;
 	export let external_id: string | undefined;
 	export let merchant_id: string;
+	export let tag: string | undefined;
 
 	let is_recurring = false;
 
@@ -22,9 +23,16 @@
 <Form action={'?/setSchedule'} on:completed={() => dispatch('completed')}>
 	<div slot="input">
 		<input type="hidden" name="job_type" value={job_type} />
-		<input type="hidden" name="external_id" value={external_id} />
 		<input type="hidden" name="merchant_id" value={merchant_id} />
 		<input type="hidden" name="is_recurring" value={is_recurring} />
+
+		{#if external_id}
+			<input type="hidden" name="external_id" value={external_id} />
+		{/if}
+
+		{#if tag}
+			<input type="hidden" name="tag" value={tag} />
+		{/if}
 
 		{#if job_type === 'send_reminder'}
 			<label for="title" class="required">Title</label>
