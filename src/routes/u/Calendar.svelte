@@ -20,6 +20,12 @@
 		calendar = new Calendar('#calendar', {
 			defaultView: isMobile ? 'day' : 'month',
 			isReadOnly: true,
+			theme: {
+				common: {
+					border: '1px solid #e5e5e5',
+					backgroundColor: 'transparent'
+				},
+			},
 			template: {
 				time(event) {
 					const { start, title } = event;
@@ -31,12 +37,32 @@
 						hour12: false
 					});
 
-					return `<span class="calendar-event-time" style="color: #222; font-size: 9px">${startHour} - <strong>${title}</strong></span>`;
+					return `<span class="calendar-event-time" style="color: #fff; font-size: 9px">${startHour} - <strong>${title}</strong></span>`;
+				},
+
+				task(event) {
+					const { start, title } = event;
+
+					// get time start HH:mm from start string
+					const startHour = utcToLocal(start).toLocaleString('id-ID', {
+						hour: 'numeric',
+						minute: 'numeric',
+						hour12: false
+					});
+
+					return `<span style="color: #fff; font-size: 9px">${startHour} - <strong>${title}</strong></span>`;
 				}
 			}
 		});
 
 		let events = [] as Object[];
+
+		// re order schedule based on status is on top
+		schedules.sort((a, b) => {
+			if (a?.status == 'completed' && b?.status != 'completed') return 1;
+			if (a?.status != 'completed' && b?.status == 'completed') return -1;
+			return 0;
+		});
 
 		schedules.forEach((schedule) => {
 			if (!schedule) return;
@@ -53,16 +79,16 @@
 					.toDate();
 
 				events.push({
-					calendarId: `${schedule.id.toString()} ${i.toString()}`,
+					id: `${schedule.id.toString()}`,
 					title: isFullTitle
 						? `${schedule.job_data.customer_name} | ${schedule.job_data.title}`
 						: schedule.job_data.title,
 					body: schedule.job_data.description,
 					start: startTimeDate,
 					end: endTimeDate,
-					category: 'time',
+					category: 'task',
 					backgroundColor:
-						schedule.status == 'completed' ? '#4075a6' : isPast ? '#4caf50' : '#f44336'
+						schedule.status == 'completed' ? '#4075a6b0' : schedule.status == 'pending' ? '#E9A296b0' : isPast ? '#4caf50b0' : '#f44336b0'
 				});
 			}
 		});
