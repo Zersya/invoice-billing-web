@@ -30,7 +30,6 @@
 				time(event) {
 					const { start, title } = event;
 
-					// get time start HH:mm from start string
 					const startHour = utcToLocal(start).toLocaleString('id-ID', {
 						hour: 'numeric',
 						minute: 'numeric',
@@ -68,7 +67,9 @@
 			if (!schedule) return;
 
 			for (let i = 0; i < schedule.total_repeat_count; i++) {
-				let startTimeDate = moment(schedule.job_data.invoice_date)
+				// if (schedule.job_type == "send_reminder") continue;
+				
+				let startTimeDate = moment(schedule.run_at)
 					.add(i * schedule.repeat_interval, 'seconds')
 					.toDate();
 
