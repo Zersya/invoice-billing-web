@@ -18,4 +18,5 @@ export interface Customer {
     updated_at: string;
     deleted_at: string | null;
     tags: string[];
+    verified_at: string | null;
 }

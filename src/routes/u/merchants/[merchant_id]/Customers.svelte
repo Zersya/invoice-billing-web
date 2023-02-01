@@ -11,6 +11,22 @@
 	export let ableToDetail: boolean = false;
 
 	const dispatch = createEventDispatcher();
+
+	function getStatusVerified(verified_at: string | null) {
+		if (verified_at) {
+			return 'Verified';
+		} else {
+			return 'Not Verified';
+		}
+	}
+
+	function getColorStatusVerified(verified_at: string | null) {
+		if (verified_at) {
+			return 'green';
+		} else {
+			return 'red';
+		}
+	}
 </script>
 
 <div class="m-5">
@@ -20,8 +36,8 @@
 			<span class="text-sm">Your customers related by your brand / services</span>
 		</div>
 
-			<!-- svelte-ignore a11y-click-events-have-key-events -->
-			<button class="btn btn-primary w-full md:w-auto" on:click={() => dispatch('add')}>Add</button>
+		<!-- svelte-ignore a11y-click-events-have-key-events -->
+		<button class="btn btn-primary w-full md:w-auto" on:click={() => dispatch('add')}>Add</button>
 	</div>
 </div>
 
@@ -52,7 +68,22 @@
 				<div class="card bg-base-100 shadow-xl my-4 mx-5">
 					<div class="card-body">
 						<div class="card-title justify-between">
-							<h2>{customer.name}</h2>
+							<div class="flex items-center">
+								<h2>{customer.name}</h2>
+								<div class="tooltip" data-tip="{getStatusVerified(customer.verified_at)}">
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										class="h-5 w-5 ml-2"
+										viewBox="0 0 24 24"
+										fill="{getColorStatusVerified(customer.verified_at)}"
+										><path
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											d="M11,9H13V7H11M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M11,17H13V11H11V17Z"
+										/></svg
+									>
+								</div>
+							</div>
 							<!-- svelte-ignore a11y-label-has-associated-control -->
 							<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 							<div class="dropdown dropdown-end">
