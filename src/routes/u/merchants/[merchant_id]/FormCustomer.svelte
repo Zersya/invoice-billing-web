@@ -78,6 +78,7 @@
 
 <Form
 	action={id ? '?/updateCustomer' : '?/createCustomer'}
+	is_reset={!id}
 	on:completed={() => dispatch('completed')}
 >
 	<div slot="input">

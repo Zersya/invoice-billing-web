@@ -16,4 +16,8 @@ export interface Merchant {
     name: string
     updated_at: string
     user_id: string
+    address: string
+    phone_country_code: string
+    phone_number: string
+    tax: number
 }

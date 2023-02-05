@@ -4,6 +4,7 @@
 	import toast from 'svelte-french-toast';
 
 	export let action: string;
+	export let is_reset: boolean = false;
 
 	let isLoading = false;
 
@@ -28,7 +29,7 @@
 
 					toast.error(capitalize);
 				} else if (result.data?.success) {
-					await update({ reset: true });
+					await update({ reset: is_reset });
 					dispatch('completed');
 
 					toast.success(capitalize);

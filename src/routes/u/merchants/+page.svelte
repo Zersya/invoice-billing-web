@@ -13,6 +13,11 @@
 
 	let isDeleteModalOpen: boolean = false;
 	let isFormModalOpen: boolean = false;
+
+	function isSelectedCountryCode(country_code: string): boolean {
+		if (!selectedMerchant) return false;
+		return selectedMerchant?.phone_country_code === country_code;
+	}
 </script>
 
 <LoggedInLayout>
@@ -33,6 +38,7 @@
 
 				<Form
 					action={selectedMerchant?.id ? '?/updateMerchant' : '?/createMerchant'}
+					is_reset={!selectedMerchant}
 					on:completed={() => {
 						isFormModalOpen = false;
 					}}
@@ -56,6 +62,64 @@
 							type="multiline"
 							placeholder="Type your merchant description here"
 							value={selectedMerchant?.description || ''}
+							class="input input-bordered w-full mb-3"
+						/>
+						<label for="address">Address</label>
+						<input
+							name="address"
+							type="multiline"
+							placeholder="Type your merchant address here"
+							value={selectedMerchant?.address || ''}
+							class="input input-bordered w-full mb-3"
+						/>
+						<div class="flex">
+							<span class="mr-3 flex-1">
+								<label for="phone_country_code">Country Code</label>
+								<select name="phone_country_code" class="input input-bordered w-full mb-3">
+									<option value="" selected>Select Country Code</option>
+									{#each data.props.phone_country_codes as phone_country_code}
+										<option
+											value={phone_country_code.dial_code}
+											selected={selectedMerchant?.phone_country_code === phone_country_code.dial_code}
+										>
+											{phone_country_code.name}
+											{phone_country_code.dial_code}
+										</option>
+									{/each}
+								</select>
+							</span>
+							<span>
+								<label for="phone_number">Phone Number</label>
+								<input
+									name="phone_number"
+									type="text"
+									placeholder="Type your merchant phone number here"
+									value={selectedMerchant?.phone_number || ''}
+									class="input input-bordered w-full mb-3"
+								/>
+							</span>
+						</div>
+						<div class="flex">
+							<label for="tax">Default Tax ( % )</label>
+
+							<div
+								class="tooltip tooltip-right"
+								data-tip="for your invoice customers, It's editable on invoice"
+							>
+								<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 24 24"
+									><path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										d="M11,9H13V7H11M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M11,17H13V11H11V17Z"
+									/></svg
+								>
+							</div>
+						</div>
+						<input
+							name="tax"
+							type="number"
+							placeholder="Type your merchant default tax for customers"
+							value={(selectedMerchant?.tax || 0) * 100}
 							class="input input-bordered w-full mb-3"
 						/>
 					</div>
