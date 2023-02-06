@@ -119,7 +119,7 @@
 							name="tax"
 							type="number"
 							placeholder="Type your merchant default tax for customers"
-							value={(selectedMerchant?.tax || 0) * 100}
+							value={((selectedMerchant?.tax || 0) * 100).toFixed(0)}
 							class="input input-bordered w-full mb-3"
 						/>
 					</div>

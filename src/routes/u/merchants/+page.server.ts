@@ -100,10 +100,10 @@ export const actions: Actions = {
 			body: JSON.stringify({
 				name: name,
 				description: description,
-                address: address,
-                phone_country_code: phone_country_code,
-                phone_number: phone_number,
-				tax: tax
+                address: address || null,
+                phone_country_code: phone_country_code || null,
+                phone_number: phone_number || null,
+				tax: tax || null
 			})
 		});
 
