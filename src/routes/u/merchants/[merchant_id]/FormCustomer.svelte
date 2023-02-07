@@ -55,7 +55,7 @@
 		} else if (value == whatsappChannelId()) {
 			return 'Whatsapp Number';
 		} else if (value == telegramChannelId()) {
-			return 'Telegram Number';
+			return 'Telegram Username';
 		} else {
 			return 'Channel';
 		}
@@ -67,7 +67,7 @@
 		} else if (value == whatsappChannelId()) {
 			return 'Type your customer whatsapp number here';
 		} else if (value == telegramChannelId()) {
-			return 'Type your customer telegram number here';
+			return 'Type your customer telegram username here';
 		} else {
 			return 'Type your customer channel here';
 		}

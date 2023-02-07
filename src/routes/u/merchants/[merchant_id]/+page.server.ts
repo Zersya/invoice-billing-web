@@ -61,7 +61,7 @@ export const load: PageServerLoad = async ({ cookies, params }) => {
         return {
             props: {
                 customers: data_customers.data as Customer[],
-                contact_channels: (data_contact_channels.data as ContactChannel[]).filter((channel) => channel.name === 'whatsapp' || channel.name === 'email'),
+                contact_channels: (data_contact_channels.data as ContactChannel[]).filter((channel) => channel.name === 'whatsapp' || channel.name === 'email' || channel.name === 'telegram'),
                 invoices: data_invoice.data as InvoiceWithCustomer[],
                 tags: data_tags.data as string[]
             },
