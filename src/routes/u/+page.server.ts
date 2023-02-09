@@ -1,43 +1,14 @@
-import { baseUrl } from "$lib/utils/vars";
 import { redirect, type Actions } from "@sveltejs/kit";
 import type { PageServerLoad } from "./$types";
-import type { JobSchedule } from "$lib/types/job_schedule";
 
 
 export const load: PageServerLoad = async ({ cookies }) => {
 
     const token = cookies.get('token');
-    
-    const response = await  fetch(
-        `${baseUrl}/scheduled-job`,
-        {
-            method: 'GET',
-            headers: {
-                'Authorization': `Bearer ${token}`,
-            }
-        }
-    ); 
-
-    if (response.ok) {
-        const schedules = await response.json();
-
-
-        return {
-            props: {
-                schedules: schedules.data as JobSchedule[],
-            },
-        }
-
-    }
-
-    if (response.status === 401) {
-        throw redirect(301, '/');
-    }
 
     return {
-        props: {
-            schedules: [],
-        },
+        token: token,
+        schedules: [],
     }
 }
 

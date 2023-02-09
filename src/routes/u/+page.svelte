@@ -7,5 +7,5 @@
 </script>
 
 <AuthenticatedPage>
-	<Calendar isFullTitle={true} schedules={data.props.schedules} />
+	<Calendar isFullTitle={true} schedules={data.schedules} />
 </AuthenticatedPage>
