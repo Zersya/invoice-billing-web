@@ -1,9 +1,9 @@
 <script lang="ts">
 	import '../../app.css';
-	import '../styles.css';
+	import '$lib/styles.css';
 	import { onMount } from 'svelte';
 	import inving from '$lib/images/inving-logo.png';
-	import Breadcumbs from './Breadcumbs.svelte';
+	import Breadcumbs from '$lib/components/Breadcumbs.svelte';
 	import { themeChange } from 'theme-change';
 	import { page } from '$app/stores';
 

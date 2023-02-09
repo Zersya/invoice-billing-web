@@ -1,16 +1,16 @@
 <script lang="ts">
 	import type { Customer } from '$lib/types/customer';
 	import type { InvoiceWithCustomer } from '$lib/types/invoice';
-	import Calendar from '../../Calendar.svelte';
-	import LoggedInLayout from '../../LoggedInLayout.svelte';
-	import ModalConfirm from '../../ModalConfirm.svelte';
+	import Calendar from '$lib/components/Calendar.svelte';
+	import AuthenticatedPage from '$lib/components/AuthenticatedPage.svelte';
+	import ModalConfirm from '$lib/components/ModalConfirm.svelte';
 	import type { PageData } from './$types';
-	import Customers from './Customers.svelte';
-	import FormCustomer from './FormCustomer.svelte';
-	import FormInvoice from './FormInvoice.svelte';
-	import FormSchedule from './FormSchedule.svelte';
-	import Invoices from './Invoices.svelte';
-	import Tags from './Tags.svelte';
+	import Customers from '$lib/components/Customers.svelte';
+	import FormCustomer from '$lib/components/FormCustomer.svelte';
+	import FormInvoice from '$lib/components/FormInvoice.svelte';
+	import FormSchedule from '$lib/components/FormSchedule.svelte';
+	import Invoices from '$lib/components/Invoices.svelte';
+	import Tags from '$lib/components/Tags.svelte';
 
 	export let data: PageData;
 
@@ -27,7 +27,7 @@
 	let isDetailInvoiceModalOpen: boolean = false;
 </script>
 
-<LoggedInLayout>
+<AuthenticatedPage>
 	<div slot="modals">
 		<div class="modal" class:modal-open={isCustomerModalOpen}>
 			<div class="modal-box relative var(--color-bg-1)">
@@ -211,4 +211,4 @@
 			isInvoiceStopScheduleModalOpen = true;
 		}}
 	/>
-</LoggedInLayout>
+</AuthenticatedPage>

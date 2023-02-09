@@ -4,7 +4,7 @@ import type { PageServerLoad } from "./$types";
 import type { JobSchedule } from "$lib/types/job_schedule";
 
 
-export const load: PageServerLoad = async ({ cookies, params }) => {
+export const load: PageServerLoad = async ({ cookies }) => {
 
     const token = cookies.get('token');
     

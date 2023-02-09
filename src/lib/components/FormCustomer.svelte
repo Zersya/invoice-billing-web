@@ -1,7 +1,7 @@
 <script lang="ts">
-	import type { PageData } from './$types';
+	import type { PageData } from '../../routes/u/merchants/[merchant_id]/$types';
 	import { createEventDispatcher } from 'svelte';
-	import Form from '../../Form.svelte';
+	import CustomForm from '$lib/components/CustomForm.svelte';
 	import type { ContactChannel } from '$lib/types/contact_channel';
 
 	export let merchant_id: string;
@@ -76,7 +76,7 @@
 	const dispatch = createEventDispatcher();
 </script>
 
-<Form
+<CustomForm
 	action={id ? '?/updateCustomer' : '?/createCustomer'}
 	is_reset={!id}
 	on:completed={() => dispatch('completed')}
@@ -175,4 +175,4 @@
 		type="submit"
 		class="btn btn-block btn-primary {isLoading ? 'loading' : ''}">Save</button
 	>
-</Form>
+</CustomForm>

@@ -3,7 +3,7 @@
 	import Calendar from '@toast-ui/calendar';
 	import '@toast-ui/calendar/dist/toastui-calendar.min.css';
 	import { onMount } from 'svelte';
-	import type { PageData } from './$types';
+	import type { PageData } from '../../routes/u/$types';
 	import { utcToLocal } from '$lib/utils/functions';
 	import type { JobSchedule } from '$lib/types/job_schedule';
 

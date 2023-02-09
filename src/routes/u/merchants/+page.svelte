@@ -2,10 +2,10 @@
 	import type { Merchant } from '$lib/types/merchant';
 	import { formatDate } from '$lib/utils/functions';
 	import { redirect } from '@sveltejs/kit';
-	import ModalConfirm from '../ModalConfirm.svelte';
+	import ModalConfirm from '$lib/components/ModalConfirm.svelte';
 	import type { PageData } from './$types';
-	import Form from '../Form.svelte';
-	import LoggedInLayout from '../LoggedInLayout.svelte';
+	import CustomForm from '$lib/components/CustomForm.svelte';
+	import AuthenticatedPage from '$lib/components/AuthenticatedPage.svelte';
 
 	export let data: PageData;
 
@@ -20,7 +20,7 @@
 	}
 </script>
 
-<LoggedInLayout>
+<AuthenticatedPage>
 	<div slot="modals">
 		<div class="modal" class:modal-open={isFormModalOpen}>
 			<div class="modal-box relative var(--color-bg-1)">
@@ -36,7 +36,7 @@
 					{/if}
 				</h3>
 
-				<Form
+				<CustomForm
 					action={selectedMerchant?.id ? '?/updateMerchant' : '?/createMerchant'}
 					is_reset={!selectedMerchant}
 					on:completed={() => {
@@ -130,7 +130,7 @@
 						type="submit"
 						class="btn btn-block btn-primary {isLoading ? 'loading' : ''}">Save</button
 					>
-				</Form>
+				</CustomForm>
 			</div>
 		</div>
 
@@ -255,4 +255,4 @@
 			{/each}
 		</div>
 	{/if}
-</LoggedInLayout>
+</AuthenticatedPage>

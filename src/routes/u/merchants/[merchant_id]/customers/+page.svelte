@@ -1,9 +1,9 @@
 <script lang="ts">
 	import type { Customer } from '$lib/types/customer';
-	import LoggedInLayout from '../../../LoggedInLayout.svelte';
-	import ModalConfirm from '../../../ModalConfirm.svelte';
-	import Customers from '../Customers.svelte';
-	import FormCustomer from '../FormCustomer.svelte';
+	import AuthenticatedPage from '$lib/components/AuthenticatedPage.svelte';
+	import ModalConfirm from '$lib/components/ModalConfirm.svelte';
+	import Customers from '$lib/components/Customers.svelte';
+	import FormCustomer from '$lib/components/FormCustomer.svelte';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
@@ -14,7 +14,7 @@
 	let isCustomerDeleteModalOpen: boolean = false;
 </script>
 
-<LoggedInLayout>
+<AuthenticatedPage>
 	<div slot="modals">
 		<div class="modal" class:modal-open={isCustomerModalOpen}>
 			<div class="modal-box relative var(--color-bg-1)">
@@ -76,4 +76,4 @@
 			isCustomerDeleteModalOpen = true;
 		}}
 	/>
-</LoggedInLayout>
+</AuthenticatedPage>

@@ -18,7 +18,7 @@
 <div class="flex flex-wrap justify-start m-5">
 	{#each tags as tag}
 		<div class="badge badge-lg badge-outline mx-2 gap-3">
-			<h2>{tag.toUpperCase()}</h2>
+			<h2>{tag.toLowerCase()}</h2>
 			<button
 				type="button"
 				class="btn btn-ghost btn-circle btn-xs"

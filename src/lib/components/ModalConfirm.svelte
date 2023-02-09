@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Form from './Form.svelte';
+	import Form from './CustomForm.svelte';
 	import { createEventDispatcher } from 'svelte';
 
 	export let title: string;

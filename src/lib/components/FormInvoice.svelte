@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
-	import Form from '../../Form.svelte';
+	import CustomForm from '$lib/components/CustomForm.svelte';
 
 	var now = new Date();
 
@@ -16,7 +16,7 @@
 	const dispatch = createEventDispatcher();
 </script>
 
-<Form action={'?/createInvoice'} on:completed={() => dispatch('completed')}>
+<CustomForm action={'?/createInvoice'} on:completed={() => dispatch('completed')}>
 	<div class="form-control w-full" slot="input">
 		<input type="hidden" name="customer_id" value={customer_id} />
 		<input type="hidden" name="merchant_id" value={merchant_id} />
@@ -60,4 +60,4 @@
 		type="submit"
 		class="btn btn-block btn-primary mt-5 {isLoading ? 'loading' : ''}">Save</button
 	>
-</Form>
+</CustomForm>

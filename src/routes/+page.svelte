@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Form from './Form.svelte';
+	import FormLogin from '$lib/components/FormLogin.svelte';
 	import inving from '$lib/images/inving-logo.png';
 </script>
 
@@ -17,7 +17,7 @@
 			<img src={inving} width="80" alt="inving" />
 		</div>
 
-		<Form />
+		<FormLogin />
 
 		<p class="py-5">
 			Don't have an account? <a href="/register">Register</a>

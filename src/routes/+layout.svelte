@@ -1,6 +1,6 @@
 <script>
 	import '../app.css';
-	import './styles.css';
+	import '$lib/styles.css';
 	import { Toaster } from 'svelte-french-toast';
 </script>
 

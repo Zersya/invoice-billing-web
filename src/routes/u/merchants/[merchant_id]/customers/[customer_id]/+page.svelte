@@ -1,11 +1,11 @@
 <script lang="ts">
-	import LoggedInLayout from '../../../../LoggedInLayout.svelte';
-	import Calendar from '../../../../Calendar.svelte';
+	import AuthenticatedPage from '$lib/components/AuthenticatedPage.svelte';
+	import Calendar from '$lib/components/Calendar.svelte';
 	import type { PageData } from './$types';
 
 	export let data: PageData;
 </script>
 
-<LoggedInLayout>
+<AuthenticatedPage>
 	<Calendar schedules={data.props.schedules} />
-</LoggedInLayout>
+</AuthenticatedPage>
