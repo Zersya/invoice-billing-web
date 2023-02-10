@@ -26,7 +26,7 @@
 {:else}
 	<div class="flex flex-wrap justify-around">
 		{#each data.props.invoices as invoice}
-			<div class="card w-96 bg-base-100 shadow-xl my-4 mx-5">
+			<div class="card w-96 bg-base-100 shadow-md my-4 mx-5">
 				<div class="card-body">
 					<div class="card-title justify-between">
 						<h2>{invoice.invoice_number}</h2>

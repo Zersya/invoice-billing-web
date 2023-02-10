@@ -163,56 +163,63 @@
 		</ModalConfirm>
 	</div>
 
-	<Tags
-		tags={data.props.tags}
-		on:send-reminder={(tag) => {
-			selectedTag = tag.detail;
-			isSetScheduleReminderModalOpen = true;
-		}}
-	/>
+	<div class="flex flex-col w-full my-4">
+		<div class="text-2xl font-bold">{data.props.merchant?.name}</div>
+		<div class="text-md">Code : {data.props.merchant?.merchant_code}</div>
+	</div>
 
-	<Customers
-		customers={data.props.customers}
-		merchant_id={data.merchant_id}
-		ableToAddInvoice={true}
-		ableToDetail={true}
-		ableToSendReminder={true}
-		on:send-reminder={(customer) => {
-			selectedCustomer = customer.detail;
-			isSetScheduleReminderModalOpen = true;
-		}}
-		on:add-invoice={(customer) => {
-			selectedCustomer = customer.detail;
-			isInvoiceModalOpen = true;
-		}}
-		on:add={() => {
-			selectedCustomer = null;
-			isCustomerModalOpen = true;
-		}}
-		on:edit={(customer) => {
-			selectedCustomer = customer.detail;
-			isCustomerModalOpen = true;
-		}}
-		on:delete={(customer) => {
-			selectedCustomer = customer.detail;
-			isCustomerDeleteModalOpen = true;
-		}}
-	/>
+	<div class="border border-gray-200 rounded-xl">
+		<Tags
+			tags={data.props.tags}
+			on:send-reminder={(tag) => {
+				selectedTag = tag.detail;
+				isSetScheduleReminderModalOpen = true;
+			}}
+		/>
 
-	<Invoices
-		invoices={data.props.invoices}
-		merchant_id={data.merchant_id}
-		on:detail-schedule={(invoice) => {
-			selectedInvoice = invoice.detail;
-			isDetailInvoiceModalOpen = true;
-		}}
-		on:set-schedule={(invoice) => {
-			selectedInvoice = invoice.detail;
-			isSetScheduleInvoiceModalOpen = true;
-		}}
-		on:stop-schedule={(invoice) => {
-			selectedInvoice = invoice.detail;
-			isInvoiceStopScheduleModalOpen = true;
-		}}
-	/>
+		<Customers
+			customers={data.props.customers}
+			merchant_id={data.merchant_id}
+			ableToAddInvoice={true}
+			ableToDetail={true}
+			ableToSendReminder={true}
+			on:send-reminder={(customer) => {
+				selectedCustomer = customer.detail;
+				isSetScheduleReminderModalOpen = true;
+			}}
+			on:add-invoice={(customer) => {
+				selectedCustomer = customer.detail;
+				isInvoiceModalOpen = true;
+			}}
+			on:add={() => {
+				selectedCustomer = null;
+				isCustomerModalOpen = true;
+			}}
+			on:edit={(customer) => {
+				selectedCustomer = customer.detail;
+				isCustomerModalOpen = true;
+			}}
+			on:delete={(customer) => {
+				selectedCustomer = customer.detail;
+				isCustomerDeleteModalOpen = true;
+			}}
+		/>
+
+		<Invoices
+			invoices={data.props.invoices}
+			merchant_id={data.merchant_id}
+			on:detail-schedule={(invoice) => {
+				selectedInvoice = invoice.detail;
+				isDetailInvoiceModalOpen = true;
+			}}
+			on:set-schedule={(invoice) => {
+				selectedInvoice = invoice.detail;
+				isSetScheduleInvoiceModalOpen = true;
+			}}
+			on:stop-schedule={(invoice) => {
+				selectedInvoice = invoice.detail;
+				isInvoiceStopScheduleModalOpen = true;
+			}}
+		/>
+	</div>
 </AuthenticatedPage>

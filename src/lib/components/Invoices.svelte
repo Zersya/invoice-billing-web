@@ -29,7 +29,10 @@
 <div class="m-5">
 	<div class="flex flex-row justify-between">
 		<div>
-			<h3 class="text-2xl">Latest Invoices</h3>
+			<div class="flex flex-row items-center">
+				<h3 class="text-xl font-bold">Latest Invoice</h3>
+				<span class="text-sm ml-2">({invoices.length})</span>
+			</div>
 			<span class="text-sm">Your latest created invoices</span>
 		</div>
 	</div>
@@ -59,7 +62,7 @@
 	<div class="flex flex-wrap justify-start">
 		{#each invoices as invoice}
 			<div class="w-full md:w-1/2 xl:w-1/3">
-				<div class="card bg-base-100 shadow-xl my-4 mx-5">
+				<div class="card bg-base-100 shadow-md my-4 mx-5">
 					<div class="card-body">
 						<div class="card-title justify-between">
 							<div class="flex flex-col">

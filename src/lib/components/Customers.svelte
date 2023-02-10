@@ -32,7 +32,10 @@
 <div class="m-5">
 	<div class="md:flex flex-row justify-between">
 		<div>
-			<h3 class="text-2xl">Customers</h3>
+			<div class="flex flex-row items-center">
+				<h3 class="text-xl font-bold">Customers</h3>
+				<span class="text-sm ml-2">({customers.length})</span>
+			</div>
 			<span class="text-sm">Your customers related by your brand / services</span>
 		</div>
 
@@ -65,7 +68,7 @@
 	<div class="flex flex-wrap justify-start">
 		{#each customers as customer}
 			<div class="w-full md:w-1/2 xl:w-1/3">
-				<div class="card bg-base-100 shadow-xl my-4 mx-5">
+				<div class="card bg-base-100 shadow-md my-4 mx-5">
 					<div class="card-body">
 						<div class="card-title justify-between">
 							<div class="flex items-center">
@@ -133,20 +136,20 @@
 						<p class="mb-3 prose prose-sm badge badge-primary">{customer.contact_channel_name}</p>
 
 						{#if customer.tags}
-							<div class="flex flex-wrap mb-3 h-5">
+							<div class="flex flex-wrap mb-10 h-5 gap-1">
 								{#each customer.tags as tag}
 									<div class="badge badge-outline mr-1 mb-1">{tag}</div>
 								{/each}
 							</div>
 						{/if}
 
-						<div class="flex flex-row justify-between">
+						<div class="flex md:flex-row flex-col mt-8 md:mt-0 justify-between">
 							<div class="flex flex-col">
 								<span class="prose prose-slate">Updated Date</span>
 								<span>{formatDate(customer.updated_at)}</span>
 							</div>
 							{#if ableToDetail}
-								<a href="/u/merchants/{merchant_id}/customers/{customer.id}" class="btn btn-ghost"
+								<a href="/u/merchants/{merchant_id}/customers/{customer.id}" class="btn btn-ghost mt-6 md:mt-0"
 									>View</a
 								>
 							{/if}

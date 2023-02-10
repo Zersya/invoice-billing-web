@@ -193,7 +193,7 @@
 		<div class="flex flex-wrap justify-start">
 			{#each data.props.merchants as merchant}
 				<div class="w-full md:w-1/2 xl:w-1/3">
-					<div class="card bg-base-100 shadow-xl my-4 mx-2">
+					<div class="card bg-base-100 shadow-md my-4 mx-2">
 						<div class="card-body">
 							<div class="card-title justify-between">
 								<h2>{merchant.name}</h2>

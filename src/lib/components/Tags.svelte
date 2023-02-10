@@ -9,15 +9,18 @@
 <div class="m-5">
 	<div class="md:flex flex-row justify-between">
 		<div>
-			<h3 class="text-2xl">Tags</h3>
+			<div class="flex flex-row items-center">
+				<h3 class="text-xl font-bold">Tags</h3>
+				<span class="text-sm ml-2">({tags.length})</span>
+			</div>
 			<span class="text-sm">Your customers tags, use for group customers</span>
 		</div>
 	</div>
 </div>
 
-<div class="flex flex-wrap justify-start m-5">
+<div class="flex flex-wrap justify-start m-5  gap-4">
 	{#each tags as tag}
-		<div class="badge badge-lg badge-outline mx-2 gap-3">
+		<div class="badge badge-lg badge-outline">
 			<h2>{tag.toLowerCase()}</h2>
 			<button
 				type="button"

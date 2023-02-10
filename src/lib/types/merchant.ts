@@ -20,4 +20,5 @@ export interface Merchant {
     phone_country_code: string
     phone_number: string
     tax: number
+    merchant_code: string
 }
