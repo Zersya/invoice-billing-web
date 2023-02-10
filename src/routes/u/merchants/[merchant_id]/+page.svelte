@@ -28,7 +28,7 @@
 </script>
 
 <svelte:head>
-	<title>Detail - Manage your customers and invoices</title>
+	<title>{data.props.merchant?.name} - Manage your customers and invoices</title>
 </svelte:head>
 
 <AuthenticatedPage>

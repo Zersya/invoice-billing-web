@@ -5,6 +5,7 @@ import { dateTimeFormatRequest, errorCatcher, localToUTC, successCatcher } from 
 import { baseUrl } from "$lib/utils/vars";
 import type { ContactChannel } from "$lib/types/contact_channel";
 import type { InvoiceWithCustomer } from "$lib/types/invoice";
+import type { Merchant } from "$lib/types/merchant";
 
 
 export const load: PageServerLoad = async ({ cookies, params }) => {
@@ -13,6 +14,15 @@ export const load: PageServerLoad = async ({ cookies, params }) => {
     const token = cookies.get('token');
     
     const response = await Promise.all([
+        fetch(
+            `${baseUrl}/merchant/${merchantId}`,
+            {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                }
+            }
+        ),
         fetch(
             `${baseUrl}/merchant/${merchantId}/customer`,
             {
@@ -52,25 +62,27 @@ export const load: PageServerLoad = async ({ cookies, params }) => {
     ])
 
 
-    if (response[0].ok && response[1].ok && response[2].ok && response[3].ok) {
-        const data_customers = await response[0].json();
-        const data_contact_channels = await response[1].json();
-        const data_invoice = await response[2].json();
-        const data_tags = await response[3].json();
+    if (response[0].ok && response[1].ok && response[2].ok && response[3].ok && response[4].ok) {
+        const data_merchant = await response[0].json();
+        const data_customers = await response[1].json();
+        const data_contact_channels = await response[2].json();
+        const data_invoice = await response[3].json();
+        const data_tags = await response[4].json();
 
         return {
             props: {
                 customers: data_customers.data as Customer[],
                 contact_channels: (data_contact_channels.data as ContactChannel[]).filter((channel) => channel.name === 'whatsapp' || channel.name === 'email' || channel.name === 'telegram'),
                 invoices: data_invoice.data as InvoiceWithCustomer[],
-                tags: data_tags.data as string[]
+                tags: data_tags.data as string[],
+                merchant: data_merchant.data as Merchant
             },
             merchant_id: params.merchant_id
         }
 
     }
 
-    if (response[0].status === 401 || response[1].status === 401 || response[2].status === 401, response[3].status === 401) {
+    if (response[0].status === 401 || response[1].status === 401 || response[2].status === 401, response[3].status === 401 || response[4].status === 401) {
         throw redirect(301, '/');
     }
 
@@ -79,9 +91,10 @@ export const load: PageServerLoad = async ({ cookies, params }) => {
             customers: [],
             contact_channels: [],
             invoices: [],
-            tags: []
+            tags: [],
+            merchant: null
         },
-        merchant_id: params.merchant_id
+        merchant_id: params.merchant_id,
     }
 }
 

@@ -56,10 +56,16 @@
 
 		let events = [] as Object[];
 
-		// re order schedule based on status is on top
+		// re order schedules based on run_at and status
 		schedules.sort((a, b) => {
 			if (a?.status == 'completed' && b?.status != 'completed') return 1;
 			if (a?.status != 'completed' && b?.status == 'completed') return -1;
+
+			if (a?.run_at && b?.run_at) {
+				if (moment(a?.run_at).isBefore(moment(b?.run_at))) return -1;
+				if (moment(a?.run_at).isAfter(moment(b?.run_at))) return 1;
+			}
+
 			return 0;
 		});
 
@@ -69,11 +75,14 @@
 			for (let i = 0; i < schedule.total_repeat_count; i++) {
 				// if (schedule.job_type == "send_reminder") continue;
 				
+				// let runAt = utcToLocal
 				let startTimeDate = moment(schedule.run_at)
 					.add(i * schedule.repeat_interval, 'seconds')
 					.toDate();
 
-				let isPast = moment(startTimeDate).isBefore(moment());
+				let startTimeDateLocal = utcToLocal(startTimeDate);
+
+				let isPast = moment(startTimeDateLocal).isBefore(moment().add(1, 'hours'));
 
 				let endTimeDate = moment(startTimeDate)
 					.add(3600 / 2, 'seconds')

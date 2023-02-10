@@ -9,7 +9,6 @@
 
 	let isMobile = false;
 	let activeRoute: string | null = '';
-	let isDrawerOpen: boolean = false;
 
 	onMount(() => {
 		isMobile = window.innerWidth < 768;
