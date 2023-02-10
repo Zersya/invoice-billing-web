@@ -20,6 +20,9 @@
 	}
 </script>
 
+<svelte:head>
+	<title>Merchants - Manage your services</title>
+</svelte:head>
 <AuthenticatedPage>
 	<div slot="modals">
 		<div class="modal" class:modal-open={isFormModalOpen}>

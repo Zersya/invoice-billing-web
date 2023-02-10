@@ -27,6 +27,10 @@
 	let isDetailInvoiceModalOpen: boolean = false;
 </script>
 
+<svelte:head>
+	<title>Detail - Manage your customers and invoices</title>
+</svelte:head>
+
 <AuthenticatedPage>
 	<div slot="modals">
 		<div class="modal" class:modal-open={isCustomerModalOpen}>

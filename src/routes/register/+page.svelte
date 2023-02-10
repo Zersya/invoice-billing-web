@@ -4,7 +4,13 @@
 </script>
 
 <svelte:head>
-	<title>Home</title>
+	<title>Register - Automate Your Invoice Billing with Notification System</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+	<meta name="description" content="Inving is a web application that helps you to automate your invoice billing with notification system" />
+	<meta name="keywords" content="inving, invoice, billing, notification, system, automation, web, application" />
+	<meta name="author" content="Inving" />
+	
 </svelte:head>
 
 <div class="items-center p-4 m-auto rounded-lg drop-shadow-xl bg-white">
