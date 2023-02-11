@@ -10,7 +10,7 @@
 		<Toaster
 			toastOptions={{
 				duration: 8000,
-				position: 'top-right'
+				position: 'top-center'
 			}}
 		/>
 	</main>
