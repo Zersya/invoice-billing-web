@@ -1,6 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./src/**/*.{html,js,svelte,ts}'],
+  content: [
+    './src/**/*.{html,js,svelte,ts}',
+    './node_modules/flowbite-svelte/**/*.{html,js,svelte,ts}',
+  ],
   theme: {
     extend: {},
   },
@@ -10,7 +13,7 @@ module.exports = {
         mytheme: {
 
           "primary": "#ea580c",
-          
+
           "secondary": "#f43f5e",
 
           "accent": "#2dd4bf",
@@ -32,7 +35,7 @@ module.exports = {
       },
 
       "dark",
-      
+
       "cupcake",
 
       "forest"
@@ -40,6 +43,8 @@ module.exports = {
   },
   plugins: [
     require('@tailwindcss/typography'),
-    require("daisyui")
+    require("daisyui"),
+    require('flowbite/plugin')
   ],
+  darkMode: 'class',
 }
