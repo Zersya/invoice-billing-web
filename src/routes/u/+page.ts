@@ -2,6 +2,8 @@ import type { JobSchedule } from '$lib/types/job_schedule';
 import { baseUrl } from '$lib/utils/vars';
 import type { PageLoad } from './$types';
 
+export const ssr = false;
+
 export const load: PageLoad = (async ({ fetch, data }) => {
     const token = data.token
 
